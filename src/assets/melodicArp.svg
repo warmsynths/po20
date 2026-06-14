@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240">
+  <title>melodicArp</title>
+  <g id="bd8d31b1-ee39-42a4-b669-e48c67702432" data-name="Layer 2">
+    <g id="a3ddc103-d615-4aa1-bec9-db37cfd15e2c" data-name="Layer 1">
+      <rect width="41.24" height="41.24"/>
+      <rect x="198.76" width="41.24" height="41.24"/>
+      <rect x="49.72" y="49.6" width="41.24" height="41.24"/>
+      <rect x="149.04" y="49.6" width="41.24" height="41.24"/>
+      <rect x="99.44" y="99.32" width="41.24" height="41.24"/>
+      <rect x="49.72" y="149.04" width="41.24" height="41.24"/>
+      <rect x="149.04" y="149.04" width="41.24" height="41.24"/>
+      <rect y="198.76" width="41.24" height="41.24"/>
+      <rect x="198.76" y="198.76" width="41.24" height="41.24"/>
+    </g>
+  </g>
+</svg>

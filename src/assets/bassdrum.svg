@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240">
+  <title>bassDrum</title>
+  <g id="e0b4e68f-1c80-4cd7-8e4a-3073680f45ce" data-name="Layer 2">
+    <g id="a2e113d1-7988-482c-9fb7-7a4bffd4f756" data-name="Layer 1">
+      <rect width="41.24" height="41.24"/>
+      <rect x="99.44" width="41.24" height="41.24"/>
+      <rect x="198.76" width="41.24" height="41.24"/>
+      <rect x="49.72" y="49.72" width="41.24" height="41.24"/>
+      <rect x="149.04" y="49.72" width="41.24" height="41.24"/>
+      <rect y="99.32" width="41.24" height="41.24"/>
+      <rect x="99.44" y="99.32" width="41.24" height="41.24"/>
+      <rect x="198.76" y="99.32" width="41.24" height="41.24"/>
+      <rect x="49.72" y="149.04" width="41.24" height="41.24"/>
+      <rect x="149.04" y="149.04" width="41.24" height="41.24"/>
+      <rect y="198.76" width="41.24" height="41.24"/>
+      <rect x="99.44" y="198.76" width="41.24" height="41.24"/>
+      <rect x="198.76" y="198.76" width="41.24" height="41.24"/>
+    </g>
+  </g>
+</svg>

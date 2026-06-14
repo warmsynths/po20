@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240">
+  <title>fallingArp</title>
+  <g id="fbf52368-37fe-4b6a-b06d-343af7be45de" data-name="Layer 2">
+    <g id="b0973af9-4bc8-48c0-b5af-2e64d348bd5e" data-name="Layer 1">
+      <rect x="99.32" width="41.24" height="41.24"/>
+      <polygon points="49.48 49.6 90.96 49.6 90.96 90.84 49.72 90.84 49.48 49.6"/>
+      <rect y="99.32" width="41.24" height="41.24"/>
+      <polygon points="49.48 99.32 90.96 99.32 90.96 140.56 49.72 140.56 49.48 99.32"/>
+      <rect x="99.32" y="99.32" width="41.24" height="41.24"/>
+      <rect x="149.04" y="99.32" width="41.24" height="41.24"/>
+      <rect x="198.76" y="99.32" width="41.24" height="41.24"/>
+      <rect x="149.04" y="149.04" width="41.24" height="41.24"/>
+      <rect x="99.32" y="198.76" width="41.24" height="41.24"/>
+    </g>
+  </g>
+</svg>

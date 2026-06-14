@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240">
+  <title>tom</title>
+  <g id="ac9efaa3-f055-4e18-b605-93ea6abfc0b0" data-name="Layer 2">
+    <g id="ad8acb0f-546b-4543-8f56-f34d8b5aee46" data-name="Layer 1">
+      <rect x="49.72" width="41.24" height="41.24"/>
+      <polygon points="99.2 0 140.68 0 140.68 41.24 99.44 41.24 99.2 0"/>
+      <rect x="149.04" width="41.24" height="41.24"/>
+      <rect y="49.84" width="41.24" height="41.24"/>
+      <polygon points="99.2 49.84 140.68 49.84 140.68 91.07 99.44 91.07 99.2 49.84"/>
+      <rect x="198.76" y="49.84" width="41.24" height="41.24"/>
+      <rect y="99.32" width="41.24" height="41.24"/>
+      <rect x="49.72" y="99.32" width="41.24" height="41.24"/>
+      <polygon points="99.2 99.32 140.68 99.32 140.68 140.56 99.44 140.56 99.2 99.32"/>
+      <rect x="149.04" y="99.32" width="41.24" height="41.24"/>
+      <rect x="198.76" y="99.32" width="41.24" height="41.24"/>
+      <rect x="49.72" y="149.04" width="41.24" height="41.24"/>
+      <rect x="149.04" y="149.04" width="41.24" height="41.24"/>
+      <rect y="198.76" width="41.24" height="41.24"/>
+      <rect x="198.76" y="198.76" width="41.24" height="41.24"/>
+    </g>
+  </g>
+</svg>

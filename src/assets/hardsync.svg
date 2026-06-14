@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240">
+  <title>hardsync</title>
+  <g id="a76cd04e-ef5f-4980-a3c6-3909203ae0a2" data-name="Layer 2">
+    <g id="a9f1b14c-95e7-4c08-b6bb-3423e3f49e63" data-name="Layer 1">
+      <polygon points="49.48 0 90.96 0 90.96 41.24 49.72 41.24 49.48 0"/>
+      <rect x="99.32" width="41.24" height="41.24"/>
+      <rect x="149.04" width="41.24" height="41.24"/>
+      <rect y="49.84" width="41.24" height="41.24"/>
+      <rect x="99.32" y="49.84" width="41.24" height="41.24"/>
+      <rect x="198.76" y="49.84" width="41.24" height="41.24"/>
+      <rect y="99.32" width="41.24" height="41.24"/>
+      <polygon points="49.48 99.32 90.96 99.32 90.96 140.56 49.72 140.56 49.48 99.32"/>
+      <rect x="99.32" y="99.32" width="41.24" height="41.24"/>
+      <rect x="149.04" y="99.32" width="41.24" height="41.24"/>
+      <rect x="198.76" y="99.32" width="41.24" height="41.24"/>
+      <rect y="149.04" width="41.24" height="41.24"/>
+      <polygon points="49.48 149.04 90.96 149.04 90.96 190.28 49.72 190.28 49.48 149.04"/>
+      <rect x="99.32" y="149.04" width="41.24" height="41.24"/>
+      <rect x="149.04" y="149.04" width="41.24" height="41.24"/>
+      <rect x="198.76" y="149.04" width="41.24" height="41.24"/>
+      <rect y="198.76" width="41.24" height="41.24"/>
+      <rect x="99.32" y="198.76" width="41.24" height="41.24"/>
+      <rect x="198.76" y="198.76" width="41.24" height="41.24"/>
+    </g>
+  </g>
+</svg>

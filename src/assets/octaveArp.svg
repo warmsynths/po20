@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240">
+  <title>octaveArp</title>
+  <g id="f9c320dd-e919-4837-a194-4fd127d3c7b1" data-name="Layer 2">
+    <g id="b3f34dd4-f880-40b1-8cbf-323dd1589d89" data-name="Layer 1">
+      <rect width="41.24" height="41.24"/>
+      <rect x="49.72" width="41.24" height="41.24"/>
+      <rect x="99.56" width="41.24" height="41.24"/>
+      <rect y="49.6" width="41.24" height="41.24"/>
+      <rect x="99.56" y="49.6" width="41.24" height="41.24"/>
+      <rect y="99.32" width="41.24" height="41.24"/>
+      <rect x="99.56" y="99.32" width="41.24" height="41.24"/>
+      <rect y="149.04" width="41.24" height="41.24"/>
+      <rect x="99.56" y="149.04" width="41.24" height="41.24"/>
+      <rect x="198.76" y="149.04" width="41.24" height="41.24"/>
+      <rect x="99.56" y="198.76" width="41.24" height="41.24"/>
+      <rect x="149.04" y="198.76" width="41.24" height="41.24"/>
+      <rect x="198.76" y="198.76" width="41.24" height="41.24"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240">
+  <title>hiHat</title>
+  <g id="b2bd1590-ce18-4937-8bf0-7a3ea8487db4" data-name="Layer 2">
+    <g id="e92d0ad2-b73d-4190-ba20-c952b93930bf" data-name="Layer 1">
+      <rect x="49.72" width="41.24" height="41.24"/>
+      <rect x="99.56" width="41.24" height="41.24"/>
+      <rect x="149.04" width="41.24" height="41.24"/>
+      <rect y="49.72" width="41.24" height="41.24"/>
+      <rect x="49.72" y="49.72" width="41.24" height="41.24"/>
+      <rect x="99.56" y="49.72" width="41.24" height="41.24"/>
+      <rect x="149.04" y="49.72" width="41.24" height="41.24"/>
+      <rect x="198.76" y="49.72" width="41.24" height="41.24"/>
+      <rect y="99.32" width="41.24" height="41.24"/>
+      <rect x="99.56" y="99.32" width="41.24" height="41.24"/>
+      <rect x="198.76" y="99.32" width="41.24" height="41.24"/>
+      <rect y="149.04" width="41.24" height="41.24"/>
+      <rect x="198.76" y="149.04" width="41.24" height="41.24"/>
+      <rect x="49.72" y="198.77" width="41.24" height="41.24"/>
+      <rect x="149.04" y="198.77" width="41.24" height="41.24"/>
+    </g>
+  </g>
+</svg>

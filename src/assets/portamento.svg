@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240.12" viewBox="0 0 240 240.12">
+  <title>portamento</title>
+  <g id="b96fe1ea-d54f-4d67-bae7-67491b9e99dd" data-name="Layer 2">
+    <g id="fd63c2e9-af59-4bb3-b95c-679bae4c022e" data-name="Layer 1">
+      <rect width="41.24" height="41.24"/>
+      <rect x="198.76" width="41.24" height="41.24"/>
+      <polygon points="49.48 49.72 90.96 49.72 90.96 90.96 49.72 90.96 49.48 49.72"/>
+      <rect x="99.32" y="49.72" width="41.24" height="41.24"/>
+      <rect x="149.04" y="49.72" width="41.24" height="41.24"/>
+      <rect y="99.32" width="41.24" height="41.24"/>
+      <polygon points="49.48 99.32 90.96 99.32 90.96 140.56 49.72 140.56 49.48 99.32"/>
+      <rect x="99.32" y="99.32" width="41.24" height="41.24"/>
+      <rect x="149.04" y="99.32" width="41.24" height="41.24"/>
+      <rect x="198.76" y="99.32" width="41.24" height="41.24"/>
+      <rect y="149.16" width="41.24" height="41.24"/>
+      <rect x="99.32" y="149.16" width="41.24" height="41.24"/>
+      <rect x="198.76" y="149.16" width="41.24" height="41.24"/>
+      <rect y="198.65" width="41.24" height="41.47"/>
+      <polygon points="49.48 198.65 90.96 198.65 90.96 240.12 49.72 240.12 49.48 198.65"/>
+      <rect x="149.04" y="198.65" width="41.24" height="41.47"/>
+      <rect x="198.76" y="198.65" width="41.24" height="41.47"/>
+    </g>
+  </g>
+</svg>
