@@ -89,6 +89,9 @@ export class PO20Knob extends LitElement {
     this._onMouseMove = this._onMouseMove.bind(this);
     this._onMouseUp = this._onMouseUp.bind(this);
     this._onWheel = this._onWheel.bind(this);
+    this._onTouchStart = this._onTouchStart.bind(this);
+    this._onTouchMove = this._onTouchMove.bind(this);
+    this._onTouchEnd = this._onTouchEnd.bind(this);
   }
 
   render() {
@@ -100,6 +103,7 @@ export class PO20Knob extends LitElement {
       <div 
         class="knob-container" 
         @mousedown="${this._onMouseDown}"
+        @touchstart="${this._onTouchStart}"
         @wheel="${this._onWheel}"
       >
         <svg class="knob-dial" viewBox="0 0 100 100" style="transform: rotate(${angle}deg)">
@@ -161,6 +165,41 @@ export class PO20Knob extends LitElement {
       this.value = newValue;
       this._dispatchChange();
     }
+  }
+
+  _onTouchStart(e) {
+    if (e.touches.length !== 1) return;
+    e.preventDefault(); // Prevent scrolling while dragging knob
+    this._startY = e.touches[0].clientY;
+    this._startValue = this.value;
+    this._isDragging = true;
+
+    window.addEventListener('touchmove', this._onTouchMove, { passive: false });
+    window.addEventListener('touchend', this._onTouchEnd);
+    window.addEventListener('touchcancel', this._onTouchEnd);
+  }
+
+  _onTouchMove(e) {
+    if (!this._isDragging) return;
+    if (e.touches.length !== 1) return;
+    
+    const deltaY = this._startY - e.touches[0].clientY;
+    const change = deltaY * 0.5;
+    let newValue = Math.round(this._startValue + change);
+    
+    newValue = Math.max(this.min, Math.min(this.max, newValue));
+    
+    if (newValue !== this.value) {
+      this.value = newValue;
+      this._dispatchChange();
+    }
+  }
+
+  _onTouchEnd() {
+    this._isDragging = false;
+    window.removeEventListener('touchmove', this._onTouchMove);
+    window.removeEventListener('touchend', this._onTouchEnd);
+    window.removeEventListener('touchcancel', this._onTouchEnd);
   }
 
   _dispatchChange() {

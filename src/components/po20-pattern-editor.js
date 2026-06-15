@@ -504,38 +504,40 @@ export class PO20PatternEditor extends LitElement {
     const sound = this.activePattern.pattern[this.selectedSoundId];
     const step = sound.steps[stepValue];
 
-    const isCurrentlyActive = step.active;
-
-    if (this.selectedStep === stepValue && isCurrentlyActive) {
-      // Clicked currently selected active step -> deselect it
-      this.selectedStep = null;
-    } else if (this.selectedStep === null && isCurrentlyActive) {
-      // Clicked another active step when none was selected -> turn it off
-      step.active = false;
-      this.requestUpdate();
-    } else if (this.selectedStep !== null && this.selectedStep !== stepValue && isCurrentlyActive) {
-      // Clicked another active step when one was already selected -> deselect
-      this.selectedStep = null;
-    } else {
+    if (!step.active) {
       // Turn step active and select it
       step.active = true;
       this.selectedStep = stepValue;
-      this.requestUpdate();
+    } else {
+      // Step is active
+      if (this.selectedStep === stepValue) {
+        // Clicked the currently selected active step -> turn it off and deselect
+        step.active = false;
+        this.selectedStep = null;
+      } else {
+        // Clicked an active step that wasn't selected -> select it to edit parameters
+        this.selectedStep = stepValue;
+      }
     }
+    this.requestUpdate();
   }
 
   _handleKnobChange(e) {
+    if (this.selectedStep === null || this.selectedStep === undefined) return;
     const { value, param } = e.detail;
     const sound = this.activePattern.pattern[this.selectedSoundId];
     const step = sound.steps[this.selectedStep];
+    if (!step) return;
     step.params[param] = value;
     this.requestUpdate();
   }
 
   _handleNoteKnobChange(e) {
+    if (this.selectedStep === null || this.selectedStep === undefined) return;
     const { value } = e.detail;
     const sound = this.activePattern.pattern[this.selectedSoundId];
     const step = sound.steps[this.selectedStep];
+    if (!step) return;
     
     // Map index back to Note name
     const noteName = NOTES[value] || 'None';
