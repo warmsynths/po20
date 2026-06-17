@@ -26,4 +26,4 @@ You only need a modern web browser to run the app. If you want to run the projec
 
 1. Clone the repository:
    ```bash
-   git clone [https://github.com/yourusername/po20.git](https://github.com/yourusername/po20.git)
+   git clone [https://github.com/warmsynths/po20.git](https://github.com/warmsynths/po20.git)
