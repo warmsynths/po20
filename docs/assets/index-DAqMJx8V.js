@@ -1539,19 +1539,20 @@
           </button>
         </div>
 
-        <!-- Custom retro LCD panel -->
-        <po20-lcd-screen
-          .titleText="${i}"
-          .subtitleText="${r}"
-          .paramA="${s}"
-          .paramB="${a}"
-          .activeSteps="${d}"
-          .selectedStep="${this.selectedStep}"
-          .isPlaying="${this.isPlaying}"
-        ></po20-lcd-screen>
-
         <div class="po-panel">
           
+          <!-- Custom retro LCD panel -->
+          <po20-lcd-screen
+            style="display: block; margin-bottom: 20px;"
+            .titleText="${i}"
+            .subtitleText="${r}"
+            .paramA="${s}"
+            .paramB="${a}"
+            .activeSteps="${d}"
+            .selectedStep="${this.selectedStep}"
+            .isPlaying="${this.isPlaying}"
+          ></po20-lcd-screen>
+
           <div class="panel-header">
             <h3 class="panel-title">
               ${e&&t?h`

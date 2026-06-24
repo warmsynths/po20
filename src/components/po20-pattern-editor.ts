@@ -340,19 +340,20 @@ export class PO20PatternEditor extends LitElement {
           </button>
         </div>
 
-        <!-- Custom retro LCD panel -->
-        <po20-lcd-screen
-          .titleText="${lcdTitle}"
-          .subtitleText="${lcdSubtitle}"
-          .paramA="${lcdParamA}"
-          .paramB="${lcdParamB}"
-          .activeSteps="${lcdActiveSteps}"
-          .selectedStep="${this.selectedStep}"
-          .isPlaying="${this.isPlaying}"
-        ></po20-lcd-screen>
-
         <div class="po-panel">
           
+          <!-- Custom retro LCD panel -->
+          <po20-lcd-screen
+            style="display: block; margin-bottom: 20px;"
+            .titleText="${lcdTitle}"
+            .subtitleText="${lcdSubtitle}"
+            .paramA="${lcdParamA}"
+            .paramB="${lcdParamB}"
+            .activeSteps="${lcdActiveSteps}"
+            .selectedStep="${this.selectedStep}"
+            .isPlaying="${this.isPlaying}"
+          ></po20-lcd-screen>
+
           <div class="panel-header">
             <h3 class="panel-title">
               ${isSequencing && selectedSound ? html`
