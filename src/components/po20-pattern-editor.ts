@@ -1,5 +1,5 @@
-import { LitElement, html, css } from 'lit';
-import { store, SOUNDS_CONFIG } from '../utils/store';
+import { LitElement, html, css, TemplateResult } from 'lit';
+import { store, SOUNDS_CONFIG, Pattern, Sound, Step } from '../utils/store';
 import { getIcon } from '../icons/icons';
 import './po20-knob';
 import './po20-lcd-screen';
@@ -10,14 +10,19 @@ const NOTES = [
 ];
 
 export class PO20PatternEditor extends LitElement {
-  static properties = {
+  static override properties = {
     activePattern: { type: Object },
     selectedSoundId: { type: Number }, // 1 to 16, or null if showing sounds list
     selectedStep: { type: Number },    // 1 to 16, or null
     isPlaying: { type: Boolean }
   };
 
-  static styles = css`
+  activePattern!: Pattern | null;
+  selectedSoundId!: number | null;
+  selectedStep!: number | null;
+  isPlaying!: boolean;
+
+  static override styles = css`
     :host {
       display: block;
       width: 100%;
@@ -281,12 +286,12 @@ export class PO20PatternEditor extends LitElement {
     this.isPlaying = false;
   }
 
-  connectedCallback() {
+  override connectedCallback(): void {
     super.connectedCallback();
     this._loadPattern();
   }
 
-  _loadPattern() {
+  _loadPattern(): void {
     const pattern = store.getActivePattern();
     if (pattern) {
       this.activePattern = JSON.parse(JSON.stringify(pattern)); // Deep clone local edits
@@ -295,7 +300,7 @@ export class PO20PatternEditor extends LitElement {
     }
   }
 
-  render() {
+  override render(): TemplateResult {
     if (!this.activePattern) return html`<p>Loading...</p>`;
 
     const selectedSound = this.selectedSoundId ? this.activePattern.pattern[this.selectedSoundId] : null;
@@ -306,7 +311,7 @@ export class PO20PatternEditor extends LitElement {
     let lcdSubtitle = 'PATTERN MODE';
     let lcdParamA = '--';
     let lcdParamB = 0;
-    let lcdActiveSteps = [];
+    let lcdActiveSteps: Record<number, Step> | undefined = undefined;
 
     if (isSequencing && selectedSound) {
       lcdTitle = selectedSound.value;
@@ -318,7 +323,7 @@ export class PO20PatternEditor extends LitElement {
         lcdParamB = stepData.params.b !== null ? stepData.params.b : 0;
 
         if (selectedSound.type === 'note') {
-          lcdParamA = stepData.params.a || 'None';
+          lcdParamA = String(stepData.params.a || 'None');
         } else {
           lcdParamA = stepData.params.a !== null ? String(stepData.params.a) : '0';
         }
@@ -350,7 +355,7 @@ export class PO20PatternEditor extends LitElement {
           
           <div class="panel-header">
             <h3 class="panel-title">
-              ${isSequencing ? html`
+              ${isSequencing && selectedSound ? html`
                 <button class="btn btn-secondary" style="padding: 6px 12px; font-size: 13px;" @click="${this._deselectSound}">
                   &larr; Sounds
                 </button>
@@ -369,12 +374,12 @@ export class PO20PatternEditor extends LitElement {
 
           <!-- MORPHING GRID -->
           <div class="grid-4x4">
-            ${isSequencing ? this._renderStepsGrid(selectedSound) : this._renderSoundsGrid()}
+            ${isSequencing && selectedSound ? this._renderStepsGrid(selectedSound) : this._renderSoundsGrid()}
           </div>
 
           <!-- AUTOMATION CONTROLS (KNOBS) -->
           <div class="controls-panel">
-            ${isSequencing && this.selectedStep ? this._renderKnobs(selectedSound) : html`
+            ${isSequencing && selectedSound && this.selectedStep ? this._renderKnobs(selectedSound) : html`
               <div class="controls-placeholder">
                 ${isSequencing 
                   ? 'Select or tap an active step (glowing amber LED) to adjust Parameter A & B Automation.'
@@ -402,8 +407,9 @@ export class PO20PatternEditor extends LitElement {
   }
 
   // 16 Sounds Grid Layout
-  _renderSoundsGrid() {
+  _renderSoundsGrid(): TemplateResult[] {
     return SOUNDS_CONFIG.map(sound => {
+      if (!this.activePattern) return html``;
       const soundData = this.activePattern.pattern[sound.id];
       // Count active steps in this sound
       const activeCount = Object.values(soundData.steps).filter(s => s.active).length;
@@ -419,13 +425,13 @@ export class PO20PatternEditor extends LitElement {
   }
 
   // 16 Steps Grid Layout (Sequencer mode)
-  _renderStepsGrid(sound) {
+  _renderStepsGrid(sound: Sound): TemplateResult[] {
     return Object.values(sound.steps).map(step => {
       const isStepActive = step.active;
       const isSelected = this.selectedStep === step.value;
 
       return html`
-        <button class="po-button" @click="${(e) => this._toggleStep(e, step.value)}">
+        <button class="po-button" @click="${(e: Event) => this._toggleStep(e, step.value)}">
           <div class="led-indicator ${isStepActive ? 'active' : ''} ${isSelected ? 'selected' : ''}"></div>
           <span class="step-num">${step.value}</span>
         </button>
@@ -434,14 +440,15 @@ export class PO20PatternEditor extends LitElement {
   }
 
   // Knob automation layout for active step
-  _renderKnobs(sound) {
+  _renderKnobs(sound: Sound): TemplateResult {
+    if (this.selectedStep === null) return html``;
     const stepData = sound.steps[this.selectedStep];
     const valA = stepData.params.a;
     const valB = stepData.params.b !== null ? stepData.params.b : 0;
 
     if (sound.type === 'note') {
       // For note parameters, we map note strings to numeric dial values for the knob
-      const noteIndex = NOTES.indexOf(valA || 'None');
+      const noteIndex = NOTES.indexOf(String(valA || 'None'));
       const currentNoteVal = noteIndex !== -1 ? noteIndex : 0;
 
       return html`
@@ -451,7 +458,7 @@ export class PO20PatternEditor extends LitElement {
           max="21"
           label="PITCH NOTE"
           param="a"
-          @change="${(e) => this._handleNoteKnobChange(e)}"
+          @change="${(e: CustomEvent) => this._handleNoteKnobChange(e)}"
         ></po20-knob>
         
         <po20-knob
@@ -460,12 +467,12 @@ export class PO20PatternEditor extends LitElement {
           max="100"
           label="MULTIPLY/FILTER"
           param="b"
-          @change="${(e) => this._handleKnobChange(e)}"
+          @change="${(e: CustomEvent) => this._handleKnobChange(e)}"
         ></po20-knob>
       `;
     } else {
       // Numeric parameter A
-      const valA_int = valA !== null ? valA : 0;
+      const valA_int = typeof valA === 'number' ? valA : 0;
 
       return html`
         <po20-knob
@@ -474,7 +481,7 @@ export class PO20PatternEditor extends LitElement {
           max="100"
           label="PARAM A"
           param="a"
-          @change="${(e) => this._handleKnobChange(e)}"
+          @change="${(e: CustomEvent) => this._handleKnobChange(e)}"
         ></po20-knob>
         
         <po20-knob
@@ -483,24 +490,25 @@ export class PO20PatternEditor extends LitElement {
           max="100"
           label="PARAM B"
           param="b"
-          @change="${(e) => this._handleKnobChange(e)}"
+          @change="${(e: CustomEvent) => this._handleKnobChange(e)}"
         ></po20-knob>
       `;
     }
   }
 
-  _selectSound(soundId) {
+  _selectSound(soundId: number): void {
     this.selectedSoundId = soundId;
     this.selectedStep = null;
   }
 
-  _deselectSound() {
+  _deselectSound(): void {
     this.selectedSoundId = null;
     this.selectedStep = null;
   }
 
-  _toggleStep(e, stepValue) {
+  _toggleStep(e: Event, stepValue: number): void {
     e.preventDefault();
+    if (!this.activePattern || this.selectedSoundId === null) return;
     const sound = this.activePattern.pattern[this.selectedSoundId];
     const step = sound.steps[stepValue];
 
@@ -522,19 +530,21 @@ export class PO20PatternEditor extends LitElement {
     this.requestUpdate();
   }
 
-  _handleKnobChange(e) {
+  _handleKnobChange(e: CustomEvent): void {
     if (this.selectedStep === null || this.selectedStep === undefined) return;
     const { value, param } = e.detail;
+    if (!this.activePattern || this.selectedSoundId === null) return;
     const sound = this.activePattern.pattern[this.selectedSoundId];
     const step = sound.steps[this.selectedStep];
     if (!step) return;
-    step.params[param] = value;
+    step.params[param as 'a' | 'b'] = value;
     this.requestUpdate();
   }
 
-  _handleNoteKnobChange(e) {
+  _handleNoteKnobChange(e: CustomEvent): void {
     if (this.selectedStep === null || this.selectedStep === undefined) return;
     const { value } = e.detail;
+    if (!this.activePattern || this.selectedSoundId === null) return;
     const sound = this.activePattern.pattern[this.selectedSoundId];
     const step = sound.steps[this.selectedStep];
     if (!step) return;
@@ -545,26 +555,36 @@ export class PO20PatternEditor extends LitElement {
     this.requestUpdate();
   }
 
-  _clearTriggers() {
+  _clearTriggers(): void {
+    if (this.selectedSoundId === null || !this.activePattern) return;
     if (confirm("Are you sure you want to clear all step triggers for this sound?")) {
       const sound = this.activePattern.pattern[this.selectedSoundId];
       Object.keys(sound.steps).forEach(key => {
-        sound.steps[key].active = false;
-        sound.steps[key].params = { a: null, b: null, multiply: null };
+        const stepNum = Number(key);
+        sound.steps[stepNum].active = false;
+        sound.steps[stepNum].params = { a: null, b: null, multiply: null };
       });
       this.selectedStep = null;
       this.requestUpdate();
     }
   }
 
-  _savePattern() {
-    store.editPattern(this.activePattern.id, this.activePattern.name, this.activePattern.pattern);
-    alert("Pattern saved successfully!");
+  _savePattern(): void {
+    if (this.activePattern) {
+      store.editPattern(this.activePattern.id, this.activePattern.name, this.activePattern.pattern);
+      alert("Pattern saved successfully!");
+    }
   }
 
-  _goHome() {
+  _goHome(): void {
     window.location.hash = `/`;
   }
 }
 
 customElements.define('po20-pattern-editor', PO20PatternEditor);
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'po20-pattern-editor': PO20PatternEditor;
+  }
+}

@@ -1,7 +1,7 @@
-import { LitElement, html, css } from 'lit';
+import { LitElement, html, css, TemplateResult } from 'lit';
 
 export class PO20Knob extends LitElement {
-  static properties = {
+  static override properties = {
     value: { type: Number },
     min: { type: Number },
     max: { type: Number },
@@ -9,7 +9,17 @@ export class PO20Knob extends LitElement {
     param: { type: String }
   };
 
-  static styles = css`
+  value!: number;
+  min!: number;
+  max!: number;
+  label!: string;
+  param!: string;
+  
+  private _startY = 0;
+  private _startValue = 0;
+  private _isDragging = false;
+
+  static override styles = css`
     :host {
       display: inline-flex;
       flex-direction: column;
@@ -94,7 +104,7 @@ export class PO20Knob extends LitElement {
     this._onTouchEnd = this._onTouchEnd.bind(this);
   }
 
-  render() {
+  override render(): TemplateResult {
     // Map value to rotation angle: min is -135deg, max is 135deg
     const percent = (this.value - this.min) / (this.max - this.min);
     const angle = -135 + percent * 270;
@@ -122,7 +132,7 @@ export class PO20Knob extends LitElement {
     `;
   }
 
-  _onMouseDown(e) {
+  _onMouseDown(e: MouseEvent): void {
     e.preventDefault();
     this._startY = e.clientY;
     this._startValue = this.value;
@@ -132,7 +142,7 @@ export class PO20Knob extends LitElement {
     window.addEventListener('mouseup', this._onMouseUp);
   }
 
-  _onMouseMove(e) {
+  _onMouseMove(e: MouseEvent): void {
     if (!this._isDragging) return;
     
     // 1 pixel dragged = 0.5 units of change (feels responsive)
@@ -148,13 +158,13 @@ export class PO20Knob extends LitElement {
     }
   }
 
-  _onMouseUp() {
+  _onMouseUp(): void {
     this._isDragging = false;
     window.removeEventListener('mousemove', this._onMouseMove);
     window.removeEventListener('mouseup', this._onMouseUp);
   }
 
-  _onWheel(e) {
+  _onWheel(e: WheelEvent): void {
     e.preventDefault();
     // Scroll up = increase, scroll down = decrease
     const step = e.deltaY < 0 ? 1 : -1;
@@ -167,7 +177,7 @@ export class PO20Knob extends LitElement {
     }
   }
 
-  _onTouchStart(e) {
+  _onTouchStart(e: TouchEvent): void {
     if (e.touches.length !== 1) return;
     e.preventDefault(); // Prevent scrolling while dragging knob
     this._startY = e.touches[0].clientY;
@@ -179,7 +189,7 @@ export class PO20Knob extends LitElement {
     window.addEventListener('touchcancel', this._onTouchEnd);
   }
 
-  _onTouchMove(e) {
+  _onTouchMove(e: TouchEvent): void {
     if (!this._isDragging) return;
     if (e.touches.length !== 1) return;
     
@@ -195,14 +205,14 @@ export class PO20Knob extends LitElement {
     }
   }
 
-  _onTouchEnd() {
+  _onTouchEnd(): void {
     this._isDragging = false;
     window.removeEventListener('touchmove', this._onTouchMove);
     window.removeEventListener('touchend', this._onTouchEnd);
     window.removeEventListener('touchcancel', this._onTouchEnd);
   }
 
-  _dispatchChange() {
+  _dispatchChange(): void {
     this.dispatchEvent(new CustomEvent('change', {
       detail: { value: this.value, param: this.param },
       bubbles: true,
@@ -212,3 +222,9 @@ export class PO20Knob extends LitElement {
 }
 
 customElements.define('po20-knob', PO20Knob);
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'po20-knob': PO20Knob;
+  }
+}

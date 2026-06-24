@@ -1,5 +1,5 @@
-import { LitElement, html, css } from 'lit';
-import { store } from '../utils/store';
+import { LitElement, html, css, TemplateResult } from 'lit';
+import { store, ChordSet } from '../utils/store';
 import './po20-lcd-screen';
 
 const AVAILABLE_CHORDS = [
@@ -10,12 +10,15 @@ const AVAILABLE_CHORDS = [
 ];
 
 export class PO20ChordEditor extends LitElement {
-  static properties = {
+  static override properties = {
     activeChordSet: { type: Object },
     chordsOrder: { type: Array }
   };
 
-  static styles = css`
+  activeChordSet!: ChordSet | null;
+  chordsOrder!: string[];
+
+  static override styles = css`
     :host {
       display: block;
       width: 100%;
@@ -228,12 +231,12 @@ export class PO20ChordEditor extends LitElement {
     this.chordsOrder = [];
   }
 
-  connectedCallback() {
+  override connectedCallback(): void {
     super.connectedCallback();
     this._loadChordSet();
   }
 
-  _loadChordSet() {
+  _loadChordSet(): void {
     const chordSet = store.getActiveChord();
     if (chordSet) {
       this.activeChordSet = chordSet;
@@ -244,7 +247,7 @@ export class PO20ChordEditor extends LitElement {
     }
   }
 
-  render() {
+  override render(): TemplateResult {
     if (!this.activeChordSet) return html`<p>Loading...</p>`;
 
     const lastChord = this.chordsOrder.length > 0 ? this.chordsOrder[this.chordsOrder.length - 1] : '--';
@@ -264,7 +267,7 @@ export class PO20ChordEditor extends LitElement {
           .titleText="${this.activeChordSet.name}"
           subtitleText="CHORD PROGRESSION"
           .paramA="${String(this.chordsOrder.length)}"
-          .paramB="${lastChord}"
+          .paramB="${Number.isNaN(Number(lastChord)) ? 0 : Number(lastChord)}"
         ></po20-lcd-screen>
 
         <!-- Chords Timeline -->
@@ -309,37 +312,45 @@ export class PO20ChordEditor extends LitElement {
     `;
   }
 
-  _addChord(chord) {
+  _addChord(chord: string): void {
     this.chordsOrder = [...this.chordsOrder, chord];
     // Auto scroll timeline to right
     setTimeout(() => {
-      const scrollEl = this.shadowRoot.getElementById('timeline-scroll');
+      const scrollEl = this.shadowRoot?.getElementById('timeline-scroll');
       if (scrollEl) {
         scrollEl.scrollLeft = scrollEl.scrollWidth;
       }
     }, 50);
   }
 
-  _removeChord(index) {
+  _removeChord(index: number): void {
     const nextChords = [...this.chordsOrder];
     nextChords.splice(index, 1);
     this.chordsOrder = nextChords;
   }
 
-  _clearAll() {
+  _clearAll(): void {
     if (confirm("Are you sure you want to clear the entire progression?")) {
       this.chordsOrder = [];
     }
   }
 
-  _save() {
-    store.editChords(this.activeChordSet.id, this.activeChordSet.name, this.chordsOrder);
-    alert("Progression saved successfully!");
+  _save(): void {
+    if (this.activeChordSet) {
+      store.editChords(this.activeChordSet.id, this.activeChordSet.name, this.chordsOrder);
+      alert("Progression saved successfully!");
+    }
   }
 
-  _goHome() {
+  _goHome(): void {
     window.location.hash = `/`;
   }
 }
 
 customElements.define('po20-chord-editor', PO20ChordEditor);
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'po20-chord-editor': PO20ChordEditor;
+  }
+}

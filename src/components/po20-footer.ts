@@ -1,8 +1,8 @@
-import { LitElement, html, css } from 'lit';
+import { LitElement, html, css, TemplateResult } from 'lit';
 import POimage from '../assets/PO20-arcade-side.png';
 
 export class PO20Footer extends LitElement {
-  static styles = css`
+  static override styles = css`
     :host {
       display: block;
       width: 100%;
@@ -42,7 +42,7 @@ export class PO20Footer extends LitElement {
     }
   `;
 
-  render() {
+  override render(): TemplateResult {
     return html`
       <div class="footer-content">
         <img src="${POimage}" alt="PO-20 Arcade Hardware Layout" />
@@ -53,3 +53,9 @@ export class PO20Footer extends LitElement {
 }
 
 customElements.define('po20-footer', PO20Footer);
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'po20-footer': PO20Footer;
+  }
+}

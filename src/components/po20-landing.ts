@@ -1,13 +1,17 @@
-import { LitElement, html, css } from 'lit';
-import { store } from '../utils/store';
+import { LitElement, html, css, TemplateResult } from 'lit';
+import { store, Pattern, ChordSet } from '../utils/store';
+import { PO20Header } from './po20-header';
 
 export class PO20Landing extends LitElement {
-  static properties = {
+  static override properties = {
     patterns: { type: Array },
     chords: { type: Array }
   };
 
-  static styles = css`
+  patterns!: Pattern[];
+  chords!: ChordSet[];
+
+  static override styles = css`
     :host {
       display: block;
       width: 100%;
@@ -243,27 +247,27 @@ export class PO20Landing extends LitElement {
     this._onStateChange = this._onStateChange.bind(this);
   }
 
-  connectedCallback() {
+  override connectedCallback(): void {
     super.connectedCallback();
     store.addEventListener('change', this._onStateChange);
     this._loadData();
   }
 
-  disconnectedCallback() {
+  override disconnectedCallback(): void {
     super.disconnectedCallback();
     store.removeEventListener('change', this._onStateChange);
   }
 
-  _loadData() {
+  _loadData(): void {
     this.patterns = [...store.state.patterns];
     this.chords = [...store.state.chords];
   }
 
-  _onStateChange(e) {
+  _onStateChange(): void {
     this._loadData();
   }
 
-  render() {
+  override render(): TemplateResult {
     return html`
       <div class="container">
         
@@ -362,33 +366,33 @@ export class PO20Landing extends LitElement {
     `;
   }
 
-  _triggerNewPattern() {
-    const headerEl = document.querySelector('po20-app')?.shadowRoot?.querySelector('po20-header');
+  _triggerNewPattern(): void {
+    const headerEl = document.querySelector('po20-app')?.shadowRoot?.querySelector('po20-header') as PO20Header | null;
     if (headerEl) headerEl._openPatternModal();
   }
 
-  _triggerNewChords() {
-    const headerEl = document.querySelector('po20-app')?.shadowRoot?.querySelector('po20-header');
+  _triggerNewChords(): void {
+    const headerEl = document.querySelector('po20-app')?.shadowRoot?.querySelector('po20-header') as PO20Header | null;
     if (headerEl) headerEl._openChordModal();
   }
 
-  _editPattern(id) {
+  _editPattern(id: string): void {
     store.setActivePattern(id);
     window.location.hash = `/pattern`;
   }
 
-  _deletePattern(id) {
+  _deletePattern(id: string): void {
     if (confirm("Are you sure you want to delete this pattern?")) {
       store.deletePattern(id);
     }
   }
 
-  _editChords(id) {
+  _editChords(id: string): void {
     store.setActiveChord(id);
     window.location.hash = `/chord`;
   }
 
-  _deleteChords(id) {
+  _deleteChords(id: string): void {
     if (confirm("Are you sure you want to delete this chord progression?")) {
       store.deleteChord(id);
     }
@@ -396,3 +400,9 @@ export class PO20Landing extends LitElement {
 }
 
 customElements.define('po20-landing', PO20Landing);
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'po20-landing': PO20Landing;
+  }
+}

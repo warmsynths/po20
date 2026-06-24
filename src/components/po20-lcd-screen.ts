@@ -1,17 +1,26 @@
-import { LitElement, html, css } from 'lit';
+import { LitElement, html, css, TemplateResult } from 'lit';
+import { Step } from '../utils/store';
 
 export class PO20LcdScreen extends LitElement {
-  static properties = {
+  static override properties = {
     titleText: { type: String },
     subtitleText: { type: String },
     paramA: { type: String }, // Can be value or note name
     paramB: { type: Number },
-    activeSteps: { type: Array }, // Array of boolean/active states for the 16 steps
+    activeSteps: { type: Object }, // Record of active states for the 16 steps
     selectedStep: { type: Number },
     isPlaying: { type: Boolean }
   };
 
-  static styles = css`
+  titleText!: string;
+  subtitleText!: string;
+  paramA!: string;
+  paramB!: number;
+  activeSteps!: Record<number, Step> | undefined;
+  selectedStep!: number | null;
+  isPlaying!: boolean;
+
+  static override styles = css`
     :host {
       display: block;
       width: 100%;
@@ -171,12 +180,12 @@ export class PO20LcdScreen extends LitElement {
     this.subtitleText = 'Companion';
     this.paramA = '--';
     this.paramB = 0;
-    this.activeSteps = [];
+    this.activeSteps = undefined;
     this.selectedStep = null;
     this.isPlaying = false;
   }
 
-  render() {
+  override render(): TemplateResult {
     return html`
       <div class="lcd-bezel">
         <div class="lcd-glass">
@@ -246,3 +255,9 @@ export class PO20LcdScreen extends LitElement {
 }
 
 customElements.define('po20-lcd-screen', PO20LcdScreen);
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'po20-lcd-screen': PO20LcdScreen;
+  }
+}

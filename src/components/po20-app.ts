@@ -1,4 +1,4 @@
-import { LitElement, html, css } from 'lit';
+import { LitElement, html, css, TemplateResult } from 'lit';
 import './po20-header';
 import './po20-footer';
 import './po20-landing';
@@ -6,11 +6,13 @@ import './po20-pattern-editor';
 import './po20-chord-editor';
 
 export class PO20App extends LitElement {
-  static properties = {
+  static override properties = {
     currentHash: { type: String }
   };
 
-  static styles = css`
+  currentHash!: string;
+
+  static override styles = css`
     :host {
       display: flex;
       flex-direction: column;
@@ -32,7 +34,7 @@ export class PO20App extends LitElement {
     this._onHashChange = this._onHashChange.bind(this);
   }
 
-  connectedCallback() {
+  override connectedCallback(): void {
     super.connectedCallback();
     window.addEventListener('hashchange', this._onHashChange);
     
@@ -49,17 +51,17 @@ export class PO20App extends LitElement {
     }
   }
 
-  disconnectedCallback() {
+  override disconnectedCallback(): void {
     super.disconnectedCallback();
     window.removeEventListener('hashchange', this._onHashChange);
   }
 
-  _onHashChange() {
+  _onHashChange(): void {
     this.currentHash = window.location.hash || '#/';
   }
 
-  render() {
-    let view = html`<po20-landing></po20-landing>`;
+  override render(): TemplateResult {
+    let view: TemplateResult = html`<po20-landing></po20-landing>`;
 
     if (this.currentHash.startsWith('#/pattern')) {
       view = html`<po20-pattern-editor></po20-pattern-editor>`;
@@ -82,3 +84,9 @@ export class PO20App extends LitElement {
 }
 
 customElements.define('po20-app', PO20App);
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'po20-app': PO20App;
+  }
+}

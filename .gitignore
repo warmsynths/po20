@@ -48,3 +48,5 @@ Thumbs.db
 *.mov
 *.wmv
 
+# Vite config temporary files
+vite.config.js.timestamp-*

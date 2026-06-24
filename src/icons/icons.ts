@@ -1,3 +1,4 @@
+import { TemplateResult } from 'lit';
 import { unsafeSVG } from 'lit/directives/unsafe-svg.js';
 
 import bass from '../assets/bass.svg?raw';
@@ -18,7 +19,7 @@ import portamento from '../assets/portamento.svg?raw';
 import echo from '../assets/echo.svg?raw';
 import button from '../assets/button.svg?raw';
 
-const icons = {
+const icons: Record<string | number, string> = {
   1: bass,
   2: bassDrum,
   3: snareDrum,
@@ -38,12 +39,12 @@ const icons = {
   'button': button
 };
 
-export function getIconSvg(id) {
+export function getIconSvg(id: string | number): string {
   return icons[id] || '';
 }
 
-export function getIcon(id) {
+export function getIcon(id: string | number): TemplateResult | null {
   const svgText = getIconSvg(id);
   if (!svgText) return null;
-  return unsafeSVG(svgText);
+  return unsafeSVG(svgText) as TemplateResult;
 }

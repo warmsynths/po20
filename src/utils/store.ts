@@ -1,6 +1,12 @@
 import { v4 as uuidv4 } from 'uuid';
 
-const SOUNDS_CONFIG = [
+export interface SoundConfig {
+  value: string;
+  id: number;
+  type: 'int' | 'note';
+}
+
+const SOUNDS_CONFIG: SoundConfig[] = [
   { value: "bass", id: 1, type: "int" },
   { value: "bass drum", id: 2, type: "int" },
   { value: "snare drum", id: 3, type: "int" },
@@ -19,8 +25,50 @@ const SOUNDS_CONFIG = [
   { value: "echo", id: 16, type: "note" },
 ];
 
-export function createInitialSounds() {
-  const steps = {};
+export interface StepParams {
+  a: string | number | null;
+  b: number | null;
+  multiply: number | null;
+}
+
+export interface Step {
+  value: number;
+  active: boolean;
+  params: StepParams;
+}
+
+export interface Sound {
+  id: number;
+  value: string;
+  type: 'int' | 'note';
+  steps: Record<number, Step>;
+}
+
+export interface Pattern {
+  id: string;
+  name: string;
+  pattern: Record<number, Sound>;
+}
+
+export interface ChordSet {
+  id: string;
+  name: string;
+  chordsOrder: string[];
+}
+
+export interface AppState {
+  activePattern: string | null;
+  activeChord: string | null;
+}
+
+export interface StoreState {
+  app: AppState;
+  patterns: Pattern[];
+  chords: ChordSet[];
+}
+
+export function createInitialSounds(): Record<number, Sound> {
+  const steps: Record<number, Step> = {};
   for (let i = 1; i <= 16; i++) {
     steps[i] = {
       value: i,
@@ -29,7 +77,7 @@ export function createInitialSounds() {
     };
   }
 
-  const sounds = {};
+  const sounds: Record<number, Sound> = {};
   SOUNDS_CONFIG.forEach(sound => {
     sounds[sound.id] = {
       id: sound.id,
@@ -43,6 +91,8 @@ export function createInitialSounds() {
 }
 
 class PO20Store extends EventTarget {
+  state: StoreState;
+
   constructor() {
     super();
     this.state = {
@@ -53,7 +103,7 @@ class PO20Store extends EventTarget {
     this.load();
   }
 
-  load() {
+  load(): void {
     try {
       const serialized = localStorage.getItem("state");
       if (serialized) {
@@ -69,7 +119,7 @@ class PO20Store extends EventTarget {
     }
   }
 
-  save() {
+  save(): void {
     try {
       localStorage.setItem("state", JSON.stringify(this.state));
     } catch (e) {
@@ -78,9 +128,9 @@ class PO20Store extends EventTarget {
     this.dispatchEvent(new CustomEvent("change", { detail: this.state }));
   }
 
-  addPattern(name) {
+  addPattern(name?: string): string {
     const id = uuidv4();
-    const newPattern = {
+    const newPattern: Pattern = {
       id,
       name: name || `Pattern ${this.state.patterns.length + 1}`,
       pattern: createInitialSounds()
@@ -91,14 +141,14 @@ class PO20Store extends EventTarget {
     return id;
   }
 
-  editPattern(id, name, patternData) {
+  editPattern(id: string, name: string, patternData: Record<number, Sound>): void {
     this.state.patterns = this.state.patterns.map(p =>
       p.id === id ? { ...p, name: name || p.name, pattern: patternData } : p
     );
     this.save();
   }
 
-  deletePattern(id) {
+  deletePattern(id: string): void {
     this.state.patterns = this.state.patterns.filter(p => p.id !== id);
     if (this.state.app.activePattern === id) {
       this.state.app.activePattern = null;
@@ -106,9 +156,9 @@ class PO20Store extends EventTarget {
     this.save();
   }
 
-  addChords(name) {
+  addChords(name?: string): string {
     const id = uuidv4();
-    const newChordSet = {
+    const newChordSet: ChordSet = {
       id,
       name: name || `Chord progression ${this.state.chords.length + 1}`,
       chordsOrder: []
@@ -119,14 +169,14 @@ class PO20Store extends EventTarget {
     return id;
   }
 
-  editChords(id, name, chordsOrder) {
+  editChords(id: string, name: string, chordsOrder: string[]): void {
     this.state.chords = this.state.chords.map(c =>
       c.id === id ? { ...c, name: name || c.name, chordsOrder } : c
     );
     this.save();
   }
 
-  deleteChord(id) {
+  deleteChord(id: string): void {
     this.state.chords = this.state.chords.filter(c => c.id !== id);
     if (this.state.app.activeChord === id) {
       this.state.app.activeChord = null;
@@ -134,21 +184,21 @@ class PO20Store extends EventTarget {
     this.save();
   }
 
-  setActivePattern(id) {
+  setActivePattern(id: string | null): void {
     this.state.app.activePattern = id;
     this.save();
   }
 
-  setActiveChord(id) {
+  setActiveChord(id: string | null): void {
     this.state.app.activeChord = id;
     this.save();
   }
 
-  getActivePattern() {
+  getActivePattern(): Pattern | null {
     return this.state.patterns.find(p => p.id === this.state.app.activePattern) || null;
   }
 
-  getActiveChord() {
+  getActiveChord(): ChordSet | null {
     return this.state.chords.find(c => c.id === this.state.app.activeChord) || null;
   }
 }

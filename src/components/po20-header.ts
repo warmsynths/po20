@@ -1,8 +1,8 @@
-import { LitElement, html, css } from 'lit';
+import { LitElement, html, css, TemplateResult } from 'lit';
 import { store } from '../utils/store';
 
 export class PO20Header extends LitElement {
-  static properties = {
+  static override properties = {
     isDrawerOpen: { type: Boolean },
     showPatternModal: { type: Boolean },
     showChordModal: { type: Boolean },
@@ -10,7 +10,13 @@ export class PO20Header extends LitElement {
     newChordName: { type: String }
   };
 
-  static styles = css`
+  isDrawerOpen!: boolean;
+  showPatternModal!: boolean;
+  showChordModal!: boolean;
+  newPatternName!: string;
+  newChordName!: string;
+
+  static override styles = css`
     :host {
       display: block;
       width: 100%;
@@ -307,7 +313,7 @@ export class PO20Header extends LitElement {
     this.newChordName = '';
   }
 
-  render() {
+  override render(): TemplateResult {
     return html`
       <header>
         <div class="brand-section">
@@ -322,7 +328,7 @@ export class PO20Header extends LitElement {
 
       <!-- Navigation Drawer -->
       <div class="drawer-overlay ${this.isDrawerOpen ? 'open' : ''}" @click="${this._closeDrawer}">
-        <div class="drawer" @click="${e => e.stopPropagation()}">
+        <div class="drawer" @click="${(e: Event) => e.stopPropagation()}">
           <div class="drawer-header">
             <h2 class="drawer-title">MENU</h2>
             <button class="close-btn" @click="${this._closeDrawer}">&times;</button>
@@ -367,22 +373,18 @@ export class PO20Header extends LitElement {
             </li>
           </ul>
 
-          <!-- PayPal donate button form (styled) -->
+          <!-- GitHub Link (styled) -->
           <div class="donate-container">
-            <form action="https://www.paypal.com/donate" method="post" target="_blank">
-              <input type="hidden" name="business" value="LSTHAKLKRKVDW" />
-              <input type="hidden" name="currency_code" value="AUD" />
-              <button type="submit" class="btn btn-secondary" style="font-size: 13px; width: 100%;">
-                Support Development (PayPal)
-              </button>
-            </form>
+            <a href="https://github.com/warmsynths/po20" target="_blank" class="btn btn-secondary" style="font-size: 13px; width: 100%; display: block; text-decoration: none; box-sizing: border-box; text-align: center;">
+              Developed by warmsynths
+            </a>
           </div>
         </div>
       </div>
 
       <!-- New Pattern Dialog Modal -->
       <div class="modal-overlay ${this.showPatternModal ? 'open' : ''}" @click="${this._closePatternModal}">
-        <div class="modal" @click="${e => e.stopPropagation()}">
+        <div class="modal" @click="${(e: Event) => e.stopPropagation()}">
           <h3>Create New Pattern</h3>
           <form @submit="${this._createPattern}">
             <div class="input-group">
@@ -392,7 +394,7 @@ export class PO20Header extends LitElement {
                 id="pattern-name" 
                 placeholder="e.g. Synth Wave Intro"
                 .value="${this.newPatternName}"
-                @input="${e => this.newPatternName = e.target.value}"
+                @input="${(e: Event) => this.newPatternName = (e.target as HTMLInputElement).value}"
                 required
               />
             </div>
@@ -406,7 +408,7 @@ export class PO20Header extends LitElement {
 
       <!-- New Chord Set Dialog Modal -->
       <div class="modal-overlay ${this.showChordModal ? 'open' : ''}" @click="${this._closeChordModal}">
-        <div class="modal" @click="${e => e.stopPropagation()}">
+        <div class="modal" @click="${(e: Event) => e.stopPropagation()}">
           <h3>Create Chord Progression</h3>
           <form @submit="${this._createChord}">
             <div class="input-group">
@@ -416,7 +418,7 @@ export class PO20Header extends LitElement {
                 id="chord-name" 
                 placeholder="e.g. Pop Verse Chords"
                 .value="${this.newChordName}"
-                @input="${e => this.newChordName = e.target.value}"
+                @input="${(e: Event) => this.newChordName = (e.target as HTMLInputElement).value}"
                 required
               />
             </div>
@@ -430,53 +432,53 @@ export class PO20Header extends LitElement {
     `;
   }
 
-  _openDrawer() {
+  _openDrawer(): void {
     this.isDrawerOpen = true;
   }
 
-  _closeDrawer() {
+  _closeDrawer(): void {
     this.isDrawerOpen = false;
   }
 
-  _openPatternModal() {
+  _openPatternModal(): void {
     this.isDrawerOpen = false;
     this.newPatternName = '';
     this.showPatternModal = true;
     setTimeout(() => {
-      this.shadowRoot.getElementById('pattern-name')?.focus();
+      (this.shadowRoot?.getElementById('pattern-name') as HTMLElement | null)?.focus();
     }, 100);
   }
 
-  _closePatternModal() {
+  _closePatternModal(): void {
     this.showPatternModal = false;
   }
 
-  _openChordModal() {
+  _openChordModal(): void {
     this.isDrawerOpen = false;
     this.newChordName = '';
     this.showChordModal = true;
     setTimeout(() => {
-      this.shadowRoot.getElementById('chord-name')?.focus();
+      (this.shadowRoot?.getElementById('chord-name') as HTMLElement | null)?.focus();
     }, 100);
   }
 
-  _closeChordModal() {
+  _closeChordModal(): void {
     this.showChordModal = false;
   }
 
-  _createPattern(e) {
+  _createPattern(e: Event): void {
     e.preventDefault();
     if (!this.newPatternName.trim()) return;
-    const newId = store.addPattern(this.newPatternName.trim());
+    store.addPattern(this.newPatternName.trim());
     this._closePatternModal();
     // Redirect to pattern editor
     window.location.hash = `/pattern`;
   }
 
-  _createChord(e) {
+  _createChord(e: Event): void {
     e.preventDefault();
     if (!this.newChordName.trim()) return;
-    const newId = store.addChords(this.newChordName.trim());
+    store.addChords(this.newChordName.trim());
     this._closeChordModal();
     // Redirect to chord editor
     window.location.hash = `/chord`;
@@ -484,3 +486,9 @@ export class PO20Header extends LitElement {
 }
 
 customElements.define('po20-header', PO20Header);
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'po20-header': PO20Header;
+  }
+}
