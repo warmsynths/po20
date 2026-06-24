@@ -1,12 +1,67 @@
-/* Base resets and industrial color tokens */
+/* =============================================
+   DESIGN TOKENS — Dark (default) & Light themes
+   ============================================= */
+
+/* Dark mode (default) */
+:root, body {
+  --bg-base:        #121316;
+  --bg-surface:     #1c1d22;
+  --bg-surface-alt: #17181c;
+  --bg-inset:       #111215;
+  --bg-row:         #15161a;
+  --bg-row-hover:   #1a1b21;
+
+  --border-subtle:  #2b2c32;
+  --border-faint:   #202125;
+  --border-mid:     #222;
+
+  --text-primary:   #ffffff;
+  --text-secondary: #b3b5bd;
+  --text-muted:     #8a8d95;
+  --text-dim:       #5a5d65;
+
+  --accent:         #ff5722;
+  --accent-hover:   #e64a19;
+
+  --scrollbar-track: #121316;
+  --scrollbar-thumb: #2b2c32;
+}
+
+/* Light mode overrides */
+body[data-theme="light"] {
+  --bg-base:        #f0ebe3;
+  --bg-surface:     #faf6f0;
+  --bg-surface-alt: #ede8e0;
+  --bg-inset:       #e8e2d8;
+  --bg-row:         #f5f0e8;
+  --bg-row-hover:   #ede7dc;
+
+  --border-subtle:  #c8c0b0;
+  --border-faint:   #d4ccbc;
+  --border-mid:     #b8b0a0;
+
+  --text-primary:   #1e1c18;
+  --text-secondary: #4a4640;
+  --text-muted:     #6e6860;
+  --text-dim:       #9e978c;
+
+  --accent:         #d94f1e;
+  --accent-hover:   #bf4218;
+
+  --scrollbar-track: #e8e2d8;
+  --scrollbar-thumb: #c8c0b0;
+}
+
+/* Base resets */
 html, body {
   margin: 0;
   padding: 0;
-  background-color: #121316;
-  color: #fff;
+  background-color: var(--bg-base);
+  color: var(--text-primary);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Scrollbars */
@@ -16,14 +71,14 @@ html, body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #121316;
+  background: var(--scrollbar-track);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #2b2c32;
+  background: var(--scrollbar-thumb);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #ff5722;
+  background: var(--accent);
 }

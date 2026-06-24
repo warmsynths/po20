@@ -17,9 +17,9 @@ export class PO20Landing extends LitElement {
       width: 100%;
       min-height: calc(100vh - 120px);
       box-sizing: border-box;
-      color: #fff;
+      color: var(--text-primary);
       padding: 30px 16px;
-      background: #121316;
+      background: var(--bg-base);
     }
 
     .container {
@@ -45,7 +45,7 @@ export class PO20Landing extends LitElement {
 
     .hero-tagline {
       font-size: 16px;
-      color: #8a8d95;
+      color: var(--text-muted);
       max-width: 500px;
       margin: 0 auto;
       line-height: 1.5;
@@ -59,8 +59,8 @@ export class PO20Landing extends LitElement {
     }
 
     .action-card {
-      background: linear-gradient(135deg, #1c1d22 0%, #17181c 100%);
-      border: 2px solid #2b2c32;
+      background: linear-gradient(135deg, var(--bg-surface) 0%, var(--bg-surface-alt) 100%);
+      border: 2px solid var(--border-subtle);
       border-radius: 12px;
       padding: 24px;
       text-align: center;
@@ -70,19 +70,19 @@ export class PO20Landing extends LitElement {
       flex-direction: column;
       align-items: center;
       gap: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
     }
 
     .action-card:hover {
       transform: translateY(-4px);
-      border-color: #ff5722;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.5), 0 0 8px rgba(255, 87, 34, 0.2);
+      border-color: var(--accent);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3), 0 0 8px rgba(255, 87, 34, 0.2);
     }
 
     .action-card svg {
       width: 48px;
       height: 48px;
-      fill: #ff5722;
+      fill: var(--accent);
       transition: transform 0.3s ease;
     }
 
@@ -99,7 +99,7 @@ export class PO20Landing extends LitElement {
 
     .action-card p {
       font-size: 14px;
-      color: #8a8d95;
+      color: var(--text-muted);
       margin: 0;
       line-height: 1.4;
     }
@@ -111,18 +111,18 @@ export class PO20Landing extends LitElement {
     }
 
     .list-card {
-      background: #1c1d22;
-      border: 1px solid #2b2c32;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
       border-radius: 12px;
       padding: 20px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     }
 
     .list-card h2 {
       font-family: 'VT323', monospace;
       font-size: 32px;
       margin: 0 0 16px 0;
-      border-bottom: 2px solid #2b2c32;
+      border-bottom: 2px solid var(--border-subtle);
       padding-bottom: 8px;
       display: flex;
       justify-content: space-between;
@@ -131,7 +131,7 @@ export class PO20Landing extends LitElement {
 
     .list-card h2 span {
       font-size: 16px;
-      color: #5a5d65;
+      color: var(--text-dim);
     }
 
     .items-list {
@@ -148,10 +148,10 @@ export class PO20Landing extends LitElement {
       width: 6px;
     }
     .items-list::-webkit-scrollbar-track {
-      background: #111215;
+      background: var(--bg-inset);
     }
     .items-list::-webkit-scrollbar-thumb {
-      background: #2b2c32;
+      background: var(--border-subtle);
       border-radius: 3px;
     }
 
@@ -160,15 +160,15 @@ export class PO20Landing extends LitElement {
       align-items: center;
       justify-content: space-between;
       padding: 12px 16px;
-      background: #15161a;
-      border: 1px solid #202125;
+      background: var(--bg-row);
+      border: 1px solid var(--border-faint);
       border-radius: 8px;
       transition: all 0.2s;
     }
 
     .item-row:hover {
-      background: #1a1b21;
-      border-color: #3a3b42;
+      background: var(--bg-row-hover);
+      border-color: var(--border-subtle);
     }
 
     .item-info {
@@ -179,12 +179,12 @@ export class PO20Landing extends LitElement {
     .item-name {
       font-size: 16px;
       font-weight: bold;
-      color: #eee;
+      color: var(--text-primary);
     }
 
     .item-meta {
       font-size: 12px;
-      color: #8a8d95;
+      color: var(--text-muted);
       margin-top: 2px;
     }
 
@@ -204,13 +204,13 @@ export class PO20Landing extends LitElement {
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      color: #8a8d95;
+      color: var(--text-muted);
       transition: all 0.2s;
     }
 
     .action-btn-edit:hover {
-      background: #2b2c32;
-      color: #ff5722;
+      background: var(--border-subtle);
+      color: var(--accent);
     }
 
     .action-btn-delete:hover {
@@ -227,7 +227,7 @@ export class PO20Landing extends LitElement {
     .empty-state {
       text-align: center;
       padding: 40px 20px;
-      color: #5a5d65;
+      color: var(--text-dim);
       font-size: 15px;
     }
 

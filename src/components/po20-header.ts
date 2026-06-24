@@ -1,5 +1,5 @@
 import { LitElement, html, css, TemplateResult } from 'lit';
-import { store } from '../utils/store';
+import { store, Theme } from '../utils/store';
 
 export class PO20Header extends LitElement {
   static override properties = {
@@ -7,7 +7,8 @@ export class PO20Header extends LitElement {
     showPatternModal: { type: Boolean },
     showChordModal: { type: Boolean },
     newPatternName: { type: String },
-    newChordName: { type: String }
+    newChordName: { type: String },
+    currentTheme: { type: String }
   };
 
   isDrawerOpen!: boolean;
@@ -15,16 +16,18 @@ export class PO20Header extends LitElement {
   showChordModal!: boolean;
   newPatternName!: string;
   newChordName!: string;
+  currentTheme!: Theme;
 
   static override styles = css`
     :host {
       display: block;
       width: 100%;
-      background: #1c1d22;
-      border-bottom: 2px solid #2b2c32;
+      background: var(--bg-surface);
+      border-bottom: 2px solid var(--border-subtle);
       position: sticky;
       top: 0;
       z-index: 100;
+      transition: background 0.3s ease, border-color 0.3s ease;
     }
 
     header {
@@ -46,7 +49,7 @@ export class PO20Header extends LitElement {
     .menu-btn {
       background: transparent;
       border: none;
-      color: #fff;
+      color: var(--text-primary);
       cursor: pointer;
       width: 40px;
       height: 40px;
@@ -58,7 +61,7 @@ export class PO20Header extends LitElement {
     }
 
     .menu-btn:hover {
-      background: #2b2c32;
+      background: var(--border-subtle);
     }
 
     .menu-btn svg {
@@ -70,7 +73,7 @@ export class PO20Header extends LitElement {
     .logo {
       font-family: 'VT323', monospace;
       font-size: 26px;
-      color: #ff5722;
+      color: var(--accent);
       text-decoration: none;
       font-weight: bold;
       letter-spacing: 1px;
@@ -102,11 +105,11 @@ export class PO20Header extends LitElement {
       left: 0;
       width: 280px;
       height: 100%;
-      background: #17181c;
-      box-shadow: 5px 0 25px rgba(0,0,0,0.8);
+      background: var(--bg-surface-alt);
+      box-shadow: 5px 0 25px rgba(0,0,0,0.4);
       z-index: 201;
       transform: translateX(-100%);
-      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s ease;
       display: flex;
       flex-direction: column;
     }
@@ -120,29 +123,30 @@ export class PO20Header extends LitElement {
       align-items: center;
       justify-content: space-between;
       padding: 16px;
-      border-bottom: 1px solid #2b2c32;
+      border-bottom: 1px solid var(--border-subtle);
     }
 
     .drawer-title {
       font-family: 'VT323', monospace;
       font-size: 24px;
-      color: #ff5722;
+      color: var(--accent);
       margin: 0;
     }
 
     .close-btn {
       background: transparent;
       border: none;
-      color: #8a8d95;
+      color: var(--text-muted);
       cursor: pointer;
       font-size: 24px;
       padding: 4px;
       border-radius: 4px;
+      transition: color 0.2s, background 0.2s;
     }
 
     .close-btn:hover {
-      color: #fff;
-      background: #2b2c32;
+      color: var(--text-primary);
+      background: var(--border-subtle);
     }
 
     .nav-list {
@@ -152,7 +156,7 @@ export class PO20Header extends LitElement {
     }
 
     .nav-item {
-      border-bottom: 1px solid #202125;
+      border-bottom: 1px solid var(--border-faint);
     }
 
     .nav-link {
@@ -160,7 +164,7 @@ export class PO20Header extends LitElement {
       align-items: center;
       gap: 12px;
       padding: 16px 20px;
-      color: #b3b5bd;
+      color: var(--text-secondary);
       text-decoration: none;
       font-size: 16px;
       transition: all 0.2s;
@@ -168,8 +172,8 @@ export class PO20Header extends LitElement {
     }
 
     .nav-link:hover {
-      color: #ff5722;
-      background: #1f2026;
+      color: var(--accent);
+      background: var(--bg-row-hover);
       padding-left: 24px;
     }
 
@@ -181,16 +185,87 @@ export class PO20Header extends LitElement {
 
     .divider {
       height: 1px;
-      background: #2b2c32;
+      background: var(--border-subtle);
       margin: 16px 0;
     }
 
+    /* ---- Theme Toggle ---- */
+    .theme-section {
+      padding: 16px 20px;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .theme-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+    }
+
+    .theme-toggle {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .theme-icon {
+      display: flex;
+      align-items: center;
+      color: var(--text-muted);
+      transition: color 0.2s;
+    }
+
+    .theme-icon svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+    }
+
+    .theme-icon.active {
+      color: var(--accent);
+    }
+
+    .toggle-pill {
+      position: relative;
+      width: 48px;
+      height: 26px;
+      background: var(--border-subtle);
+      border-radius: 13px;
+      cursor: pointer;
+      border: none;
+      padding: 0;
+      transition: background 0.3s ease;
+      flex-shrink: 0;
+    }
+
+    .toggle-pill.light-active {
+      background: var(--accent);
+    }
+
+    .toggle-knob {
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 20px;
+      height: 20px;
+      background: var(--text-primary);
+      border-radius: 50%;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s ease;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+    }
+
+    .toggle-pill.light-active .toggle-knob {
+      transform: translateX(22px);
+    }
+
+    /* ---- Donate Container ---- */
     .donate-container {
       padding: 20px;
       margin-top: auto;
       text-align: center;
-      background: #111215;
-      border-top: 1px solid #222;
+      background: var(--bg-inset);
+      border-top: 1px solid var(--border-mid);
     }
 
     /* Modals for creating new elements */
@@ -217,13 +292,13 @@ export class PO20Header extends LitElement {
     }
 
     .modal {
-      background: #1c1d22;
-      border: 3px solid #ff5722;
+      background: var(--bg-surface);
+      border: 3px solid var(--accent);
       border-radius: 12px;
       width: 90%;
       max-width: 400px;
       padding: 24px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
       transform: scale(0.9);
       transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
     }
@@ -235,7 +310,7 @@ export class PO20Header extends LitElement {
     .modal h3 {
       font-family: 'VT323', monospace;
       font-size: 26px;
-      color: #fff;
+      color: var(--text-primary);
       margin-top: 0;
       margin-bottom: 16px;
       letter-spacing: 0.5px;
@@ -250,22 +325,22 @@ export class PO20Header extends LitElement {
 
     .input-group label {
       font-size: 14px;
-      color: #8a8d95;
+      color: var(--text-muted);
     }
 
     .input-group input {
-      background: #111215;
-      border: 2px solid #2b2c32;
+      background: var(--bg-inset);
+      border: 2px solid var(--border-subtle);
       border-radius: 6px;
       padding: 10px 12px;
-      color: #fff;
+      color: var(--text-primary);
       font-size: 16px;
       transition: border-color 0.2s;
     }
 
     .input-group input:focus {
       outline: none;
-      border-color: #ff5722;
+      border-color: var(--accent);
     }
 
     .modal-actions {
@@ -285,22 +360,22 @@ export class PO20Header extends LitElement {
     }
 
     .btn-secondary {
-      background: #2b2c32;
-      color: #b3b5bd;
+      background: var(--border-subtle);
+      color: var(--text-secondary);
     }
 
     .btn-secondary:hover {
-      background: #3a3b42;
-      color: #fff;
+      background: var(--border-faint);
+      color: var(--text-primary);
     }
 
     .btn-primary {
-      background: #ff5722;
+      background: var(--accent);
       color: #fff;
     }
 
     .btn-primary:hover {
-      background: #e64a19;
+      background: var(--accent-hover);
     }
   `;
 
@@ -311,9 +386,26 @@ export class PO20Header extends LitElement {
     this.showChordModal = false;
     this.newPatternName = '';
     this.newChordName = '';
+    this.currentTheme = store.state.app.theme;
+  }
+
+  override connectedCallback(): void {
+    super.connectedCallback();
+    this._onStoreChange = this._onStoreChange.bind(this);
+    store.addEventListener('change', this._onStoreChange);
+  }
+
+  override disconnectedCallback(): void {
+    super.disconnectedCallback();
+    store.removeEventListener('change', this._onStoreChange);
+  }
+
+  _onStoreChange(): void {
+    this.currentTheme = store.state.app.theme;
   }
 
   override render(): TemplateResult {
+    const isLight = this.currentTheme === 'light';
     return html`
       <header>
         <div class="brand-section">
@@ -372,6 +464,29 @@ export class PO20Header extends LitElement {
               </a>
             </li>
           </ul>
+
+          <!-- Theme Toggle -->
+          <div class="theme-section">
+            <div class="theme-label">Appearance</div>
+            <div class="theme-toggle">
+              <!-- Moon icon (dark) -->
+              <span class="theme-icon ${!isLight ? 'active' : ''}">
+                <svg viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-2.98 0-5.4-2.42-5.4-5.4 0-1.81.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z"/></svg>
+              </span>
+              <button
+                class="toggle-pill ${isLight ? 'light-active' : ''}"
+                @click="${this._toggleTheme}"
+                aria-label="Toggle light/dark mode"
+                aria-pressed="${isLight}"
+              >
+                <div class="toggle-knob"></div>
+              </button>
+              <!-- Sun icon (light) -->
+              <span class="theme-icon ${isLight ? 'active' : ''}">
+                <svg viewBox="0 0 24 24"><path d="M6.76 4.84l-1.8-1.79-1.41 1.41 1.79 1.79 1.42-1.41zM4 11H1v2h3v-2zm9-9h-2v2.99h2V2zm7.45 3.91l-1.41-1.41-1.79 1.79 1.41 1.41 1.79-1.79zM20 11v2h3v-2h-3zm-8-2a4 4 0 1 0 0 8 4 4 0 0 0 0-8zm-1 13h2v-3h-2v3zm-7.45-3.91l1.79-1.79-1.41-1.41-1.79 1.79 1.41 1.41z"/></svg>
+              </span>
+            </div>
+          </div>
 
           <!-- GitHub Link (styled) -->
           <div class="donate-container">
@@ -464,6 +579,11 @@ export class PO20Header extends LitElement {
 
   _closeChordModal(): void {
     this.showChordModal = false;
+  }
+
+  _toggleTheme(): void {
+    const next: Theme = this.currentTheme === 'dark' ? 'light' : 'dark';
+    store.setTheme(next);
   }
 
   _createPattern(e: Event): void {

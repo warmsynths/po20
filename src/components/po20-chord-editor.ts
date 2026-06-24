@@ -24,9 +24,9 @@ export class PO20ChordEditor extends LitElement {
       width: 100%;
       min-height: calc(100vh - 120px);
       box-sizing: border-box;
-      color: #fff;
+      color: var(--text-primary);
       padding: 30px 16px;
-      background: #121316;
+      background: var(--bg-base);
     }
 
     .container {
@@ -46,22 +46,22 @@ export class PO20ChordEditor extends LitElement {
     .editor-title {
       font-family: 'VT323', monospace;
       font-size: 36px;
-      color: #ff5722;
+      color: var(--accent);
       margin: 0;
     }
 
     /* Chord timeline/chain styling */
     .timeline-card {
-      background: #1c1d22;
-      border: 1px solid #2b2c32;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
       border-radius: 12px;
       padding: 16px;
-      box-shadow: inset 0 2px 8px rgba(0,0,0,0.5);
+      box-shadow: inset 0 2px 8px rgba(0,0,0,0.2);
     }
 
     .timeline-title {
       font-size: 13px;
-      color: #8a8d95;
+      color: var(--text-muted);
       text-transform: uppercase;
       margin-bottom: 12px;
       letter-spacing: 1px;
@@ -81,10 +81,10 @@ export class PO20ChordEditor extends LitElement {
       height: 6px;
     }
     .timeline-scroll::-webkit-scrollbar-track {
-      background: #111215;
+      background: var(--bg-inset);
     }
     .timeline-scroll::-webkit-scrollbar-thumb {
-      background: #ff5722;
+      background: var(--accent);
       border-radius: 3px;
     }
 
@@ -116,18 +116,18 @@ export class PO20ChordEditor extends LitElement {
     }
 
     .empty-timeline {
-      color: #5a5d65;
+      color: var(--text-dim);
       font-size: 15px;
       font-style: italic;
     }
 
     /* PO Hardware 4x4 Grid */
     .po-panel {
-      background: #1c1d22;
-      border: 3px solid #2b2c32;
+      background: var(--bg-surface);
+      border: 3px solid var(--border-subtle);
       border-radius: 16px;
       padding: 20px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
     }
 
     .grid-4x4 {
@@ -198,23 +198,23 @@ export class PO20ChordEditor extends LitElement {
     }
 
     .btn-secondary {
-      background: #2b2c32;
-      color: #b3b5bd;
+      background: var(--border-subtle);
+      color: var(--text-secondary);
     }
 
     .btn-secondary:hover {
-      background: #3a3b42;
-      color: #fff;
+      background: var(--border-faint);
+      color: var(--text-primary);
     }
 
     .btn-primary {
-      background: #ff5722;
+      background: var(--accent);
       color: #fff;
       box-shadow: 0 4px 10px rgba(255, 87, 34, 0.3);
     }
 
     .btn-primary:hover {
-      background: #e64a19;
+      background: var(--accent-hover);
       box-shadow: 0 6px 15px rgba(255, 87, 34, 0.4);
     }
 

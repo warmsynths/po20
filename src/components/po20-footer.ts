@@ -7,8 +7,8 @@ export class PO20Footer extends LitElement {
       display: block;
       width: 100%;
       padding: 40px 16px;
-      background: #121316;
-      border-top: 2px solid #1c1d22;
+      background: var(--bg-base);
+      border-top: 2px solid var(--bg-surface);
       box-sizing: border-box;
     }
 
@@ -36,7 +36,7 @@ export class PO20Footer extends LitElement {
 
     .copyright {
       font-size: 13px;
-      color: #5a5d65;
+      color: var(--text-dim);
       text-transform: uppercase;
       letter-spacing: 1.5px;
     }

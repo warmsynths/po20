@@ -56,9 +56,12 @@ export interface ChordSet {
   chordsOrder: string[];
 }
 
+export type Theme = 'dark' | 'light';
+
 export interface AppState {
   activePattern: string | null;
   activeChord: string | null;
+  theme: Theme;
 }
 
 export interface StoreState {
@@ -96,11 +99,12 @@ class PO20Store extends EventTarget {
   constructor() {
     super();
     this.state = {
-      app: { activePattern: null, activeChord: null },
+      app: { activePattern: null, activeChord: null, theme: 'dark' },
       patterns: [],
       chords: []
     };
     this.load();
+    this._applyTheme();
   }
 
   load(): void {
@@ -109,7 +113,7 @@ class PO20Store extends EventTarget {
       if (serialized) {
         const parsed = JSON.parse(serialized);
         this.state = {
-          app: parsed.app || { activePattern: null, activeChord: null },
+          app: { activePattern: null, activeChord: null, theme: 'dark', ...(parsed.app || {}) },
           patterns: parsed.patterns || [],
           chords: parsed.chords || []
         };
@@ -117,6 +121,20 @@ class PO20Store extends EventTarget {
     } catch (e) {
       console.error("Failed to load state from localStorage:", e);
     }
+  }
+
+  _applyTheme(): void {
+    if (this.state.app.theme === 'light') {
+      document.body.setAttribute('data-theme', 'light');
+    } else {
+      document.body.removeAttribute('data-theme');
+    }
+  }
+
+  setTheme(theme: Theme): void {
+    this.state.app.theme = theme;
+    this._applyTheme();
+    this.save();
   }
 
   save(): void {

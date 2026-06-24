@@ -17,8 +17,8 @@ export class PO20App extends LitElement {
       display: flex;
       flex-direction: column;
       min-height: 100vh;
-      background: #121316;
-      color: #fff;
+      background: var(--bg-base);
+      color: var(--text-primary);
     }
 
     main {
