@@ -1,5 +1,12 @@
 import { LitElement, html, css, TemplateResult } from 'lit';
 import { store, ChordSet } from '../utils/store';
+import {
+  playChord,
+  startAudio,
+  suspendAudio,
+  isAudioActive,
+  registerAudioStateListener,
+} from '../utils/chord-synth';
 import './po20-lcd-screen';
 
 const AVAILABLE_CHORDS = [
@@ -12,11 +19,15 @@ const AVAILABLE_CHORDS = [
 export class PO20ChordEditor extends LitElement {
   static override properties = {
     activeChordSet: { type: Object },
-    chordsOrder: { type: Array }
+    chordsOrder: { type: Array },
+    audioActive: { type: Boolean },
   };
 
   activeChordSet!: ChordSet | null;
   chordsOrder!: string[];
+  audioActive!: boolean;
+
+  private _audioStateCleanup: (() => void) | null = null;
 
   static override styles = css`
     :host {
@@ -48,6 +59,54 @@ export class PO20ChordEditor extends LitElement {
       font-size: 36px;
       color: var(--accent);
       margin: 0;
+    }
+
+    /* Audio toggle button */
+    .audio-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: var(--bg-inset, #1a1b20);
+      border: 2px solid var(--border-subtle);
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      padding: 0;
+      flex-shrink: 0;
+    }
+    .audio-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      box-shadow: 0 0 8px rgba(255, 87, 34, 0.25);
+    }
+    .audio-btn.active {
+      background: rgba(255, 87, 34, 0.15);
+      border-color: #ff5722;
+      color: #ff5722;
+      box-shadow: 0 0 12px rgba(255, 87, 34, 0.35);
+    }
+    .audio-btn svg {
+      width: 18px;
+      height: 18px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* Audio status badge shown near the panel title */
+    .audio-hint {
+      font-size: 11px;
+      color: var(--text-dim);
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+    .audio-hint.on {
+      color: #ff5722;
     }
 
     /* Chord timeline/chain styling */
@@ -157,6 +216,7 @@ export class PO20ChordEditor extends LitElement {
         inset 0 2px 3px rgba(255, 255, 255, 0.1),
         0 4px 6px rgba(0, 0, 0, 0.4);
       user-select: none;
+      position: relative;
     }
 
     .po-button:hover {
@@ -175,6 +235,27 @@ export class PO20ChordEditor extends LitElement {
       box-shadow: 
         inset 0 2px 5px rgba(0,0,0,0.6),
         0 1px 2px rgba(0,0,0,0.4);
+    }
+
+    /* Small sound-wave indicator shown when audio is active */
+    .po-button .sound-dot {
+      display: none;
+      position: absolute;
+      bottom: 6px;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #ff5722;
+      box-shadow: 0 0 5px rgba(255,87,34,0.8);
+      animation: pulse-dot 1.2s ease-in-out infinite;
+    }
+    .audio-enabled .po-button .sound-dot {
+      display: block;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { transform: scale(1); opacity: 0.7; }
+      50% { transform: scale(1.4); opacity: 1; }
     }
 
     .btn-row {
@@ -229,11 +310,23 @@ export class PO20ChordEditor extends LitElement {
     super();
     this.activeChordSet = null;
     this.chordsOrder = [];
+    this.audioActive = isAudioActive();
   }
 
   override connectedCallback(): void {
     super.connectedCallback();
     this._loadChordSet();
+    this._audioStateCleanup = registerAudioStateListener((state) => {
+      this.audioActive = state === 'running';
+    });
+  }
+
+  override disconnectedCallback(): void {
+    super.disconnectedCallback();
+    if (this._audioStateCleanup) {
+      this._audioStateCleanup();
+      this._audioStateCleanup = null;
+    }
   }
 
   _loadChordSet(): void {
@@ -257,9 +350,34 @@ export class PO20ChordEditor extends LitElement {
         
         <div class="header-row">
           <h1 class="editor-title">${this.activeChordSet.name}</h1>
-          <button class="btn btn-secondary" @click="${this._goHome}">
-            &larr; Back
-          </button>
+          <div style="display:flex;gap:10px;align-items:center;">
+            <button
+              id="audio-toggle-btn"
+              class="audio-btn ${this.audioActive ? 'active' : ''}"
+              @click="${this._toggleAudio}"
+              title="${this.audioActive ? 'Mute audio' : 'Enable audio preview'}"
+              aria-pressed="${this.audioActive}"
+              aria-label="${this.audioActive ? 'Mute audio' : 'Enable audio preview'}"
+            >
+              ${this.audioActive
+                ? html`<!-- speaker on -->
+                  <svg viewBox="0 0 24 24">
+                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                    <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+                    <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                  </svg>`
+                : html`<!-- speaker off -->
+                  <svg viewBox="0 0 24 24">
+                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                    <line x1="23" y1="9" x2="17" y2="15"></line>
+                    <line x1="17" y1="9" x2="23" y2="15"></line>
+                  </svg>`
+              }
+            </button>
+            <button class="btn btn-secondary" @click="${this._goHome}">
+              &larr; Back
+            </button>
+          </div>
         </div>
 
         <!-- Custom retro LCD panel -->
@@ -286,13 +404,19 @@ export class PO20ChordEditor extends LitElement {
 
         <!-- PO Hardware-like 4x4 Grid of Chords -->
         <div class="po-panel">
-          <div style="font-size: 13px; color: #8a8d95; text-transform: uppercase; margin-bottom: 16px; letter-spacing: 1px;">
-            Chord Pad Selection (PO-20 Arcade Layout)
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+            <div style="font-size: 13px; color: #8a8d95; text-transform: uppercase; letter-spacing: 1px;">
+              Chord Pad Selection (PO-20 Arcade Layout)
+            </div>
+            <div class="audio-hint ${this.audioActive ? 'on' : ''}">
+              ${this.audioActive ? '🔊 Audio on — tap a pad to hear' : '🔇 Enable audio above to preview chords'}
+            </div>
           </div>
-          <div class="grid-4x4">
+          <div class="grid-4x4 ${this.audioActive ? 'audio-enabled' : ''}">
             ${AVAILABLE_CHORDS.map((chord) => html`
               <button class="po-button" @click="${() => this._addChord(chord)}">
                 ${chord}
+                <span class="sound-dot"></span>
               </button>
             `)}
           </div>
@@ -313,6 +437,11 @@ export class PO20ChordEditor extends LitElement {
   }
 
   _addChord(chord: string): void {
+    // Play the chord audio if audio context is active
+    if (this.audioActive) {
+      playChord(chord);
+    }
+
     this.chordsOrder = [...this.chordsOrder, chord];
     // Auto scroll timeline to right
     setTimeout(() => {
@@ -321,6 +450,16 @@ export class PO20ChordEditor extends LitElement {
         scrollEl.scrollLeft = scrollEl.scrollWidth;
       }
     }, 50);
+  }
+
+  async _toggleAudio(): Promise<void> {
+    if (this.audioActive) {
+      await suspendAudio();
+      this.audioActive = false;
+    } else {
+      await startAudio();
+      this.audioActive = isAudioActive();
+    }
   }
 
   _removeChord(index: number): void {
