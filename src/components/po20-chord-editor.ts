@@ -170,8 +170,19 @@ export class PO20ChordEditor extends LitElement {
     }
 
     .chord-pill .remove-icon {
-      font-size: 14px;
+      font-size: 16px;
       opacity: 0.7;
+      padding: 0 4px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+
+    .chord-pill .remove-icon:hover {
+      opacity: 1;
+      background: rgba(0, 0, 0, 0.2);
     }
 
     .empty-timeline {
@@ -390,11 +401,11 @@ export class PO20ChordEditor extends LitElement {
 
         <!-- Chords Timeline -->
         <div class="timeline-card">
-          <div class="timeline-title">Progression Chain (Click chord to remove)</div>
+          <div class="timeline-title">Progression Chain (Click chord to preview, × to remove)</div>
           <div class="timeline-scroll" id="timeline-scroll">
             ${this.chordsOrder.length > 0 ? this.chordsOrder.map((chord, index) => html`
-              <div class="chord-pill" @click="${() => this._removeChord(index)}">
-                ${chord} <span class="remove-icon">&times;</span>
+              <div class="chord-pill" @click="${() => this._playPreviewChord(chord)}">
+                ${chord} <span class="remove-icon" @click="${(e: Event) => this._removeChord(e, index)}">&times;</span>
               </div>
             `) : html`
               <span class="empty-timeline">Timeline empty. Click buttons below to construct a progression.</span>
@@ -462,7 +473,14 @@ export class PO20ChordEditor extends LitElement {
     }
   }
 
-  _removeChord(index: number): void {
+  _playPreviewChord(chord: string): void {
+    if (this.audioActive) {
+      playChord(chord);
+    }
+  }
+
+  _removeChord(e: Event, index: number): void {
+    e.stopPropagation();
     const nextChords = [...this.chordsOrder];
     nextChords.splice(index, 1);
     this.chordsOrder = nextChords;
