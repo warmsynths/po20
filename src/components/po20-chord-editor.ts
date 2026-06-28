@@ -147,7 +147,7 @@ export class PO20ChordEditor extends LitElement {
     }
 
     .chord-pill {
-      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
+      background: var(--accent);
       color: #fff;
       font-family: 'VT323', monospace;
       font-size: 20px;
@@ -163,8 +163,8 @@ export class PO20ChordEditor extends LitElement {
     }
 
     .chord-pill:hover {
-      background: #f44336;
-      border-color: #ffcdd2;
+      background: var(--accent-hover);
+      border-color: rgba(255, 255, 255, 0.4);
       transform: translateY(-1px);
     }
 
@@ -418,14 +418,6 @@ export class PO20ChordEditor extends LitElement {
 
           <!-- PO Hardware-like 4x4 Grid of Chords -->
           <div class="grid-section">
-            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
-              <div style="font-size: 13px; color: #8a8d95; text-transform: uppercase; letter-spacing: 1px;">
-                Chord Pad Selection (PO-20 Arcade Layout)
-              </div>
-              <div class="audio-hint ${this.audioActive ? 'on' : ''}">
-                ${this.audioActive ? '🔊 Audio on — tap a pad to hear' : '🔇 Enable audio above to preview chords'}
-              </div>
-            </div>
             <div class="grid-4x4 ${this.audioActive ? 'audio-enabled' : ''}">
               ${AVAILABLE_CHORDS.map((chord) => html`
                 <button class="po-button" @click="${() => this._addChord(chord)}">
