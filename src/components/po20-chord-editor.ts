@@ -80,13 +80,13 @@ export class PO20ChordEditor extends LitElement {
     .audio-btn:hover {
       border-color: var(--accent);
       color: var(--accent);
-      box-shadow: 0 0 8px rgba(255, 87, 34, 0.25);
+      box-shadow: 0 0 8px rgba(var(--accent-rgb), 0.25);
     }
     .audio-btn.active {
-      background: rgba(255, 87, 34, 0.15);
-      border-color: #ff5722;
-      color: #ff5722;
-      box-shadow: 0 0 12px rgba(255, 87, 34, 0.35);
+      background: rgba(var(--accent-rgb), 0.15);
+      border-color: var(--accent);
+      color: var(--accent);
+      box-shadow: 0 0 12px rgba(var(--accent-rgb), 0.35);
     }
     .audio-btn svg {
       width: 18px;
@@ -106,16 +106,12 @@ export class PO20ChordEditor extends LitElement {
       margin-bottom: 4px;
     }
     .audio-hint.on {
-      color: #ff5722;
+      color: var(--accent);
     }
 
     /* Chord timeline/chain styling */
-    .timeline-card {
-      background: var(--bg-surface);
-      border: 1px solid var(--border-subtle);
-      border-radius: 12px;
-      padding: 16px;
-      box-shadow: inset 0 2px 8px rgba(0,0,0,0.2);
+    .timeline-section {
+      /* flush container on the main panel */
     }
 
     .timeline-title {
@@ -130,9 +126,12 @@ export class PO20ChordEditor extends LitElement {
       display: flex;
       gap: 8px;
       overflow-x: auto;
-      padding-bottom: 8px;
+      padding: 12px;
       min-height: 50px;
       align-items: center;
+      background: var(--bg-inset);
+      border-radius: 8px;
+      box-shadow: inset 0 2px 5px rgba(0,0,0,0.2);
     }
 
     /* Scrollbar styling */
@@ -148,7 +147,7 @@ export class PO20ChordEditor extends LitElement {
     }
 
     .chord-pill {
-      background: linear-gradient(135deg, #ff5722 0%, #e64a19 100%);
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
       color: #fff;
       font-family: 'VT323', monospace;
       font-size: 20px;
@@ -191,13 +190,16 @@ export class PO20ChordEditor extends LitElement {
       font-style: italic;
     }
 
-    /* PO Hardware 4x4 Grid */
-    .po-panel {
+    /* PO Hardware Main Unit Panel */
+    .main-unit-panel {
       background: var(--bg-surface);
       border: 3px solid var(--border-subtle);
       border-radius: 16px;
-      padding: 20px;
+      padding: 24px;
       box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
     }
 
     .grid-4x4 {
@@ -231,18 +233,18 @@ export class PO20ChordEditor extends LitElement {
     }
 
     .po-button:hover {
-      border-color: #ff5722;
+      border-color: var(--accent);
       color: #fff;
       transform: translateY(-2px);
       box-shadow: 
         inset 0 2px 3px rgba(255, 255, 255, 0.15),
         0 8px 12px rgba(0, 0, 0, 0.5),
-        0 0 10px rgba(255, 87, 34, 0.3);
+        0 0 10px rgba(var(--accent-rgb), 0.3);
     }
 
     .po-button:active {
       transform: translateY(1px);
-      border-color: #ff7043;
+      border-color: var(--accent-hover);
       box-shadow: 
         inset 0 2px 5px rgba(0,0,0,0.6),
         0 1px 2px rgba(0,0,0,0.4);
@@ -256,8 +258,8 @@ export class PO20ChordEditor extends LitElement {
       width: 5px;
       height: 5px;
       border-radius: 50%;
-      background: #ff5722;
-      box-shadow: 0 0 5px rgba(255,87,34,0.8);
+      background: var(--accent);
+      box-shadow: 0 0 5px rgba(var(--accent-rgb),0.8);
       animation: pulse-dot 1.2s ease-in-out infinite;
     }
     .audio-enabled .po-button .sound-dot {
@@ -302,12 +304,12 @@ export class PO20ChordEditor extends LitElement {
     .btn-primary {
       background: var(--accent);
       color: #fff;
-      box-shadow: 0 4px 10px rgba(255, 87, 34, 0.3);
+      box-shadow: 0 4px 10px rgba(var(--accent-rgb), 0.3);
     }
 
     .btn-primary:hover {
       background: var(--accent-hover);
-      box-shadow: 0 6px 15px rgba(255, 87, 34, 0.4);
+      box-shadow: 0 6px 15px rgba(var(--accent-rgb), 0.4);
     }
 
     .btn svg {
@@ -391,55 +393,57 @@ export class PO20ChordEditor extends LitElement {
           </div>
         </div>
 
-        <!-- Custom retro LCD panel -->
-        <po20-lcd-screen
-          .titleText="${this.activeChordSet.name}"
-          subtitleText="CHORD PROGRESSION"
-          .paramA="${String(this.chordsOrder.length)}"
-          .paramB="${Number.isNaN(Number(lastChord)) ? 0 : Number(lastChord)}"
-        ></po20-lcd-screen>
+        <div class="main-unit-panel">
+          <!-- Custom retro LCD panel -->
+          <po20-lcd-screen
+            .titleText="${this.activeChordSet.name}"
+            subtitleText="CHORD PROGRESSION"
+            .paramA="${String(this.chordsOrder.length)}"
+            .paramB="${Number.isNaN(Number(lastChord)) ? 0 : Number(lastChord)}"
+          ></po20-lcd-screen>
 
-        <!-- Chords Timeline -->
-        <div class="timeline-card">
-          <div class="timeline-title">Progression Chain (Click chord to preview, × to remove)</div>
-          <div class="timeline-scroll" id="timeline-scroll">
-            ${this.chordsOrder.length > 0 ? this.chordsOrder.map((chord, index) => html`
-              <div class="chord-pill" @click="${() => this._playPreviewChord(chord)}">
-                ${chord} <span class="remove-icon" @click="${(e: Event) => this._removeChord(e, index)}">&times;</span>
+          <!-- Chords Timeline -->
+          <div class="timeline-section">
+            <div class="timeline-title">Progression Chain (Click chord to preview, × to remove)</div>
+            <div class="timeline-scroll" id="timeline-scroll">
+              ${this.chordsOrder.length > 0 ? this.chordsOrder.map((chord, index) => html`
+                <div class="chord-pill" @click="${() => this._playPreviewChord(chord)}">
+                  ${chord} <span class="remove-icon" @click="${(e: Event) => this._removeChord(e, index)}">&times;</span>
+                </div>
+              `) : html`
+                <span class="empty-timeline">Timeline empty. Click buttons below to construct a progression.</span>
+              `}
+            </div>
+          </div>
+
+          <!-- PO Hardware-like 4x4 Grid of Chords -->
+          <div class="grid-section">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+              <div style="font-size: 13px; color: #8a8d95; text-transform: uppercase; letter-spacing: 1px;">
+                Chord Pad Selection (PO-20 Arcade Layout)
               </div>
-            `) : html`
-              <span class="empty-timeline">Timeline empty. Click buttons below to construct a progression.</span>
-            `}
-          </div>
-        </div>
+              <div class="audio-hint ${this.audioActive ? 'on' : ''}">
+                ${this.audioActive ? '🔊 Audio on — tap a pad to hear' : '🔇 Enable audio above to preview chords'}
+              </div>
+            </div>
+            <div class="grid-4x4 ${this.audioActive ? 'audio-enabled' : ''}">
+              ${AVAILABLE_CHORDS.map((chord) => html`
+                <button class="po-button" @click="${() => this._addChord(chord)}">
+                  ${chord}
+                  <span class="sound-dot"></span>
+                </button>
+              `)}
+            </div>
 
-        <!-- PO Hardware-like 4x4 Grid of Chords -->
-        <div class="po-panel">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
-            <div style="font-size: 13px; color: #8a8d95; text-transform: uppercase; letter-spacing: 1px;">
-              Chord Pad Selection (PO-20 Arcade Layout)
-            </div>
-            <div class="audio-hint ${this.audioActive ? 'on' : ''}">
-              ${this.audioActive ? '🔊 Audio on — tap a pad to hear' : '🔇 Enable audio above to preview chords'}
-            </div>
-          </div>
-          <div class="grid-4x4 ${this.audioActive ? 'audio-enabled' : ''}">
-            ${AVAILABLE_CHORDS.map((chord) => html`
-              <button class="po-button" @click="${() => this._addChord(chord)}">
-                ${chord}
-                <span class="sound-dot"></span>
+            <div class="btn-row">
+              <button class="btn btn-secondary" @click="${this._clearAll}">
+                Clear All
               </button>
-            `)}
-          </div>
-
-          <div class="btn-row">
-            <button class="btn btn-secondary" @click="${this._clearAll}">
-              Clear All
-            </button>
-            <button class="btn btn-primary" @click="${this._save}">
-              <svg viewBox="0 0 24 24"><path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/></svg>
-              Save Progression
-            </button>
+              <button class="btn btn-primary" @click="${this._save}">
+                <svg viewBox="0 0 24 24"><path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/></svg>
+                Save Progression
+              </button>
+            </div>
           </div>
         </div>
 

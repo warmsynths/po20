@@ -38,9 +38,9 @@ export class PO20Landing extends LitElement {
     .hero-title {
       font-family: 'VT323', monospace;
       font-size: 48px;
-      color: #ff5722;
+      color: var(--accent);
       margin: 0 0 10px 0;
-      text-shadow: 0 0 10px rgba(255, 87, 34, 0.3);
+      text-shadow: 0 0 10px rgba(var(--accent-rgb), 0.3);
     }
 
     .hero-tagline {
@@ -100,13 +100,13 @@ export class PO20Landing extends LitElement {
       justify-content: center;
       cursor: pointer;
       transition: all 0.2s;
-      box-shadow: 0 2px 5px rgba(255, 87, 34, 0.3);
+      box-shadow: 0 2px 5px rgba(var(--accent-rgb), 0.3);
     }
 
     .add-btn:hover {
-      background: var(--accent-hover, #ff7043);
+      background: var(--accent-hover, var(--accent-hover));
       transform: translateY(-2px);
-      box-shadow: 0 4px 8px rgba(255, 87, 34, 0.4);
+      box-shadow: 0 4px 8px rgba(var(--accent-rgb), 0.4);
     }
 
     .add-btn svg {
@@ -195,8 +195,8 @@ export class PO20Landing extends LitElement {
     }
 
     .action-btn-delete:hover {
-      background: rgba(244, 67, 54, 0.15);
-      color: #f44336;
+      background: rgba(var(--accent-rgb), 0.15);
+      color: var(--accent);
     }
 
     .action-btn svg {

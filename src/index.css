@@ -20,8 +20,9 @@
   --text-muted:     #8a8d95;
   --text-dim:       #5a5d65;
 
-  --accent:         #ff5722;
-  --accent-hover:   #e64a19;
+  --accent:         #a855f7;
+  --accent-hover:   #9333ea;
+  --accent-rgb:     168, 85, 247;
 
   --scrollbar-track: #121316;
   --scrollbar-thumb: #2b2c32;
@@ -45,8 +46,9 @@ body[data-theme="light"] {
   --text-muted:     #6e6860;
   --text-dim:       #9e978c;
 
-  --accent:         #d94f1e;
-  --accent-hover:   #bf4218;
+  --accent:         #7e22ce;
+  --accent-hover:   #6b21a8;
+  --accent-rgb:     126, 34, 206;
 
   --scrollbar-track: #e8e2d8;
   --scrollbar-thumb: #c8c0b0;

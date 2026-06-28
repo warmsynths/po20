@@ -46,7 +46,7 @@ export class PO20Knob extends LitElement {
     }
 
     .knob-container:hover {
-      border-color: #ff5722;
+      border-color: var(--accent);
     }
 
     .knob-dial {
@@ -57,8 +57,8 @@ export class PO20Knob extends LitElement {
     }
 
     .indicator-dot {
-      fill: #ff5722;
-      filter: drop-shadow(0 0 2px rgba(255, 87, 34, 0.8));
+      fill: var(--accent);
+      filter: drop-shadow(0 0 2px rgba(var(--accent-rgb), 0.8));
     }
 
     .label {

@@ -119,18 +119,18 @@ export class PO20PatternEditor extends LitElement {
     }
 
     .po-button:hover {
-      border-color: #ff5722;
+      border-color: var(--accent);
       color: #fff;
       transform: translateY(-2px);
       box-shadow: 
         inset 0 2px 3px rgba(255, 255, 255, 0.15),
         0 8px 12px rgba(0, 0, 0, 0.5),
-        0 0 10px rgba(255, 87, 34, 0.3);
+        0 0 10px rgba(var(--accent-rgb), 0.3);
     }
 
     .po-button:active {
       transform: translateY(1px);
-      border-color: #ff7043;
+      border-color: var(--accent-hover);
       box-shadow: 
         inset 0 2px 5px rgba(0,0,0,0.6),
         0 1px 2px rgba(0,0,0,0.4);
@@ -180,9 +180,9 @@ export class PO20PatternEditor extends LitElement {
     }
 
     .led-indicator.selected {
-      background: #ff5722;
+      background: var(--accent);
       box-shadow: 
-        0 0 8px #ff5722,
+        0 0 8px var(--accent),
         inset 0 1px 1px rgba(255,255,255,0.8);
     }
 
@@ -190,7 +190,7 @@ export class PO20PatternEditor extends LitElement {
       position: absolute;
       bottom: 4px;
       right: 8px;
-      background: #ff5722;
+      background: var(--accent);
       color: #fff;
       font-size: 9px;
       font-weight: bold;
@@ -252,22 +252,22 @@ export class PO20PatternEditor extends LitElement {
     .btn-primary {
       background: var(--accent);
       color: #fff;
-      box-shadow: 0 4px 10px rgba(255, 87, 34, 0.3);
+      box-shadow: 0 4px 10px rgba(var(--accent-rgb), 0.3);
     }
 
     .btn-primary:hover {
       background: var(--accent-hover);
-      box-shadow: 0 6px 15px rgba(255, 87, 34, 0.4);
+      box-shadow: 0 6px 15px rgba(var(--accent-rgb), 0.4);
     }
 
     .btn-danger {
-      background: rgba(244, 67, 54, 0.15);
-      color: #f44336;
-      border: 1px solid rgba(244, 67, 54, 0.3);
+      background: rgba(var(--accent-rgb), 0.15);
+      color: var(--accent);
+      border: 1px solid rgba(var(--accent-rgb), 0.3);
     }
 
     .btn-danger:hover {
-      background: #f44336;
+      background: var(--accent);
       color: #fff;
     }
 

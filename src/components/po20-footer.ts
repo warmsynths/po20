@@ -49,7 +49,7 @@ export class PO20Footer extends LitElement {
     }
 
     .github-link:hover {
-      color: var(--accent-hover, #ff7043);
+      color: var(--accent-hover, var(--accent-hover));
       text-decoration: underline;
     }
   `;
