@@ -40,13 +40,28 @@ export class PO20Footer extends LitElement {
       text-transform: uppercase;
       letter-spacing: 1.5px;
     }
+
+    .github-link {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.2s;
+    }
+
+    .github-link:hover {
+      color: var(--accent-hover, #ff7043);
+      text-decoration: underline;
+    }
   `;
 
   override render(): TemplateResult {
     return html`
       <div class="footer-content">
         <img src="${POimage}" alt="PO-20 Arcade Hardware Layout" />
-        <div class="copyright">PO-20 Arcade Companion • TE Inspired</div>
+        <div class="copyright">
+          PO-20 Arcade Companion • TE Inspired • 
+          <a href="https://github.com/warmsynths/po20" target="_blank" class="github-link">Developed by warmsynths</a>
+        </div>
       </div>
     `;
   }

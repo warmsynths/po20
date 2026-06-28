@@ -3,7 +3,6 @@ import { store, Theme } from '../utils/store';
 
 export class PO20Header extends LitElement {
   static override properties = {
-    isDrawerOpen: { type: Boolean },
     showPatternModal: { type: Boolean },
     showChordModal: { type: Boolean },
     newPatternName: { type: String },
@@ -11,7 +10,6 @@ export class PO20Header extends LitElement {
     currentTheme: { type: String }
   };
 
-  isDrawerOpen!: boolean;
   showPatternModal!: boolean;
   showChordModal!: boolean;
   newPatternName!: string;
@@ -46,28 +44,10 @@ export class PO20Header extends LitElement {
       gap: 12px;
     }
 
-    .menu-btn {
-      background: transparent;
-      border: none;
-      color: var(--text-primary);
-      cursor: pointer;
-      width: 40px;
-      height: 40px;
-      border-radius: 8px;
+    .header-actions {
       display: flex;
       align-items: center;
-      justify-content: center;
-      transition: background-color 0.2s;
-    }
-
-    .menu-btn:hover {
-      background: var(--border-subtle);
-    }
-
-    .menu-btn svg {
-      width: 24px;
-      height: 24px;
-      fill: currentColor;
+      gap: 16px;
     }
 
     .logo {
@@ -79,129 +59,7 @@ export class PO20Header extends LitElement {
       letter-spacing: 1px;
     }
 
-    /* Sliding Drawer Menu */
-    .drawer-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(4px);
-      z-index: 200;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-    }
-
-    .drawer-overlay.open {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .drawer {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 280px;
-      height: 100%;
-      background: var(--bg-surface-alt);
-      box-shadow: 5px 0 25px rgba(0,0,0,0.4);
-      z-index: 201;
-      transform: translateX(-100%);
-      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s ease;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .drawer-overlay.open .drawer {
-      transform: translateX(0);
-    }
-
-    .drawer-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 16px;
-      border-bottom: 1px solid var(--border-subtle);
-    }
-
-    .drawer-title {
-      font-family: 'VT323', monospace;
-      font-size: 24px;
-      color: var(--accent);
-      margin: 0;
-    }
-
-    .close-btn {
-      background: transparent;
-      border: none;
-      color: var(--text-muted);
-      cursor: pointer;
-      font-size: 24px;
-      padding: 4px;
-      border-radius: 4px;
-      transition: color 0.2s, background 0.2s;
-    }
-
-    .close-btn:hover {
-      color: var(--text-primary);
-      background: var(--border-subtle);
-    }
-
-    .nav-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-
-    .nav-item {
-      border-bottom: 1px solid var(--border-faint);
-    }
-
-    .nav-link {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 16px 20px;
-      color: var(--text-secondary);
-      text-decoration: none;
-      font-size: 16px;
-      transition: all 0.2s;
-      cursor: pointer;
-    }
-
-    .nav-link:hover {
-      color: var(--accent);
-      background: var(--bg-row-hover);
-      padding-left: 24px;
-    }
-
-    .nav-link svg {
-      width: 20px;
-      height: 20px;
-      fill: currentColor;
-    }
-
-    .divider {
-      height: 1px;
-      background: var(--border-subtle);
-      margin: 16px 0;
-    }
-
     /* ---- Theme Toggle ---- */
-    .theme-section {
-      padding: 16px 20px;
-      border-top: 1px solid var(--border-subtle);
-    }
-
-    .theme-label {
-      font-size: 12px;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 10px;
-    }
 
     .theme-toggle {
       display: flex;
@@ -259,14 +117,7 @@ export class PO20Header extends LitElement {
       transform: translateX(22px);
     }
 
-    /* ---- Donate Container ---- */
-    .donate-container {
-      padding: 20px;
-      margin-top: auto;
-      text-align: center;
-      background: var(--bg-inset);
-      border-top: 1px solid var(--border-mid);
-    }
+
 
     /* Modals for creating new elements */
     .modal-overlay {
@@ -381,7 +232,6 @@ export class PO20Header extends LitElement {
 
   constructor() {
     super();
-    this.isDrawerOpen = false;
     this.showPatternModal = false;
     this.showChordModal = false;
     this.newPatternName = '';
@@ -409,93 +259,29 @@ export class PO20Header extends LitElement {
     return html`
       <header>
         <div class="brand-section">
-          <button class="menu-btn" @click="${this._openDrawer}" aria-label="Open menu">
-            <svg viewBox="0 0 24 24">
-              <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
-            </svg>
-          </button>
           <a href="#/" class="logo">PO-20 ARCADE</a>
         </div>
-      </header>
-
-      <!-- Navigation Drawer -->
-      <div class="drawer-overlay ${this.isDrawerOpen ? 'open' : ''}" @click="${this._closeDrawer}">
-        <div class="drawer" @click="${(e: Event) => e.stopPropagation()}">
-          <div class="drawer-header">
-            <h2 class="drawer-title">MENU</h2>
-            <button class="close-btn" @click="${this._closeDrawer}">&times;</button>
-          </div>
-          
-          <ul class="nav-list">
-            <li class="nav-item">
-              <a href="#/" class="nav-link" @click="${this._closeDrawer}">
-                <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
-                Dashboard
-              </a>
-            </li>
-            
-            <div class="divider"></div>
-
-            <li class="nav-item">
-              <div class="nav-link" @click="${this._openPatternModal}">
-                <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
-                New Pattern
-              </div>
-            </li>
-            <li class="nav-item">
-              <a href="#/patterns" class="nav-link" @click="${this._closeDrawer}">
-                <svg viewBox="0 0 24 24"><path d="M4 10.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm0 6c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm0-12c-.83 0-1.5-.67-1.5-1.5S3.17 1.5 4 1.5 5.5 2.17 5.5 3 4.83 4 4 4zm4-.5h14v3H8v-3zm0 6h14v3H8v-3zm0 6h14v3H8v-3z"/></svg>
-                Pattern Bank
-              </a>
-            </li>
-
-            <div class="divider"></div>
-
-            <li class="nav-item">
-              <div class="nav-link" @click="${this._openChordModal}">
-                <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
-                New Chord progression
-              </div>
-            </li>
-            <li class="nav-item">
-              <a href="#/chords" class="nav-link" @click="${this._closeDrawer}">
-                <svg viewBox="0 0 24 24"><path d="M4 10.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm0 6c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm0-12c-.83 0-1.5-.67-1.5-1.5S3.17 1.5 4 1.5 5.5 2.17 5.5 3 4.83 4 4 4zm4-.5h14v3H8v-3zm0 6h14v3H8v-3zm0 6h14v3H8v-3z"/></svg>
-                Chord sets list
-              </a>
-            </li>
-          </ul>
-
-          <!-- Theme Toggle -->
-          <div class="theme-section">
-            <div class="theme-label">Appearance</div>
-            <div class="theme-toggle">
-              <!-- Moon icon (dark) -->
-              <span class="theme-icon ${!isLight ? 'active' : ''}">
-                <svg viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-2.98 0-5.4-2.42-5.4-5.4 0-1.81.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z"/></svg>
-              </span>
-              <button
-                class="toggle-pill ${isLight ? 'light-active' : ''}"
-                @click="${this._toggleTheme}"
-                aria-label="Toggle light/dark mode"
-                aria-pressed="${isLight}"
-              >
-                <div class="toggle-knob"></div>
-              </button>
-              <!-- Sun icon (light) -->
-              <span class="theme-icon ${isLight ? 'active' : ''}">
-                <svg viewBox="0 0 24 24"><path d="M6.76 4.84l-1.8-1.79-1.41 1.41 1.79 1.79 1.42-1.41zM4 11H1v2h3v-2zm9-9h-2v2.99h2V2zm7.45 3.91l-1.41-1.41-1.79 1.79 1.41 1.41 1.79-1.79zM20 11v2h3v-2h-3zm-8-2a4 4 0 1 0 0 8 4 4 0 0 0 0-8zm-1 13h2v-3h-2v3zm-7.45-3.91l1.79-1.79-1.41-1.41-1.79 1.79 1.41 1.41z"/></svg>
-              </span>
-            </div>
-          </div>
-
-          <!-- GitHub Link (styled) -->
-          <div class="donate-container">
-            <a href="https://github.com/warmsynths/po20" target="_blank" class="btn btn-secondary" style="font-size: 13px; width: 100%; display: block; text-decoration: none; box-sizing: border-box; text-align: center;">
-              Developed by warmsynths
-            </a>
+        <div class="header-actions">
+          <div class="theme-toggle">
+            <!-- Moon icon (dark) -->
+            <span class="theme-icon ${!isLight ? 'active' : ''}">
+              <svg viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-2.98 0-5.4-2.42-5.4-5.4 0-1.81.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z"/></svg>
+            </span>
+            <button
+              class="toggle-pill ${isLight ? 'light-active' : ''}"
+              @click="${this._toggleTheme}"
+              aria-label="Toggle light/dark mode"
+              aria-pressed="${isLight}"
+            >
+              <div class="toggle-knob"></div>
+            </button>
+            <!-- Sun icon (light) -->
+            <span class="theme-icon ${isLight ? 'active' : ''}">
+              <svg viewBox="0 0 24 24"><path d="M6.76 4.84l-1.8-1.79-1.41 1.41 1.79 1.79 1.42-1.41zM4 11H1v2h3v-2zm9-9h-2v2.99h2V2zm7.45 3.91l-1.41-1.41-1.79 1.79 1.41 1.41 1.79-1.79zM20 11v2h3v-2h-3zm-8-2a4 4 0 1 0 0 8 4 4 0 0 0 0-8zm-1 13h2v-3h-2v3zm-7.45-3.91l1.79-1.79-1.41-1.41-1.79 1.79 1.41 1.41z"/></svg>
+            </span>
           </div>
         </div>
-      </div>
+      </header>
 
       <!-- New Pattern Dialog Modal -->
       <div class="modal-overlay ${this.showPatternModal ? 'open' : ''}" @click="${this._closePatternModal}">
@@ -547,16 +333,7 @@ export class PO20Header extends LitElement {
     `;
   }
 
-  _openDrawer(): void {
-    this.isDrawerOpen = true;
-  }
-
-  _closeDrawer(): void {
-    this.isDrawerOpen = false;
-  }
-
   _openPatternModal(): void {
-    this.isDrawerOpen = false;
     this.newPatternName = '';
     this.showPatternModal = true;
     setTimeout(() => {
@@ -569,7 +346,6 @@ export class PO20Header extends LitElement {
   }
 
   _openChordModal(): void {
-    this.isDrawerOpen = false;
     this.newChordName = '';
     this.showChordModal = true;
     setTimeout(() => {

@@ -51,59 +51,6 @@ export class PO20Landing extends LitElement {
       line-height: 1.5;
     }
 
-    .action-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-      margin-bottom: 20px;
-    }
-
-    .action-card {
-      background: linear-gradient(135deg, var(--bg-surface) 0%, var(--bg-surface-alt) 100%);
-      border: 2px solid var(--border-subtle);
-      border-radius: 12px;
-      padding: 24px;
-      text-align: center;
-      cursor: pointer;
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    }
-
-    .action-card:hover {
-      transform: translateY(-4px);
-      border-color: var(--accent);
-      box-shadow: 0 10px 20px rgba(0,0,0,0.3), 0 0 8px rgba(255, 87, 34, 0.2);
-    }
-
-    .action-card svg {
-      width: 48px;
-      height: 48px;
-      fill: var(--accent);
-      transition: transform 0.3s ease;
-    }
-
-    .action-card:hover svg {
-      transform: scale(1.1) rotate(90deg);
-    }
-
-    .action-card h3 {
-      font-family: 'VT323', monospace;
-      font-size: 28px;
-      margin: 0;
-      letter-spacing: 0.5px;
-    }
-
-    .action-card p {
-      font-size: 14px;
-      color: var(--text-muted);
-      margin: 0;
-      line-height: 1.4;
-    }
-
     .list-section-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
@@ -129,9 +76,43 @@ export class PO20Landing extends LitElement {
       align-items: center;
     }
 
-    .list-card h2 span {
+    .list-card h2 .header-info {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+    }
+
+    .list-card h2 span.count {
       font-size: 16px;
       color: var(--text-dim);
+      font-family: sans-serif;
+    }
+
+    .add-btn {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 2px 5px rgba(255, 87, 34, 0.3);
+    }
+
+    .add-btn:hover {
+      background: var(--accent-hover, #ff7043);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(255, 87, 34, 0.4);
+    }
+
+    .add-btn svg {
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
     }
 
     .items-list {
@@ -278,30 +259,17 @@ export class PO20Landing extends LitElement {
           </p>
         </div>
 
-        <!-- Create Cards -->
-        <div class="action-grid">
-          <div class="action-card" @click="${this._triggerNewPattern}">
-            <svg viewBox="0 0 24 24">
-              <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
-            </svg>
-            <h3>NEW PATTERN</h3>
-            <p>Design a 16-step pattern, toggling triggers and automation parameters across 16 retro arcade sounds.</p>
-          </div>
-          <div class="action-card" @click="${this._triggerNewChords}">
-            <svg viewBox="0 0 24 24">
-              <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
-            </svg>
-            <h3>NEW CHORD SET</h3>
-            <p>Construct a song progression using the 16 chord options available on the PO-20 Arcade hardware.</p>
-          </div>
-        </div>
-
         <!-- Lists Container -->
         <div class="list-section-grid">
           
           <!-- Patterns Column -->
           <div class="list-card">
-            <h2>Patterns <span>(${this.patterns.length})</span></h2>
+            <h2>
+              <div class="header-info">Patterns <span class="count">(${this.patterns.length})</span></div>
+              <button class="add-btn" @click="${this._triggerNewPattern}" title="New Pattern">
+                <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+              </button>
+            </h2>
             
             ${this.patterns.length > 0 ? html`
               <div class="items-list">
@@ -325,14 +293,19 @@ export class PO20Landing extends LitElement {
             ` : html`
               <div class="empty-state">
                 <svg viewBox="0 0 24 24"><path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
-                <div>No patterns saved yet. Click "New Pattern" above to create one.</div>
+                <div>No patterns saved yet. Click the + button above to create one.</div>
               </div>
             `}
           </div>
 
           <!-- Chords Column -->
           <div class="list-card">
-            <h2>Chords <span>(${this.chords.length})</span></h2>
+            <h2>
+              <div class="header-info">Chords <span class="count">(${this.chords.length})</span></div>
+              <button class="add-btn" @click="${this._triggerNewChords}" title="New Chord Set">
+                <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+              </button>
+            </h2>
             
             ${this.chords.length > 0 ? html`
               <div class="items-list">
@@ -356,7 +329,7 @@ export class PO20Landing extends LitElement {
             ` : html`
               <div class="empty-state">
                 <svg viewBox="0 0 24 24"><path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
-                <div>No chord sets saved yet. Click "New Chord Set" above to create one.</div>
+                <div>No chord sets saved yet. Click the + button above to create one.</div>
               </div>
             `}
           </div>
