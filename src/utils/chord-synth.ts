@@ -65,7 +65,7 @@ function midi(note: number, octave: number): number {
   return (octave + 1) * 12 + note;
 }
 
-const C = 0, Cs = 1, D = 2, Ds = 3, E = 4, F = 5, Fs = 6, G = 7, Gs = 8, A = 9, As = 10, B = 11; // eslint-disable-line @typescript-eslint/no-unused-vars
+const C = 0, Cs = 1, D = 2, Ds = 3, E = 4, F = 5, Fs = 6, G = 7, Gs = 8, A = 9, B = 11; // eslint-disable-line @typescript-eslint/no-unused-vars
 
 /**
  * Map from the po20 chord IDs (as they appear in AVAILABLE_CHORDS) to
