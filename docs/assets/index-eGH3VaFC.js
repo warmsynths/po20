@@ -2,110 +2,46 @@
  * @license
  * Copyright 2019 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
- */const K=globalThis,_t=K.ShadowRoot&&(K.ShadyCSS===void 0||K.ShadyCSS.nativeShadow)&&"adoptedStyleSheets"in Document.prototype&&"replace"in CSSStyleSheet.prototype,At=Symbol(),kt=new WeakMap;let Yt=class{constructor(t,e,i){if(this._$cssResult$=!0,i!==At)throw Error("CSSResult is not constructable. Use `unsafeCSS` or `css` instead.");this.cssText=t,this.t=e}get styleSheet(){let t=this.o;const e=this.t;if(_t&&t===void 0){const i=e!==void 0&&e.length===1;i&&(t=kt.get(e)),t===void 0&&((this.o=t=new CSSStyleSheet).replaceSync(this.cssText),i&&kt.set(e,t))}return t}toString(){return this.cssText}};const Xt=n=>new Yt(typeof n=="string"?n:n+"",void 0,At),C=(n,...t)=>{const e=n.length===1?n[0]:t.reduce((i,r,s)=>i+(a=>{if(a._$cssResult$===!0)return a.cssText;if(typeof a=="number")return a;throw Error("Value passed to 'css' function must be a 'css' function result: "+a+". Use 'unsafeCSS' to pass non-literal values, but take care to ensure page security.")})(r)+n[s+1],n[0]);return new Yt(e,n,At)},te=(n,t)=>{if(_t)n.adoptedStyleSheets=t.map(e=>e instanceof CSSStyleSheet?e:e.styleSheet);else for(const e of t){const i=document.createElement("style"),r=K.litNonce;r!==void 0&&i.setAttribute("nonce",r),i.textContent=e.cssText,n.appendChild(i)}},Et=_t?n=>n:n=>n instanceof CSSStyleSheet?(t=>{let e="";for(const i of t.cssRules)e+=i.cssText;return Xt(e)})(n):n;/**
+ */const K=globalThis,_t=K.ShadowRoot&&(K.ShadyCSS===void 0||K.ShadyCSS.nativeShadow)&&"adoptedStyleSheets"in Document.prototype&&"replace"in CSSStyleSheet.prototype,At=Symbol(),kt=new WeakMap;let Yt=class{constructor(t,e,i){if(this._$cssResult$=!0,i!==At)throw Error("CSSResult is not constructable. Use `unsafeCSS` or `css` instead.");this.cssText=t,this.t=e}get styleSheet(){let t=this.o;const e=this.t;if(_t&&t===void 0){const i=e!==void 0&&e.length===1;i&&(t=kt.get(e)),t===void 0&&((this.o=t=new CSSStyleSheet).replaceSync(this.cssText),i&&kt.set(e,t))}return t}toString(){return this.cssText}};const Xt=n=>new Yt(typeof n=="string"?n:n+"",void 0,At),S=(n,...t)=>{const e=n.length===1?n[0]:t.reduce((i,r,s)=>i+(a=>{if(a._$cssResult$===!0)return a.cssText;if(typeof a=="number")return a;throw Error("Value passed to 'css' function must be a 'css' function result: "+a+". Use 'unsafeCSS' to pass non-literal values, but take care to ensure page security.")})(r)+n[s+1],n[0]);return new Yt(e,n,At)},te=(n,t)=>{if(_t)n.adoptedStyleSheets=t.map(e=>e instanceof CSSStyleSheet?e:e.styleSheet);else for(const e of t){const i=document.createElement("style"),r=K.litNonce;r!==void 0&&i.setAttribute("nonce",r),i.textContent=e.cssText,n.appendChild(i)}},Et=_t?n=>n:n=>n instanceof CSSStyleSheet?(t=>{let e="";for(const i of t.cssRules)e+=i.cssText;return Xt(e)})(n):n;/**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
- */const{is:ee,defineProperty:ie,getOwnPropertyDescriptor:re,getOwnPropertyNames:ne,getOwnPropertySymbols:se,getPrototypeOf:ae}=Object,A=globalThis,Pt=A.trustedTypes,oe=Pt?Pt.emptyScript:"",st=A.reactiveElementPolyfillSupport,V=(n,t)=>n,pt={toAttribute(n,t){switch(t){case Boolean:n=n?oe:null;break;case Object:case Array:n=n==null?n:JSON.stringify(n)}return n},fromAttribute(n,t){let e=n;switch(t){case Boolean:e=n!==null;break;case Number:e=n===null?null:Number(n);break;case Object:case Array:try{e=JSON.parse(n)}catch{e=null}}return e}},qt=(n,t)=>!ee(n,t),Tt={attribute:!0,type:String,converter:pt,reflect:!1,useDefault:!1,hasChanged:qt};Symbol.metadata??(Symbol.metadata=Symbol("metadata")),A.litPropertyMetadata??(A.litPropertyMetadata=new WeakMap);let z=class extends HTMLElement{static addInitializer(t){this._$Ei(),(this.l??(this.l=[])).push(t)}static get observedAttributes(){return this.finalize(),this._$Eh&&[...this._$Eh.keys()]}static createProperty(t,e=Tt){if(e.state&&(e.attribute=!1),this._$Ei(),this.prototype.hasOwnProperty(t)&&((e=Object.create(e)).wrapped=!0),this.elementProperties.set(t,e),!e.noAccessor){const i=Symbol(),r=this.getPropertyDescriptor(t,i,e);r!==void 0&&ie(this.prototype,t,r)}}static getPropertyDescriptor(t,e,i){const{get:r,set:s}=re(this.prototype,t)??{get(){return this[e]},set(a){this[e]=a}};return{get:r,set(a){const h=r==null?void 0:r.call(this);s==null||s.call(this,a),this.requestUpdate(t,h,i)},configurable:!0,enumerable:!0}}static getPropertyOptions(t){return this.elementProperties.get(t)??Tt}static _$Ei(){if(this.hasOwnProperty(V("elementProperties")))return;const t=ae(this);t.finalize(),t.l!==void 0&&(this.l=[...t.l]),this.elementProperties=new Map(t.elementProperties)}static finalize(){if(this.hasOwnProperty(V("finalized")))return;if(this.finalized=!0,this._$Ei(),this.hasOwnProperty(V("properties"))){const e=this.properties,i=[...ne(e),...se(e)];for(const r of i)this.createProperty(r,e[r])}const t=this[Symbol.metadata];if(t!==null){const e=litPropertyMetadata.get(t);if(e!==void 0)for(const[i,r]of e)this.elementProperties.set(i,r)}this._$Eh=new Map;for(const[e,i]of this.elementProperties){const r=this._$Eu(e,i);r!==void 0&&this._$Eh.set(r,e)}this.elementStyles=this.finalizeStyles(this.styles)}static finalizeStyles(t){const e=[];if(Array.isArray(t)){const i=new Set(t.flat(1/0).reverse());for(const r of i)e.unshift(Et(r))}else t!==void 0&&e.push(Et(t));return e}static _$Eu(t,e){const i=e.attribute;return i===!1?void 0:typeof i=="string"?i:typeof t=="string"?t.toLowerCase():void 0}constructor(){super(),this._$Ep=void 0,this.isUpdatePending=!1,this.hasUpdated=!1,this._$Em=null,this._$Ev()}_$Ev(){var t;this._$ES=new Promise(e=>this.enableUpdating=e),this._$AL=new Map,this._$E_(),this.requestUpdate(),(t=this.constructor.l)==null||t.forEach(e=>e(this))}addController(t){var e;(this._$EO??(this._$EO=new Set)).add(t),this.renderRoot!==void 0&&this.isConnected&&((e=t.hostConnected)==null||e.call(t))}removeController(t){var e;(e=this._$EO)==null||e.delete(t)}_$E_(){const t=new Map,e=this.constructor.elementProperties;for(const i of e.keys())this.hasOwnProperty(i)&&(t.set(i,this[i]),delete this[i]);t.size>0&&(this._$Ep=t)}createRenderRoot(){const t=this.shadowRoot??this.attachShadow(this.constructor.shadowRootOptions);return te(t,this.constructor.elementStyles),t}connectedCallback(){var t;this.renderRoot??(this.renderRoot=this.createRenderRoot()),this.enableUpdating(!0),(t=this._$EO)==null||t.forEach(e=>{var i;return(i=e.hostConnected)==null?void 0:i.call(e)})}enableUpdating(t){}disconnectedCallback(){var t;(t=this._$EO)==null||t.forEach(e=>{var i;return(i=e.hostDisconnected)==null?void 0:i.call(e)})}attributeChangedCallback(t,e,i){this._$AK(t,i)}_$ET(t,e){var s;const i=this.constructor.elementProperties.get(t),r=this.constructor._$Eu(t,i);if(r!==void 0&&i.reflect===!0){const a=(((s=i.converter)==null?void 0:s.toAttribute)!==void 0?i.converter:pt).toAttribute(e,i.type);this._$Em=t,a==null?this.removeAttribute(r):this.setAttribute(r,a),this._$Em=null}}_$AK(t,e){var s,a;const i=this.constructor,r=i._$Eh.get(t);if(r!==void 0&&this._$Em!==r){const h=i.getPropertyOptions(r),o=typeof h.converter=="function"?{fromAttribute:h.converter}:((s=h.converter)==null?void 0:s.fromAttribute)!==void 0?h.converter:pt;this._$Em=r;const l=o.fromAttribute(e,h.type);this[r]=l??((a=this._$Ej)==null?void 0:a.get(r))??l,this._$Em=null}}requestUpdate(t,e,i,r=!1,s){var a;if(t!==void 0){const h=this.constructor;if(r===!1&&(s=this[t]),i??(i=h.getPropertyOptions(t)),!((i.hasChanged??qt)(s,e)||i.useDefault&&i.reflect&&s===((a=this._$Ej)==null?void 0:a.get(t))&&!this.hasAttribute(h._$Eu(t,i))))return;this.C(t,e,i)}this.isUpdatePending===!1&&(this._$ES=this._$EP())}C(t,e,{useDefault:i,reflect:r,wrapped:s},a){i&&!(this._$Ej??(this._$Ej=new Map)).has(t)&&(this._$Ej.set(t,a??e??this[t]),s!==!0||a!==void 0)||(this._$AL.has(t)||(this.hasUpdated||i||(e=void 0),this._$AL.set(t,e)),r===!0&&this._$Em!==t&&(this._$Eq??(this._$Eq=new Set)).add(t))}async _$EP(){this.isUpdatePending=!0;try{await this._$ES}catch(e){Promise.reject(e)}const t=this.scheduleUpdate();return t!=null&&await t,!this.isUpdatePending}scheduleUpdate(){return this.performUpdate()}performUpdate(){var i;if(!this.isUpdatePending)return;if(!this.hasUpdated){if(this.renderRoot??(this.renderRoot=this.createRenderRoot()),this._$Ep){for(const[s,a]of this._$Ep)this[s]=a;this._$Ep=void 0}const r=this.constructor.elementProperties;if(r.size>0)for(const[s,a]of r){const{wrapped:h}=a,o=this[s];h!==!0||this._$AL.has(s)||o===void 0||this.C(s,void 0,a,o)}}let t=!1;const e=this._$AL;try{t=this.shouldUpdate(e),t?(this.willUpdate(e),(i=this._$EO)==null||i.forEach(r=>{var s;return(s=r.hostUpdate)==null?void 0:s.call(r)}),this.update(e)):this._$EM()}catch(r){throw t=!1,this._$EM(),r}t&&this._$AE(e)}willUpdate(t){}_$AE(t){var e;(e=this._$EO)==null||e.forEach(i=>{var r;return(r=i.hostUpdated)==null?void 0:r.call(i)}),this.hasUpdated||(this.hasUpdated=!0,this.firstUpdated(t)),this.updated(t)}_$EM(){this._$AL=new Map,this.isUpdatePending=!1}get updateComplete(){return this.getUpdateComplete()}getUpdateComplete(){return this._$ES}shouldUpdate(t){return!0}update(t){this._$Eq&&(this._$Eq=this._$Eq.forEach(e=>this._$ET(e,this[e]))),this._$EM()}updated(t){}firstUpdated(t){}};z.elementStyles=[],z.shadowRootOptions={mode:"open"},z[V("elementProperties")]=new Map,z[V("finalized")]=new Map,st==null||st({ReactiveElement:z}),(A.reactiveElementVersions??(A.reactiveElementVersions=[])).push("2.1.2");/**
+ */const{is:ee,defineProperty:ie,getOwnPropertyDescriptor:re,getOwnPropertyNames:ne,getOwnPropertySymbols:se,getPrototypeOf:ae}=Object,A=globalThis,Pt=A.trustedTypes,oe=Pt?Pt.emptyScript:"",st=A.reactiveElementPolyfillSupport,U=(n,t)=>n,pt={toAttribute(n,t){switch(t){case Boolean:n=n?oe:null;break;case Object:case Array:n=n==null?n:JSON.stringify(n)}return n},fromAttribute(n,t){let e=n;switch(t){case Boolean:e=n!==null;break;case Number:e=n===null?null:Number(n);break;case Object:case Array:try{e=JSON.parse(n)}catch{e=null}}return e}},qt=(n,t)=>!ee(n,t),Tt={attribute:!0,type:String,converter:pt,reflect:!1,useDefault:!1,hasChanged:qt};Symbol.metadata??(Symbol.metadata=Symbol("metadata")),A.litPropertyMetadata??(A.litPropertyMetadata=new WeakMap);let N=class extends HTMLElement{static addInitializer(t){this._$Ei(),(this.l??(this.l=[])).push(t)}static get observedAttributes(){return this.finalize(),this._$Eh&&[...this._$Eh.keys()]}static createProperty(t,e=Tt){if(e.state&&(e.attribute=!1),this._$Ei(),this.prototype.hasOwnProperty(t)&&((e=Object.create(e)).wrapped=!0),this.elementProperties.set(t,e),!e.noAccessor){const i=Symbol(),r=this.getPropertyDescriptor(t,i,e);r!==void 0&&ie(this.prototype,t,r)}}static getPropertyDescriptor(t,e,i){const{get:r,set:s}=re(this.prototype,t)??{get(){return this[e]},set(a){this[e]=a}};return{get:r,set(a){const d=r==null?void 0:r.call(this);s==null||s.call(this,a),this.requestUpdate(t,d,i)},configurable:!0,enumerable:!0}}static getPropertyOptions(t){return this.elementProperties.get(t)??Tt}static _$Ei(){if(this.hasOwnProperty(U("elementProperties")))return;const t=ae(this);t.finalize(),t.l!==void 0&&(this.l=[...t.l]),this.elementProperties=new Map(t.elementProperties)}static finalize(){if(this.hasOwnProperty(U("finalized")))return;if(this.finalized=!0,this._$Ei(),this.hasOwnProperty(U("properties"))){const e=this.properties,i=[...ne(e),...se(e)];for(const r of i)this.createProperty(r,e[r])}const t=this[Symbol.metadata];if(t!==null){const e=litPropertyMetadata.get(t);if(e!==void 0)for(const[i,r]of e)this.elementProperties.set(i,r)}this._$Eh=new Map;for(const[e,i]of this.elementProperties){const r=this._$Eu(e,i);r!==void 0&&this._$Eh.set(r,e)}this.elementStyles=this.finalizeStyles(this.styles)}static finalizeStyles(t){const e=[];if(Array.isArray(t)){const i=new Set(t.flat(1/0).reverse());for(const r of i)e.unshift(Et(r))}else t!==void 0&&e.push(Et(t));return e}static _$Eu(t,e){const i=e.attribute;return i===!1?void 0:typeof i=="string"?i:typeof t=="string"?t.toLowerCase():void 0}constructor(){super(),this._$Ep=void 0,this.isUpdatePending=!1,this.hasUpdated=!1,this._$Em=null,this._$Ev()}_$Ev(){var t;this._$ES=new Promise(e=>this.enableUpdating=e),this._$AL=new Map,this._$E_(),this.requestUpdate(),(t=this.constructor.l)==null||t.forEach(e=>e(this))}addController(t){var e;(this._$EO??(this._$EO=new Set)).add(t),this.renderRoot!==void 0&&this.isConnected&&((e=t.hostConnected)==null||e.call(t))}removeController(t){var e;(e=this._$EO)==null||e.delete(t)}_$E_(){const t=new Map,e=this.constructor.elementProperties;for(const i of e.keys())this.hasOwnProperty(i)&&(t.set(i,this[i]),delete this[i]);t.size>0&&(this._$Ep=t)}createRenderRoot(){const t=this.shadowRoot??this.attachShadow(this.constructor.shadowRootOptions);return te(t,this.constructor.elementStyles),t}connectedCallback(){var t;this.renderRoot??(this.renderRoot=this.createRenderRoot()),this.enableUpdating(!0),(t=this._$EO)==null||t.forEach(e=>{var i;return(i=e.hostConnected)==null?void 0:i.call(e)})}enableUpdating(t){}disconnectedCallback(){var t;(t=this._$EO)==null||t.forEach(e=>{var i;return(i=e.hostDisconnected)==null?void 0:i.call(e)})}attributeChangedCallback(t,e,i){this._$AK(t,i)}_$ET(t,e){var s;const i=this.constructor.elementProperties.get(t),r=this.constructor._$Eu(t,i);if(r!==void 0&&i.reflect===!0){const a=(((s=i.converter)==null?void 0:s.toAttribute)!==void 0?i.converter:pt).toAttribute(e,i.type);this._$Em=t,a==null?this.removeAttribute(r):this.setAttribute(r,a),this._$Em=null}}_$AK(t,e){var s,a;const i=this.constructor,r=i._$Eh.get(t);if(r!==void 0&&this._$Em!==r){const d=i.getPropertyOptions(r),o=typeof d.converter=="function"?{fromAttribute:d.converter}:((s=d.converter)==null?void 0:s.fromAttribute)!==void 0?d.converter:pt;this._$Em=r;const l=o.fromAttribute(e,d.type);this[r]=l??((a=this._$Ej)==null?void 0:a.get(r))??l,this._$Em=null}}requestUpdate(t,e,i,r=!1,s){var a;if(t!==void 0){const d=this.constructor;if(r===!1&&(s=this[t]),i??(i=d.getPropertyOptions(t)),!((i.hasChanged??qt)(s,e)||i.useDefault&&i.reflect&&s===((a=this._$Ej)==null?void 0:a.get(t))&&!this.hasAttribute(d._$Eu(t,i))))return;this.C(t,e,i)}this.isUpdatePending===!1&&(this._$ES=this._$EP())}C(t,e,{useDefault:i,reflect:r,wrapped:s},a){i&&!(this._$Ej??(this._$Ej=new Map)).has(t)&&(this._$Ej.set(t,a??e??this[t]),s!==!0||a!==void 0)||(this._$AL.has(t)||(this.hasUpdated||i||(e=void 0),this._$AL.set(t,e)),r===!0&&this._$Em!==t&&(this._$Eq??(this._$Eq=new Set)).add(t))}async _$EP(){this.isUpdatePending=!0;try{await this._$ES}catch(e){Promise.reject(e)}const t=this.scheduleUpdate();return t!=null&&await t,!this.isUpdatePending}scheduleUpdate(){return this.performUpdate()}performUpdate(){var i;if(!this.isUpdatePending)return;if(!this.hasUpdated){if(this.renderRoot??(this.renderRoot=this.createRenderRoot()),this._$Ep){for(const[s,a]of this._$Ep)this[s]=a;this._$Ep=void 0}const r=this.constructor.elementProperties;if(r.size>0)for(const[s,a]of r){const{wrapped:d}=a,o=this[s];d!==!0||this._$AL.has(s)||o===void 0||this.C(s,void 0,a,o)}}let t=!1;const e=this._$AL;try{t=this.shouldUpdate(e),t?(this.willUpdate(e),(i=this._$EO)==null||i.forEach(r=>{var s;return(s=r.hostUpdate)==null?void 0:s.call(r)}),this.update(e)):this._$EM()}catch(r){throw t=!1,this._$EM(),r}t&&this._$AE(e)}willUpdate(t){}_$AE(t){var e;(e=this._$EO)==null||e.forEach(i=>{var r;return(r=i.hostUpdated)==null?void 0:r.call(i)}),this.hasUpdated||(this.hasUpdated=!0,this.firstUpdated(t)),this.updated(t)}_$EM(){this._$AL=new Map,this.isUpdatePending=!1}get updateComplete(){return this.getUpdateComplete()}getUpdateComplete(){return this._$ES}shouldUpdate(t){return!0}update(t){this._$Eq&&(this._$Eq=this._$Eq.forEach(e=>this._$ET(e,this[e]))),this._$EM()}updated(t){}firstUpdated(t){}};N.elementStyles=[],N.shadowRootOptions={mode:"open"},N[U("elementProperties")]=new Map,N[U("finalized")]=new Map,st==null||st({ReactiveElement:N}),(A.reactiveElementVersions??(A.reactiveElementVersions=[])).push("2.1.2");/**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
- */const U=globalThis,Mt=n=>n,J=U.trustedTypes,zt=J?J.createPolicy("lit-html",{createHTML:n=>n}):void 0,Ft="$lit$",_=`lit$${Math.random().toFixed(9).slice(2)}$`,Wt="?"+_,de=`<${Wt}>`,P=document,I=()=>P.createComment(""),j=n=>n===null||typeof n!="object"&&typeof n!="function",Ct=Array.isArray,he=n=>Ct(n)||typeof(n==null?void 0:n[Symbol.iterator])=="function",at=`[ 	
-\f\r]`,L=/<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g,Nt=/-->/g,Dt=/>/g,S=RegExp(`>|${at}(?:([^\\s"'>=/]+)(${at}*=${at}*(?:[^ 	
-\f\r"'\`<>=]|("|')|))|$)`,"g"),Lt=/'/g,Ot=/"/g,Kt=/^(?:script|style|textarea|title)$/i,ce=n=>(t,...e)=>({_$litType$:n,strings:t,values:e}),c=ce(1),T=Symbol.for("lit-noChange"),u=Symbol.for("lit-nothing"),Ht=new WeakMap,k=P.createTreeWalker(P,129);function Jt(n,t){if(!Ct(n)||!n.hasOwnProperty("raw"))throw Error("invalid template strings array");return zt!==void 0?zt.createHTML(t):t}const le=(n,t)=>{const e=n.length-1,i=[];let r,s=t===2?"<svg>":t===3?"<math>":"",a=L;for(let h=0;h<e;h++){const o=n[h];let l,g,p=-1,m=0;for(;m<o.length&&(a.lastIndex=m,g=a.exec(o),g!==null);)m=a.lastIndex,a===L?g[1]==="!--"?a=Nt:g[1]!==void 0?a=Dt:g[2]!==void 0?(Kt.test(g[2])&&(r=RegExp("</"+g[2],"g")),a=S):g[3]!==void 0&&(a=S):a===S?g[0]===">"?(a=r??L,p=-1):g[1]===void 0?p=-2:(p=a.lastIndex-g[2].length,l=g[1],a=g[3]===void 0?S:g[3]==='"'?Ot:Lt):a===Ot||a===Lt?a=S:a===Nt||a===Dt?a=L:(a=S,r=void 0);const w=a===S&&n[h+1].startsWith("/>")?" ":"";s+=a===L?o+de:p>=0?(i.push(l),o.slice(0,p)+Ft+o.slice(p)+_+w):o+_+(p===-2?h:w)}return[Jt(n,s+(n[e]||"<?>")+(t===2?"</svg>":t===3?"</math>":"")),i]};class G{constructor({strings:t,_$litType$:e},i){let r;this.parts=[];let s=0,a=0;const h=t.length-1,o=this.parts,[l,g]=le(t,e);if(this.el=G.createElement(l,i),k.currentNode=this.el.content,e===2||e===3){const p=this.el.content.firstChild;p.replaceWith(...p.childNodes)}for(;(r=k.nextNode())!==null&&o.length<h;){if(r.nodeType===1){if(r.hasAttributes())for(const p of r.getAttributeNames())if(p.endsWith(Ft)){const m=g[a++],w=r.getAttribute(p).split(_),q=/([.?@])?(.*)/.exec(m);o.push({type:1,index:s,name:q[2],strings:w,ctor:q[1]==="."?ge:q[1]==="?"?ue:q[1]==="@"?ve:nt}),r.removeAttribute(p)}else p.startsWith(_)&&(o.push({type:6,index:s}),r.removeAttribute(p));if(Kt.test(r.tagName)){const p=r.textContent.split(_),m=p.length-1;if(m>0){r.textContent=J?J.emptyScript:"";for(let w=0;w<m;w++)r.append(p[w],I()),k.nextNode(),o.push({type:2,index:++s});r.append(p[m],I())}}}else if(r.nodeType===8)if(r.data===Wt)o.push({type:2,index:s});else{let p=-1;for(;(p=r.data.indexOf(_,p+1))!==-1;)o.push({type:7,index:s}),p+=_.length-1}s++}}static createElement(t,e){const i=P.createElement("template");return i.innerHTML=t,i}}function D(n,t,e=n,i){var a,h;if(t===T)return t;let r=i!==void 0?(a=e._$Co)==null?void 0:a[i]:e._$Cl;const s=j(t)?void 0:t._$litDirective$;return(r==null?void 0:r.constructor)!==s&&((h=r==null?void 0:r._$AO)==null||h.call(r,!1),s===void 0?r=void 0:(r=new s(n),r._$AT(n,e,i)),i!==void 0?(e._$Co??(e._$Co=[]))[i]=r:e._$Cl=r),r!==void 0&&(t=D(n,r._$AS(n,t.values),r,i)),t}class pe{constructor(t,e){this._$AV=[],this._$AN=void 0,this._$AD=t,this._$AM=e}get parentNode(){return this._$AM.parentNode}get _$AU(){return this._$AM._$AU}u(t){const{el:{content:e},parts:i}=this._$AD,r=((t==null?void 0:t.creationScope)??P).importNode(e,!0);k.currentNode=r;let s=k.nextNode(),a=0,h=0,o=i[0];for(;o!==void 0;){if(a===o.index){let l;o.type===2?l=new Y(s,s.nextSibling,this,t):o.type===1?l=new o.ctor(s,o.name,o.strings,this,t):o.type===6&&(l=new xe(s,this,t)),this._$AV.push(l),o=i[++h]}a!==(o==null?void 0:o.index)&&(s=k.nextNode(),a++)}return k.currentNode=P,r}p(t){let e=0;for(const i of this._$AV)i!==void 0&&(i.strings!==void 0?(i._$AI(t,i,e),e+=i.strings.length-2):i._$AI(t[e])),e++}}class Y{get _$AU(){var t;return((t=this._$AM)==null?void 0:t._$AU)??this._$Cv}constructor(t,e,i,r){this.type=2,this._$AH=u,this._$AN=void 0,this._$AA=t,this._$AB=e,this._$AM=i,this.options=r,this._$Cv=(r==null?void 0:r.isConnected)??!0}get parentNode(){let t=this._$AA.parentNode;const e=this._$AM;return e!==void 0&&(t==null?void 0:t.nodeType)===11&&(t=e.parentNode),t}get startNode(){return this._$AA}get endNode(){return this._$AB}_$AI(t,e=this){t=D(this,t,e),j(t)?t===u||t==null||t===""?(this._$AH!==u&&this._$AR(),this._$AH=u):t!==this._$AH&&t!==T&&this._(t):t._$litType$!==void 0?this.$(t):t.nodeType!==void 0?this.T(t):he(t)?this.k(t):this._(t)}O(t){return this._$AA.parentNode.insertBefore(t,this._$AB)}T(t){this._$AH!==t&&(this._$AR(),this._$AH=this.O(t))}_(t){this._$AH!==u&&j(this._$AH)?this._$AA.nextSibling.data=t:this.T(P.createTextNode(t)),this._$AH=t}$(t){var s;const{values:e,_$litType$:i}=t,r=typeof i=="number"?this._$AC(t):(i.el===void 0&&(i.el=G.createElement(Jt(i.h,i.h[0]),this.options)),i);if(((s=this._$AH)==null?void 0:s._$AD)===r)this._$AH.p(e);else{const a=new pe(r,this),h=a.u(this.options);a.p(e),this.T(h),this._$AH=a}}_$AC(t){let e=Ht.get(t.strings);return e===void 0&&Ht.set(t.strings,e=new G(t)),e}k(t){Ct(this._$AH)||(this._$AH=[],this._$AR());const e=this._$AH;let i,r=0;for(const s of t)r===e.length?e.push(i=new Y(this.O(I()),this.O(I()),this,this.options)):i=e[r],i._$AI(s),r++;r<e.length&&(this._$AR(i&&i._$AB.nextSibling,r),e.length=r)}_$AR(t=this._$AA.nextSibling,e){var i;for((i=this._$AP)==null?void 0:i.call(this,!1,!0,e);t!==this._$AB;){const r=Mt(t).nextSibling;Mt(t).remove(),t=r}}setConnected(t){var e;this._$AM===void 0&&(this._$Cv=t,(e=this._$AP)==null||e.call(this,t))}}class nt{get tagName(){return this.element.tagName}get _$AU(){return this._$AM._$AU}constructor(t,e,i,r,s){this.type=1,this._$AH=u,this._$AN=void 0,this.element=t,this.name=e,this._$AM=r,this.options=s,i.length>2||i[0]!==""||i[1]!==""?(this._$AH=Array(i.length-1).fill(new String),this.strings=i):this._$AH=u}_$AI(t,e=this,i,r){const s=this.strings;let a=!1;if(s===void 0)t=D(this,t,e,0),a=!j(t)||t!==this._$AH&&t!==T,a&&(this._$AH=t);else{const h=t;let o,l;for(t=s[0],o=0;o<s.length-1;o++)l=D(this,h[i+o],e,o),l===T&&(l=this._$AH[o]),a||(a=!j(l)||l!==this._$AH[o]),l===u?t=u:t!==u&&(t+=(l??"")+s[o+1]),this._$AH[o]=l}a&&!r&&this.j(t)}j(t){t===u?this.element.removeAttribute(this.name):this.element.setAttribute(this.name,t??"")}}class ge extends nt{constructor(){super(...arguments),this.type=3}j(t){this.element[this.name]=t===u?void 0:t}}class ue extends nt{constructor(){super(...arguments),this.type=4}j(t){this.element.toggleAttribute(this.name,!!t&&t!==u)}}class ve extends nt{constructor(t,e,i,r,s){super(t,e,i,r,s),this.type=5}_$AI(t,e=this){if((t=D(this,t,e,0)??u)===T)return;const i=this._$AH,r=t===u&&i!==u||t.capture!==i.capture||t.once!==i.once||t.passive!==i.passive,s=t!==u&&(i===u||r);r&&this.element.removeEventListener(this.name,this,i),s&&this.element.addEventListener(this.name,this,t),this._$AH=t}handleEvent(t){var e;typeof this._$AH=="function"?this._$AH.call(((e=this.options)==null?void 0:e.host)??this.element,t):this._$AH.handleEvent(t)}}class xe{constructor(t,e,i){this.element=t,this.type=6,this._$AN=void 0,this._$AM=e,this.options=i}get _$AU(){return this._$AM._$AU}_$AI(t){D(this,t)}}const ot=U.litHtmlPolyfillSupport;ot==null||ot(G,Y),(U.litHtmlVersions??(U.litHtmlVersions=[])).push("3.3.3");const be=(n,t,e)=>{const i=(e==null?void 0:e.renderBefore)??t;let r=i._$litPart$;if(r===void 0){const s=(e==null?void 0:e.renderBefore)??null;i._$litPart$=r=new Y(t.insertBefore(I(),s),s,void 0,e??{})}return r._$AI(n),r};/**
+ */const V=globalThis,Mt=n=>n,J=V.trustedTypes,Nt=J?J.createPolicy("lit-html",{createHTML:n=>n}):void 0,Ft="$lit$",_=`lit$${Math.random().toFixed(9).slice(2)}$`,Wt="?"+_,he=`<${Wt}>`,P=document,I=()=>P.createComment(""),j=n=>n===null||typeof n!="object"&&typeof n!="function",St=Array.isArray,de=n=>St(n)||typeof(n==null?void 0:n[Symbol.iterator])=="function",at=`[ 	
+\f\r]`,D=/<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g,Lt=/-->/g,zt=/>/g,C=RegExp(`>|${at}(?:([^\\s"'>=/]+)(${at}*=${at}*(?:[^ 	
+\f\r"'\`<>=]|("|')|))|$)`,"g"),Dt=/'/g,Ot=/"/g,Kt=/^(?:script|style|textarea|title)$/i,ce=n=>(t,...e)=>({_$litType$:n,strings:t,values:e}),c=ce(1),T=Symbol.for("lit-noChange"),u=Symbol.for("lit-nothing"),Ht=new WeakMap,k=P.createTreeWalker(P,129);function Jt(n,t){if(!St(n)||!n.hasOwnProperty("raw"))throw Error("invalid template strings array");return Nt!==void 0?Nt.createHTML(t):t}const le=(n,t)=>{const e=n.length-1,i=[];let r,s=t===2?"<svg>":t===3?"<math>":"",a=D;for(let d=0;d<e;d++){const o=n[d];let l,g,p=-1,m=0;for(;m<o.length&&(a.lastIndex=m,g=a.exec(o),g!==null);)m=a.lastIndex,a===D?g[1]==="!--"?a=Lt:g[1]!==void 0?a=zt:g[2]!==void 0?(Kt.test(g[2])&&(r=RegExp("</"+g[2],"g")),a=C):g[3]!==void 0&&(a=C):a===C?g[0]===">"?(a=r??D,p=-1):g[1]===void 0?p=-2:(p=a.lastIndex-g[2].length,l=g[1],a=g[3]===void 0?C:g[3]==='"'?Ot:Dt):a===Ot||a===Dt?a=C:a===Lt||a===zt?a=D:(a=C,r=void 0);const w=a===C&&n[d+1].startsWith("/>")?" ":"";s+=a===D?o+he:p>=0?(i.push(l),o.slice(0,p)+Ft+o.slice(p)+_+w):o+_+(p===-2?d:w)}return[Jt(n,s+(n[e]||"<?>")+(t===2?"</svg>":t===3?"</math>":"")),i]};class G{constructor({strings:t,_$litType$:e},i){let r;this.parts=[];let s=0,a=0;const d=t.length-1,o=this.parts,[l,g]=le(t,e);if(this.el=G.createElement(l,i),k.currentNode=this.el.content,e===2||e===3){const p=this.el.content.firstChild;p.replaceWith(...p.childNodes)}for(;(r=k.nextNode())!==null&&o.length<d;){if(r.nodeType===1){if(r.hasAttributes())for(const p of r.getAttributeNames())if(p.endsWith(Ft)){const m=g[a++],w=r.getAttribute(p).split(_),q=/([.?@])?(.*)/.exec(m);o.push({type:1,index:s,name:q[2],strings:w,ctor:q[1]==="."?ge:q[1]==="?"?ue:q[1]==="@"?ve:nt}),r.removeAttribute(p)}else p.startsWith(_)&&(o.push({type:6,index:s}),r.removeAttribute(p));if(Kt.test(r.tagName)){const p=r.textContent.split(_),m=p.length-1;if(m>0){r.textContent=J?J.emptyScript:"";for(let w=0;w<m;w++)r.append(p[w],I()),k.nextNode(),o.push({type:2,index:++s});r.append(p[m],I())}}}else if(r.nodeType===8)if(r.data===Wt)o.push({type:2,index:s});else{let p=-1;for(;(p=r.data.indexOf(_,p+1))!==-1;)o.push({type:7,index:s}),p+=_.length-1}s++}}static createElement(t,e){const i=P.createElement("template");return i.innerHTML=t,i}}function z(n,t,e=n,i){var a,d;if(t===T)return t;let r=i!==void 0?(a=e._$Co)==null?void 0:a[i]:e._$Cl;const s=j(t)?void 0:t._$litDirective$;return(r==null?void 0:r.constructor)!==s&&((d=r==null?void 0:r._$AO)==null||d.call(r,!1),s===void 0?r=void 0:(r=new s(n),r._$AT(n,e,i)),i!==void 0?(e._$Co??(e._$Co=[]))[i]=r:e._$Cl=r),r!==void 0&&(t=z(n,r._$AS(n,t.values),r,i)),t}class pe{constructor(t,e){this._$AV=[],this._$AN=void 0,this._$AD=t,this._$AM=e}get parentNode(){return this._$AM.parentNode}get _$AU(){return this._$AM._$AU}u(t){const{el:{content:e},parts:i}=this._$AD,r=((t==null?void 0:t.creationScope)??P).importNode(e,!0);k.currentNode=r;let s=k.nextNode(),a=0,d=0,o=i[0];for(;o!==void 0;){if(a===o.index){let l;o.type===2?l=new Y(s,s.nextSibling,this,t):o.type===1?l=new o.ctor(s,o.name,o.strings,this,t):o.type===6&&(l=new be(s,this,t)),this._$AV.push(l),o=i[++d]}a!==(o==null?void 0:o.index)&&(s=k.nextNode(),a++)}return k.currentNode=P,r}p(t){let e=0;for(const i of this._$AV)i!==void 0&&(i.strings!==void 0?(i._$AI(t,i,e),e+=i.strings.length-2):i._$AI(t[e])),e++}}class Y{get _$AU(){var t;return((t=this._$AM)==null?void 0:t._$AU)??this._$Cv}constructor(t,e,i,r){this.type=2,this._$AH=u,this._$AN=void 0,this._$AA=t,this._$AB=e,this._$AM=i,this.options=r,this._$Cv=(r==null?void 0:r.isConnected)??!0}get parentNode(){let t=this._$AA.parentNode;const e=this._$AM;return e!==void 0&&(t==null?void 0:t.nodeType)===11&&(t=e.parentNode),t}get startNode(){return this._$AA}get endNode(){return this._$AB}_$AI(t,e=this){t=z(this,t,e),j(t)?t===u||t==null||t===""?(this._$AH!==u&&this._$AR(),this._$AH=u):t!==this._$AH&&t!==T&&this._(t):t._$litType$!==void 0?this.$(t):t.nodeType!==void 0?this.T(t):de(t)?this.k(t):this._(t)}O(t){return this._$AA.parentNode.insertBefore(t,this._$AB)}T(t){this._$AH!==t&&(this._$AR(),this._$AH=this.O(t))}_(t){this._$AH!==u&&j(this._$AH)?this._$AA.nextSibling.data=t:this.T(P.createTextNode(t)),this._$AH=t}$(t){var s;const{values:e,_$litType$:i}=t,r=typeof i=="number"?this._$AC(t):(i.el===void 0&&(i.el=G.createElement(Jt(i.h,i.h[0]),this.options)),i);if(((s=this._$AH)==null?void 0:s._$AD)===r)this._$AH.p(e);else{const a=new pe(r,this),d=a.u(this.options);a.p(e),this.T(d),this._$AH=a}}_$AC(t){let e=Ht.get(t.strings);return e===void 0&&Ht.set(t.strings,e=new G(t)),e}k(t){St(this._$AH)||(this._$AH=[],this._$AR());const e=this._$AH;let i,r=0;for(const s of t)r===e.length?e.push(i=new Y(this.O(I()),this.O(I()),this,this.options)):i=e[r],i._$AI(s),r++;r<e.length&&(this._$AR(i&&i._$AB.nextSibling,r),e.length=r)}_$AR(t=this._$AA.nextSibling,e){var i;for((i=this._$AP)==null?void 0:i.call(this,!1,!0,e);t!==this._$AB;){const r=Mt(t).nextSibling;Mt(t).remove(),t=r}}setConnected(t){var e;this._$AM===void 0&&(this._$Cv=t,(e=this._$AP)==null||e.call(this,t))}}class nt{get tagName(){return this.element.tagName}get _$AU(){return this._$AM._$AU}constructor(t,e,i,r,s){this.type=1,this._$AH=u,this._$AN=void 0,this.element=t,this.name=e,this._$AM=r,this.options=s,i.length>2||i[0]!==""||i[1]!==""?(this._$AH=Array(i.length-1).fill(new String),this.strings=i):this._$AH=u}_$AI(t,e=this,i,r){const s=this.strings;let a=!1;if(s===void 0)t=z(this,t,e,0),a=!j(t)||t!==this._$AH&&t!==T,a&&(this._$AH=t);else{const d=t;let o,l;for(t=s[0],o=0;o<s.length-1;o++)l=z(this,d[i+o],e,o),l===T&&(l=this._$AH[o]),a||(a=!j(l)||l!==this._$AH[o]),l===u?t=u:t!==u&&(t+=(l??"")+s[o+1]),this._$AH[o]=l}a&&!r&&this.j(t)}j(t){t===u?this.element.removeAttribute(this.name):this.element.setAttribute(this.name,t??"")}}class ge extends nt{constructor(){super(...arguments),this.type=3}j(t){this.element[this.name]=t===u?void 0:t}}class ue extends nt{constructor(){super(...arguments),this.type=4}j(t){this.element.toggleAttribute(this.name,!!t&&t!==u)}}class ve extends nt{constructor(t,e,i,r,s){super(t,e,i,r,s),this.type=5}_$AI(t,e=this){if((t=z(this,t,e,0)??u)===T)return;const i=this._$AH,r=t===u&&i!==u||t.capture!==i.capture||t.once!==i.once||t.passive!==i.passive,s=t!==u&&(i===u||r);r&&this.element.removeEventListener(this.name,this,i),s&&this.element.addEventListener(this.name,this,t),this._$AH=t}handleEvent(t){var e;typeof this._$AH=="function"?this._$AH.call(((e=this.options)==null?void 0:e.host)??this.element,t):this._$AH.handleEvent(t)}}class be{constructor(t,e,i){this.element=t,this.type=6,this._$AN=void 0,this._$AM=e,this.options=i}get _$AU(){return this._$AM._$AU}_$AI(t){z(this,t)}}const ot=V.litHtmlPolyfillSupport;ot==null||ot(G,Y),(V.litHtmlVersions??(V.litHtmlVersions=[])).push("3.3.3");const xe=(n,t,e)=>{const i=(e==null?void 0:e.renderBefore)??t;let r=i._$litPart$;if(r===void 0){const s=(e==null?void 0:e.renderBefore)??null;i._$litPart$=r=new Y(t.insertBefore(I(),s),s,void 0,e??{})}return r._$AI(n),r};/**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
- */const E=globalThis;let b=class extends z{constructor(){super(...arguments),this.renderOptions={host:this},this._$Do=void 0}createRenderRoot(){var e;const t=super.createRenderRoot();return(e=this.renderOptions).renderBefore??(e.renderBefore=t.firstChild),t}update(t){const e=this.render();this.hasUpdated||(this.renderOptions.isConnected=this.isConnected),super.update(t),this._$Do=be(e,this.renderRoot,this.renderOptions)}connectedCallback(){var t;super.connectedCallback(),(t=this._$Do)==null||t.setConnected(!0)}disconnectedCallback(){var t;super.disconnectedCallback(),(t=this._$Do)==null||t.setConnected(!1)}render(){return T}};var Gt;b._$litElement$=!0,b.finalized=!0,(Gt=E.litElementHydrateSupport)==null||Gt.call(E,{LitElement:b});const dt=E.litElementPolyfillSupport;dt==null||dt({LitElement:b});(E.litElementVersions??(E.litElementVersions=[])).push("4.2.2");let F;const me=new Uint8Array(16);function fe(){if(!F&&(F=typeof crypto<"u"&&crypto.getRandomValues&&crypto.getRandomValues.bind(crypto),!F))throw new Error("crypto.getRandomValues() not supported. See https://github.com/uuidjs/uuid#getrandomvalues-not-supported");return F(me)}const x=[];for(let n=0;n<256;++n)x.push((n+256).toString(16).slice(1));function ye(n,t=0){return x[n[t+0]]+x[n[t+1]]+x[n[t+2]]+x[n[t+3]]+"-"+x[n[t+4]]+x[n[t+5]]+"-"+x[n[t+6]]+x[n[t+7]]+"-"+x[n[t+8]]+x[n[t+9]]+"-"+x[n[t+10]]+x[n[t+11]]+x[n[t+12]]+x[n[t+13]]+x[n[t+14]]+x[n[t+15]]}const we=typeof crypto<"u"&&crypto.randomUUID&&crypto.randomUUID.bind(crypto),Bt={randomUUID:we};function Vt(n,t,e){if(Bt.randomUUID&&!n)return Bt.randomUUID();n=n||{};const i=n.random||(n.rng||fe)();return i[6]=i[6]&15|64,i[8]=i[8]&63|128,ye(i)}const Qt=[{value:"bass",id:1,type:"int"},{value:"bass drum",id:2,type:"int"},{value:"snare drum",id:3,type:"int"},{value:"hi-hat",id:4,type:"int"},{value:"tom",id:5,type:"int"},{value:"blip",id:6,type:"note"},{value:"hardsync",id:7,type:"int"},{value:"noise fx",id:8,type:"int"},{value:"arpeggio",id:9,type:"int"},{value:"melodic arp",id:10,type:"note"},{value:"falling arp",id:11,type:"note"},{value:"octave arp",id:12,type:"note"},{value:"lead",id:13,type:"note"},{value:"vibrato",id:14,type:"note"},{value:"portamento",id:15,type:"note"},{value:"echo",id:16,type:"note"}];function $e(){const n={};for(let e=1;e<=16;e++)n[e]={value:e,active:!1,params:{a:null,b:null,multiply:null}};const t={};return Qt.forEach(e=>{t[e.id]={id:e.id,value:e.value,type:e.type,steps:JSON.parse(JSON.stringify(n))}}),t}class _e extends EventTarget{constructor(){super(),this.state={app:{activePattern:null,activeChord:null,theme:"dark"},patterns:[],chords:[]},this.load(),this._applyTheme()}load(){try{const t=localStorage.getItem("state");if(t){const e=JSON.parse(t);this.state={app:{activePattern:null,activeChord:null,theme:"dark",...e.app||{}},patterns:e.patterns||[],chords:e.chords||[]}}}catch(t){console.error("Failed to load state from localStorage:",t)}}_applyTheme(){this.state.app.theme==="light"?document.body.setAttribute("data-theme","light"):document.body.removeAttribute("data-theme")}setTheme(t){this.state.app.theme=t,this._applyTheme(),this.save()}save(){try{localStorage.setItem("state",JSON.stringify(this.state))}catch(t){console.error("Failed to save state to localStorage:",t)}this.dispatchEvent(new CustomEvent("change",{detail:this.state}))}addPattern(t){const e=Vt(),i={id:e,name:t||`Pattern ${this.state.patterns.length+1}`,pattern:$e()};return this.state.patterns.push(i),this.state.app.activePattern=e,this.save(),e}editPattern(t,e,i){this.state.patterns=this.state.patterns.map(r=>r.id===t?{...r,name:e||r.name,pattern:i}:r),this.save()}deletePattern(t){this.state.patterns=this.state.patterns.filter(e=>e.id!==t),this.state.app.activePattern===t&&(this.state.app.activePattern=null),this.save()}addChords(t){const e=Vt(),i={id:e,name:t||`Chord progression ${this.state.chords.length+1}`,chordsOrder:[]};return this.state.chords.push(i),this.state.app.activeChord=e,this.save(),e}editChords(t,e,i){this.state.chords=this.state.chords.map(r=>r.id===t?{...r,name:e||r.name,chordsOrder:i}:r),this.save()}deleteChord(t){this.state.chords=this.state.chords.filter(e=>e.id!==t),this.state.app.activeChord===t&&(this.state.app.activeChord=null),this.save()}setActivePattern(t){this.state.app.activePattern=t,this.save()}setActiveChord(t){this.state.app.activeChord=t,this.save()}getActivePattern(){return this.state.patterns.find(t=>t.id===this.state.app.activePattern)||null}getActiveChord(){return this.state.chords.find(t=>t.id===this.state.app.activeChord)||null}}const v=new _e,Q=class Q extends b{constructor(){super(),this.isDrawerOpen=!1,this.showPatternModal=!1,this.showChordModal=!1,this.newPatternName="",this.newChordName="",this.currentTheme=v.state.app.theme}connectedCallback(){super.connectedCallback(),this._onStoreChange=this._onStoreChange.bind(this),v.addEventListener("change",this._onStoreChange)}disconnectedCallback(){super.disconnectedCallback(),v.removeEventListener("change",this._onStoreChange)}_onStoreChange(){this.currentTheme=v.state.app.theme}render(){const t=this.currentTheme==="light";return c`
+ */const E=globalThis;let x=class extends N{constructor(){super(...arguments),this.renderOptions={host:this},this._$Do=void 0}createRenderRoot(){var e;const t=super.createRenderRoot();return(e=this.renderOptions).renderBefore??(e.renderBefore=t.firstChild),t}update(t){const e=this.render();this.hasUpdated||(this.renderOptions.isConnected=this.isConnected),super.update(t),this._$Do=xe(e,this.renderRoot,this.renderOptions)}connectedCallback(){var t;super.connectedCallback(),(t=this._$Do)==null||t.setConnected(!0)}disconnectedCallback(){var t;super.disconnectedCallback(),(t=this._$Do)==null||t.setConnected(!1)}render(){return T}};var Gt;x._$litElement$=!0,x.finalized=!0,(Gt=E.litElementHydrateSupport)==null||Gt.call(E,{LitElement:x});const ht=E.litElementPolyfillSupport;ht==null||ht({LitElement:x});(E.litElementVersions??(E.litElementVersions=[])).push("4.2.2");let F;const me=new Uint8Array(16);function fe(){if(!F&&(F=typeof crypto<"u"&&crypto.getRandomValues&&crypto.getRandomValues.bind(crypto),!F))throw new Error("crypto.getRandomValues() not supported. See https://github.com/uuidjs/uuid#getrandomvalues-not-supported");return F(me)}const b=[];for(let n=0;n<256;++n)b.push((n+256).toString(16).slice(1));function ye(n,t=0){return b[n[t+0]]+b[n[t+1]]+b[n[t+2]]+b[n[t+3]]+"-"+b[n[t+4]]+b[n[t+5]]+"-"+b[n[t+6]]+b[n[t+7]]+"-"+b[n[t+8]]+b[n[t+9]]+"-"+b[n[t+10]]+b[n[t+11]]+b[n[t+12]]+b[n[t+13]]+b[n[t+14]]+b[n[t+15]]}const we=typeof crypto<"u"&&crypto.randomUUID&&crypto.randomUUID.bind(crypto),Bt={randomUUID:we};function Ut(n,t,e){if(Bt.randomUUID&&!n)return Bt.randomUUID();n=n||{};const i=n.random||(n.rng||fe)();return i[6]=i[6]&15|64,i[8]=i[8]&63|128,ye(i)}const Qt=[{value:"bass",id:1,type:"int"},{value:"bass drum",id:2,type:"int"},{value:"snare drum",id:3,type:"int"},{value:"hi-hat",id:4,type:"int"},{value:"tom",id:5,type:"int"},{value:"blip",id:6,type:"note"},{value:"hardsync",id:7,type:"int"},{value:"noise fx",id:8,type:"int"},{value:"arpeggio",id:9,type:"int"},{value:"melodic arp",id:10,type:"note"},{value:"falling arp",id:11,type:"note"},{value:"octave arp",id:12,type:"note"},{value:"lead",id:13,type:"note"},{value:"vibrato",id:14,type:"note"},{value:"portamento",id:15,type:"note"},{value:"echo",id:16,type:"note"}];function $e(){const n={};for(let e=1;e<=16;e++)n[e]={value:e,active:!1,params:{a:null,b:null,multiply:null}};const t={};return Qt.forEach(e=>{t[e.id]={id:e.id,value:e.value,type:e.type,steps:JSON.parse(JSON.stringify(n))}}),t}class _e extends EventTarget{constructor(){super(),this.state={app:{activePattern:null,activeChord:null,theme:"dark"},patterns:[],chords:[]},this.load(),this._applyTheme()}load(){try{const t=localStorage.getItem("state");if(t){const e=JSON.parse(t);this.state={app:{activePattern:null,activeChord:null,theme:"dark",...e.app||{}},patterns:e.patterns||[],chords:e.chords||[]}}}catch(t){console.error("Failed to load state from localStorage:",t)}}_applyTheme(){this.state.app.theme==="light"?document.body.setAttribute("data-theme","light"):document.body.removeAttribute("data-theme")}setTheme(t){this.state.app.theme=t,this._applyTheme(),this.save()}save(){try{localStorage.setItem("state",JSON.stringify(this.state))}catch(t){console.error("Failed to save state to localStorage:",t)}this.dispatchEvent(new CustomEvent("change",{detail:this.state}))}addPattern(t){const e=Ut(),i={id:e,name:t||`Pattern ${this.state.patterns.length+1}`,pattern:$e()};return this.state.patterns.push(i),this.state.app.activePattern=e,this.save(),e}editPattern(t,e,i){this.state.patterns=this.state.patterns.map(r=>r.id===t?{...r,name:e||r.name,pattern:i}:r),this.save()}deletePattern(t){this.state.patterns=this.state.patterns.filter(e=>e.id!==t),this.state.app.activePattern===t&&(this.state.app.activePattern=null),this.save()}addChords(t){const e=Ut(),i={id:e,name:t||`Chord progression ${this.state.chords.length+1}`,chordsOrder:[]};return this.state.chords.push(i),this.state.app.activeChord=e,this.save(),e}editChords(t,e,i){this.state.chords=this.state.chords.map(r=>r.id===t?{...r,name:e||r.name,chordsOrder:i}:r),this.save()}deleteChord(t){this.state.chords=this.state.chords.filter(e=>e.id!==t),this.state.app.activeChord===t&&(this.state.app.activeChord=null),this.save()}setActivePattern(t){this.state.app.activePattern=t,this.save()}setActiveChord(t){this.state.app.activeChord=t,this.save()}getActivePattern(){return this.state.patterns.find(t=>t.id===this.state.app.activePattern)||null}getActiveChord(){return this.state.chords.find(t=>t.id===this.state.app.activeChord)||null}}const v=new _e,Q=class Q extends x{constructor(){super(),this.showPatternModal=!1,this.showChordModal=!1,this.newPatternName="",this.newChordName="",this.currentTheme=v.state.app.theme}connectedCallback(){super.connectedCallback(),this._onStoreChange=this._onStoreChange.bind(this),v.addEventListener("change",this._onStoreChange)}disconnectedCallback(){super.disconnectedCallback(),v.removeEventListener("change",this._onStoreChange)}_onStoreChange(){this.currentTheme=v.state.app.theme}render(){const t=this.currentTheme==="light";return c`
       <header>
         <div class="brand-section">
-          <button class="menu-btn" @click="${this._openDrawer}" aria-label="Open menu">
-            <svg viewBox="0 0 24 24">
-              <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
-            </svg>
-          </button>
           <a href="#/" class="logo">PO-20 ARCADE</a>
         </div>
-      </header>
-
-      <!-- Navigation Drawer -->
-      <div class="drawer-overlay ${this.isDrawerOpen?"open":""}" @click="${this._closeDrawer}">
-        <div class="drawer" @click="${e=>e.stopPropagation()}">
-          <div class="drawer-header">
-            <h2 class="drawer-title">MENU</h2>
-            <button class="close-btn" @click="${this._closeDrawer}">&times;</button>
-          </div>
-          
-          <ul class="nav-list">
-            <li class="nav-item">
-              <a href="#/" class="nav-link" @click="${this._closeDrawer}">
-                <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
-                Dashboard
-              </a>
-            </li>
-            
-            <div class="divider"></div>
-
-            <li class="nav-item">
-              <div class="nav-link" @click="${this._openPatternModal}">
-                <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
-                New Pattern
-              </div>
-            </li>
-            <li class="nav-item">
-              <a href="#/patterns" class="nav-link" @click="${this._closeDrawer}">
-                <svg viewBox="0 0 24 24"><path d="M4 10.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm0 6c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm0-12c-.83 0-1.5-.67-1.5-1.5S3.17 1.5 4 1.5 5.5 2.17 5.5 3 4.83 4 4 4zm4-.5h14v3H8v-3zm0 6h14v3H8v-3zm0 6h14v3H8v-3z"/></svg>
-                Pattern Bank
-              </a>
-            </li>
-
-            <div class="divider"></div>
-
-            <li class="nav-item">
-              <div class="nav-link" @click="${this._openChordModal}">
-                <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
-                New Chord progression
-              </div>
-            </li>
-            <li class="nav-item">
-              <a href="#/chords" class="nav-link" @click="${this._closeDrawer}">
-                <svg viewBox="0 0 24 24"><path d="M4 10.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm0 6c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm0-12c-.83 0-1.5-.67-1.5-1.5S3.17 1.5 4 1.5 5.5 2.17 5.5 3 4.83 4 4 4zm4-.5h14v3H8v-3zm0 6h14v3H8v-3zm0 6h14v3H8v-3z"/></svg>
-                Chord sets list
-              </a>
-            </li>
-          </ul>
-
-          <!-- Theme Toggle -->
-          <div class="theme-section">
-            <div class="theme-label">Appearance</div>
-            <div class="theme-toggle">
-              <!-- Moon icon (dark) -->
-              <span class="theme-icon ${t?"":"active"}">
-                <svg viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-2.98 0-5.4-2.42-5.4-5.4 0-1.81.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z"/></svg>
-              </span>
-              <button
-                class="toggle-pill ${t?"light-active":""}"
-                @click="${this._toggleTheme}"
-                aria-label="Toggle light/dark mode"
-                aria-pressed="${t}"
-              >
-                <div class="toggle-knob"></div>
-              </button>
-              <!-- Sun icon (light) -->
-              <span class="theme-icon ${t?"active":""}">
-                <svg viewBox="0 0 24 24"><path d="M6.76 4.84l-1.8-1.79-1.41 1.41 1.79 1.79 1.42-1.41zM4 11H1v2h3v-2zm9-9h-2v2.99h2V2zm7.45 3.91l-1.41-1.41-1.79 1.79 1.41 1.41 1.79-1.79zM20 11v2h3v-2h-3zm-8-2a4 4 0 1 0 0 8 4 4 0 0 0 0-8zm-1 13h2v-3h-2v3zm-7.45-3.91l1.79-1.79-1.41-1.41-1.79 1.79 1.41 1.41z"/></svg>
-              </span>
-            </div>
-          </div>
-
-          <!-- GitHub Link (styled) -->
-          <div class="donate-container">
-            <a href="https://github.com/warmsynths/po20" target="_blank" class="btn btn-secondary" style="font-size: 13px; width: 100%; display: block; text-decoration: none; box-sizing: border-box; text-align: center;">
-              Developed by warmsynths
-            </a>
+        <div class="header-actions">
+          <div class="theme-toggle">
+            <!-- Moon icon (dark) -->
+            <span class="theme-icon ${t?"":"active"}">
+              <svg viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-2.98 0-5.4-2.42-5.4-5.4 0-1.81.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z"/></svg>
+            </span>
+            <button
+              class="toggle-pill ${t?"light-active":""}"
+              @click="${this._toggleTheme}"
+              aria-label="Toggle light/dark mode"
+              aria-pressed="${t}"
+            >
+              <div class="toggle-knob"></div>
+            </button>
+            <!-- Sun icon (light) -->
+            <span class="theme-icon ${t?"active":""}">
+              <svg viewBox="0 0 24 24"><path d="M6.76 4.84l-1.8-1.79-1.41 1.41 1.79 1.79 1.42-1.41zM4 11H1v2h3v-2zm9-9h-2v2.99h2V2zm7.45 3.91l-1.41-1.41-1.79 1.79 1.41 1.41 1.79-1.79zM20 11v2h3v-2h-3zm-8-2a4 4 0 1 0 0 8 4 4 0 0 0 0-8zm-1 13h2v-3h-2v3zm-7.45-3.91l1.79-1.79-1.41-1.41-1.79 1.79 1.41 1.41z"/></svg>
+            </span>
           </div>
         </div>
-      </div>
+      </header>
 
       <!-- New Pattern Dialog Modal -->
       <div class="modal-overlay ${this.showPatternModal?"open":""}" @click="${this._closePatternModal}">
@@ -154,7 +90,7 @@
           </form>
         </div>
       </div>
-    `}_openDrawer(){this.isDrawerOpen=!0}_closeDrawer(){this.isDrawerOpen=!1}_openPatternModal(){this.isDrawerOpen=!1,this.newPatternName="",this.showPatternModal=!0,setTimeout(()=>{var t,e;(e=(t=this.shadowRoot)==null?void 0:t.getElementById("pattern-name"))==null||e.focus()},100)}_closePatternModal(){this.showPatternModal=!1}_openChordModal(){this.isDrawerOpen=!1,this.newChordName="",this.showChordModal=!0,setTimeout(()=>{var t,e;(e=(t=this.shadowRoot)==null?void 0:t.getElementById("chord-name"))==null||e.focus()},100)}_closeChordModal(){this.showChordModal=!1}_toggleTheme(){const t=this.currentTheme==="dark"?"light":"dark";v.setTheme(t)}_createPattern(t){t.preventDefault(),this.newPatternName.trim()&&(v.addPattern(this.newPatternName.trim()),this._closePatternModal(),window.location.hash="/pattern")}_createChord(t){t.preventDefault(),this.newChordName.trim()&&(v.addChords(this.newChordName.trim()),this._closeChordModal(),window.location.hash="/chord")}};Q.properties={isDrawerOpen:{type:Boolean},showPatternModal:{type:Boolean},showChordModal:{type:Boolean},newPatternName:{type:String},newChordName:{type:String},currentTheme:{type:String}},Q.styles=C`
+    `}_openPatternModal(){this.newPatternName="",this.showPatternModal=!0,setTimeout(()=>{var t,e;(e=(t=this.shadowRoot)==null?void 0:t.getElementById("pattern-name"))==null||e.focus()},100)}_closePatternModal(){this.showPatternModal=!1}_openChordModal(){this.newChordName="",this.showChordModal=!0,setTimeout(()=>{var t,e;(e=(t=this.shadowRoot)==null?void 0:t.getElementById("chord-name"))==null||e.focus()},100)}_closeChordModal(){this.showChordModal=!1}_toggleTheme(){const t=this.currentTheme==="dark"?"light":"dark";v.setTheme(t)}_createPattern(t){t.preventDefault(),this.newPatternName.trim()&&(v.addPattern(this.newPatternName.trim()),this._closePatternModal(),window.location.hash="/pattern")}_createChord(t){t.preventDefault(),this.newChordName.trim()&&(v.addChords(this.newChordName.trim()),this._closeChordModal(),window.location.hash="/chord")}};Q.properties={showPatternModal:{type:Boolean},showChordModal:{type:Boolean},newPatternName:{type:String},newChordName:{type:String},currentTheme:{type:String}},Q.styles=S`
     :host {
       display: block;
       width: 100%;
@@ -182,28 +118,10 @@
       gap: 12px;
     }
 
-    .menu-btn {
-      background: transparent;
-      border: none;
-      color: var(--text-primary);
-      cursor: pointer;
-      width: 40px;
-      height: 40px;
-      border-radius: 8px;
+    .header-actions {
       display: flex;
       align-items: center;
-      justify-content: center;
-      transition: background-color 0.2s;
-    }
-
-    .menu-btn:hover {
-      background: var(--border-subtle);
-    }
-
-    .menu-btn svg {
-      width: 24px;
-      height: 24px;
-      fill: currentColor;
+      gap: 16px;
     }
 
     .logo {
@@ -215,129 +133,7 @@
       letter-spacing: 1px;
     }
 
-    /* Sliding Drawer Menu */
-    .drawer-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(4px);
-      z-index: 200;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-    }
-
-    .drawer-overlay.open {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .drawer {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 280px;
-      height: 100%;
-      background: var(--bg-surface-alt);
-      box-shadow: 5px 0 25px rgba(0,0,0,0.4);
-      z-index: 201;
-      transform: translateX(-100%);
-      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s ease;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .drawer-overlay.open .drawer {
-      transform: translateX(0);
-    }
-
-    .drawer-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 16px;
-      border-bottom: 1px solid var(--border-subtle);
-    }
-
-    .drawer-title {
-      font-family: 'VT323', monospace;
-      font-size: 24px;
-      color: var(--accent);
-      margin: 0;
-    }
-
-    .close-btn {
-      background: transparent;
-      border: none;
-      color: var(--text-muted);
-      cursor: pointer;
-      font-size: 24px;
-      padding: 4px;
-      border-radius: 4px;
-      transition: color 0.2s, background 0.2s;
-    }
-
-    .close-btn:hover {
-      color: var(--text-primary);
-      background: var(--border-subtle);
-    }
-
-    .nav-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-
-    .nav-item {
-      border-bottom: 1px solid var(--border-faint);
-    }
-
-    .nav-link {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 16px 20px;
-      color: var(--text-secondary);
-      text-decoration: none;
-      font-size: 16px;
-      transition: all 0.2s;
-      cursor: pointer;
-    }
-
-    .nav-link:hover {
-      color: var(--accent);
-      background: var(--bg-row-hover);
-      padding-left: 24px;
-    }
-
-    .nav-link svg {
-      width: 20px;
-      height: 20px;
-      fill: currentColor;
-    }
-
-    .divider {
-      height: 1px;
-      background: var(--border-subtle);
-      margin: 16px 0;
-    }
-
     /* ---- Theme Toggle ---- */
-    .theme-section {
-      padding: 16px 20px;
-      border-top: 1px solid var(--border-subtle);
-    }
-
-    .theme-label {
-      font-size: 12px;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 10px;
-    }
 
     .theme-toggle {
       display: flex;
@@ -395,14 +191,7 @@
       transform: translateX(22px);
     }
 
-    /* ---- Donate Container ---- */
-    .donate-container {
-      padding: 20px;
-      margin-top: auto;
-      text-align: center;
-      background: var(--bg-inset);
-      border-top: 1px solid var(--border-mid);
-    }
+
 
     /* Modals for creating new elements */
     .modal-overlay {
@@ -513,12 +302,15 @@
     .btn-primary:hover {
       background: var(--accent-hover);
     }
-  `;let gt=Q;customElements.define("po20-header",gt);const Ae=""+new URL("PO20-arcade-side-eyvYnRXh.png",import.meta.url).href,St=class St extends b{render(){return c`
+  `;let gt=Q;customElements.define("po20-header",gt);const Ae=""+new URL("PO20-arcade-side-eyvYnRXh.png",import.meta.url).href,Ct=class Ct extends x{render(){return c`
       <div class="footer-content">
         <img src="${Ae}" alt="PO-20 Arcade Hardware Layout" />
-        <div class="copyright">PO-20 Arcade Companion • TE Inspired</div>
+        <div class="copyright">
+          PO-20 Arcade Companion • TE Inspired • 
+          <a href="https://github.com/warmsynths/po20" target="_blank" class="github-link">Developed by warmsynths</a>
+        </div>
       </div>
-    `}};St.styles=C`
+    `}};Ct.styles=S`
     :host {
       display: block;
       width: 100%;
@@ -556,7 +348,19 @@
       text-transform: uppercase;
       letter-spacing: 1.5px;
     }
-  `;let ut=St;customElements.define("po20-footer",ut);const Z=class Z extends b{constructor(){super(),this.patterns=[],this.chords=[],this._onStateChange=this._onStateChange.bind(this)}connectedCallback(){super.connectedCallback(),v.addEventListener("change",this._onStateChange),this._loadData()}disconnectedCallback(){super.disconnectedCallback(),v.removeEventListener("change",this._onStateChange)}_loadData(){this.patterns=[...v.state.patterns],this.chords=[...v.state.chords]}_onStateChange(){this._loadData()}render(){return c`
+
+    .github-link {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.2s;
+    }
+
+    .github-link:hover {
+      color: var(--accent-hover, var(--accent-hover));
+      text-decoration: underline;
+    }
+  `;let ut=Ct;customElements.define("po20-footer",ut);const Z=class Z extends x{constructor(){super(),this.patterns=[],this.chords=[],this._onStateChange=this._onStateChange.bind(this)}connectedCallback(){super.connectedCallback(),v.addEventListener("change",this._onStateChange),this._loadData()}disconnectedCallback(){super.disconnectedCallback(),v.removeEventListener("change",this._onStateChange)}_loadData(){this.patterns=[...v.state.patterns],this.chords=[...v.state.chords]}_onStateChange(){this._loadData()}render(){return c`
       <div class="container">
         
         <div class="hero-section">
@@ -566,30 +370,17 @@
           </p>
         </div>
 
-        <!-- Create Cards -->
-        <div class="action-grid">
-          <div class="action-card" @click="${this._triggerNewPattern}">
-            <svg viewBox="0 0 24 24">
-              <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
-            </svg>
-            <h3>NEW PATTERN</h3>
-            <p>Design a 16-step pattern, toggling triggers and automation parameters across 16 retro arcade sounds.</p>
-          </div>
-          <div class="action-card" @click="${this._triggerNewChords}">
-            <svg viewBox="0 0 24 24">
-              <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
-            </svg>
-            <h3>NEW CHORD SET</h3>
-            <p>Construct a song progression using the 16 chord options available on the PO-20 Arcade hardware.</p>
-          </div>
-        </div>
-
         <!-- Lists Container -->
         <div class="list-section-grid">
           
           <!-- Patterns Column -->
           <div class="list-card">
-            <h2>Patterns <span>(${this.patterns.length})</span></h2>
+            <h2>
+              <div class="header-info">Patterns <span class="count">(${this.patterns.length})</span></div>
+              <button class="add-btn" @click="${this._triggerNewPattern}" title="New Pattern">
+                <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+              </button>
+            </h2>
             
             ${this.patterns.length>0?c`
               <div class="items-list">
@@ -613,14 +404,19 @@
             `:c`
               <div class="empty-state">
                 <svg viewBox="0 0 24 24"><path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
-                <div>No patterns saved yet. Click "New Pattern" above to create one.</div>
+                <div>No patterns saved yet. Click the + button above to create one.</div>
               </div>
             `}
           </div>
 
           <!-- Chords Column -->
           <div class="list-card">
-            <h2>Chords <span>(${this.chords.length})</span></h2>
+            <h2>
+              <div class="header-info">Chords <span class="count">(${this.chords.length})</span></div>
+              <button class="add-btn" @click="${this._triggerNewChords}" title="New Chord Set">
+                <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+              </button>
+            </h2>
             
             ${this.chords.length>0?c`
               <div class="items-list">
@@ -644,14 +440,14 @@
             `:c`
               <div class="empty-state">
                 <svg viewBox="0 0 24 24"><path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
-                <div>No chord sets saved yet. Click "New Chord Set" above to create one.</div>
+                <div>No chord sets saved yet. Click the + button above to create one.</div>
               </div>
             `}
           </div>
 
         </div>
       </div>
-    `}_triggerNewPattern(){var e,i;const t=(i=(e=document.querySelector("po20-app"))==null?void 0:e.shadowRoot)==null?void 0:i.querySelector("po20-header");t&&t._openPatternModal()}_triggerNewChords(){var e,i;const t=(i=(e=document.querySelector("po20-app"))==null?void 0:e.shadowRoot)==null?void 0:i.querySelector("po20-header");t&&t._openChordModal()}_editPattern(t){v.setActivePattern(t),window.location.hash="/pattern"}_deletePattern(t){confirm("Are you sure you want to delete this pattern?")&&v.deletePattern(t)}_editChords(t){v.setActiveChord(t),window.location.hash="/chord"}_deleteChords(t){confirm("Are you sure you want to delete this chord progression?")&&v.deleteChord(t)}};Z.properties={patterns:{type:Array},chords:{type:Array}},Z.styles=C`
+    `}_triggerNewPattern(){var e,i;const t=(i=(e=document.querySelector("po20-app"))==null?void 0:e.shadowRoot)==null?void 0:i.querySelector("po20-header");t&&t._openPatternModal()}_triggerNewChords(){var e,i;const t=(i=(e=document.querySelector("po20-app"))==null?void 0:e.shadowRoot)==null?void 0:i.querySelector("po20-header");t&&t._openChordModal()}_editPattern(t){v.setActivePattern(t),window.location.hash="/pattern"}_deletePattern(t){confirm("Are you sure you want to delete this pattern?")&&v.deletePattern(t)}_editChords(t){v.setActiveChord(t),window.location.hash="/chord"}_deleteChords(t){confirm("Are you sure you want to delete this chord progression?")&&v.deleteChord(t)}};Z.properties={patterns:{type:Array},chords:{type:Array}},Z.styles=S`
     :host {
       display: block;
       width: 100%;
@@ -678,9 +474,9 @@
     .hero-title {
       font-family: 'VT323', monospace;
       font-size: 48px;
-      color: #ff5722;
+      color: var(--accent);
       margin: 0 0 10px 0;
-      text-shadow: 0 0 10px rgba(255, 87, 34, 0.3);
+      text-shadow: 0 0 10px rgba(var(--accent-rgb), 0.3);
     }
 
     .hero-tagline {
@@ -689,59 +485,6 @@
       max-width: 500px;
       margin: 0 auto;
       line-height: 1.5;
-    }
-
-    .action-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-      margin-bottom: 20px;
-    }
-
-    .action-card {
-      background: linear-gradient(135deg, var(--bg-surface) 0%, var(--bg-surface-alt) 100%);
-      border: 2px solid var(--border-subtle);
-      border-radius: 12px;
-      padding: 24px;
-      text-align: center;
-      cursor: pointer;
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    }
-
-    .action-card:hover {
-      transform: translateY(-4px);
-      border-color: var(--accent);
-      box-shadow: 0 10px 20px rgba(0,0,0,0.3), 0 0 8px rgba(255, 87, 34, 0.2);
-    }
-
-    .action-card svg {
-      width: 48px;
-      height: 48px;
-      fill: var(--accent);
-      transition: transform 0.3s ease;
-    }
-
-    .action-card:hover svg {
-      transform: scale(1.1) rotate(90deg);
-    }
-
-    .action-card h3 {
-      font-family: 'VT323', monospace;
-      font-size: 28px;
-      margin: 0;
-      letter-spacing: 0.5px;
-    }
-
-    .action-card p {
-      font-size: 14px;
-      color: var(--text-muted);
-      margin: 0;
-      line-height: 1.4;
     }
 
     .list-section-grid {
@@ -769,9 +512,43 @@
       align-items: center;
     }
 
-    .list-card h2 span {
+    .list-card h2 .header-info {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+    }
+
+    .list-card h2 span.count {
       font-size: 16px;
       color: var(--text-dim);
+      font-family: sans-serif;
+    }
+
+    .add-btn {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 2px 5px rgba(var(--accent-rgb), 0.3);
+    }
+
+    .add-btn:hover {
+      background: var(--accent-hover, var(--accent-hover));
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(var(--accent-rgb), 0.4);
+    }
+
+    .add-btn svg {
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
     }
 
     .items-list {
@@ -854,8 +631,8 @@
     }
 
     .action-btn-delete:hover {
-      background: rgba(244, 67, 54, 0.15);
-      color: #f44336;
+      background: rgba(var(--accent-rgb), 0.15);
+      color: var(--accent);
     }
 
     .action-btn svg {
@@ -882,15 +659,15 @@
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
- */const Ce={CHILD:2},Se=n=>(...t)=>({_$litDirective$:n,values:t});class ke{constructor(t){}get _$AU(){return this._$AM._$AU}_$AT(t,e,i){this._$Ct=t,this._$AM=e,this._$Ci=i}_$AS(t,e){return this.update(t,e)}update(t,e){return this.render(...e)}}/**
+ */const Se={CHILD:2},Ce=n=>(...t)=>({_$litDirective$:n,values:t});class ke{constructor(t){}get _$AU(){return this._$AM._$AU}_$AT(t,e,i){this._$Ct=t,this._$AM=e,this._$Ci=i}_$AS(t,e){return this.update(t,e)}update(t,e){return this.render(...e)}}/**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
- */class xt extends ke{constructor(t){if(super(t),this.it=u,t.type!==Ce.CHILD)throw Error(this.constructor.directiveName+"() can only be used in child bindings")}render(t){if(t===u||t==null)return this._t=void 0,this.it=t;if(t===T)return t;if(typeof t!="string")throw Error(this.constructor.directiveName+"() called with a non-string value");if(t===this.it)return this._t;this.it=t;const e=[t];return e.raw=e,this._t={_$litType$:this.constructor.resultType,strings:e,values:[]}}}xt.directiveName="unsafeHTML",xt.resultType=1;/**
+ */class bt extends ke{constructor(t){if(super(t),this.it=u,t.type!==Se.CHILD)throw Error(this.constructor.directiveName+"() can only be used in child bindings")}render(t){if(t===u||t==null)return this._t=void 0,this.it=t;if(t===T)return t;if(typeof t!="string")throw Error(this.constructor.directiveName+"() called with a non-string value");if(t===this.it)return this._t;this.it=t;const e=[t];return e.raw=e,this._t={_$litType$:this.constructor.resultType,strings:e,values:[]}}}bt.directiveName="unsafeHTML",bt.resultType=1;/**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
- */class bt extends xt{}bt.directiveName="unsafeSVG",bt.resultType=2;const Ee=Se(bt),Pe=`<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240">\r
+ */class xt extends bt{}xt.directiveName="unsafeSVG",xt.resultType=2;const Ee=Ce(xt),Pe=`<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240">\r
   <title>bass</title>\r
   <g id="a7769dcf-ca8a-4258-b72e-662085b1e398" data-name="Layer 2">\r
     <g id="fb395ff0-3eb6-494a-be67-bbfd3d2ad5a2" data-name="Layer 1">\r
@@ -941,7 +718,7 @@
     </g>\r
   </g>\r
 </svg>\r
-`,ze=`<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240">\r
+`,Ne=`<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240">\r
   <title>hiHat</title>\r
   <g id="b2bd1590-ce18-4937-8bf0-7a3ea8487db4" data-name="Layer 2">\r
     <g id="e92d0ad2-b73d-4190-ba20-c952b93930bf" data-name="Layer 1">\r
@@ -963,7 +740,7 @@
     </g>\r
   </g>\r
 </svg>\r
-`,Ne=`<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240">\r
+`,Le=`<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240">\r
   <title>tom</title>\r
   <g id="ac9efaa3-f055-4e18-b605-93ea6abfc0b0" data-name="Layer 2">\r
     <g id="ad8acb0f-546b-4543-8f56-f34d8b5aee46" data-name="Layer 1">\r
@@ -985,7 +762,7 @@
     </g>\r
   </g>\r
 </svg>\r
-`,De=`<svg xmlns="http://www.w3.org/2000/svg" width="240" height="169.63" viewBox="0 0 240 169.63">\r
+`,ze=`<svg xmlns="http://www.w3.org/2000/svg" width="240" height="169.63" viewBox="0 0 240 169.63">\r
   <title>blip</title>\r
   <g id="ec457cc5-27d6-4186-a6e0-b8bd2e9dec28" data-name="Layer 2">\r
     <g id="abf14211-5e90-4639-99f0-ede6ba1be698" data-name="Layer 1">\r
@@ -1008,7 +785,7 @@
     </g>\r
   </g>\r
 </svg>\r
-`,Le=`<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240">\r
+`,De=`<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240">\r
   <title>hardsync</title>\r
   <g id="a76cd04e-ef5f-4980-a3c6-3909203ae0a2" data-name="Layer 2">\r
     <g id="a9f1b14c-95e7-4c08-b6bb-3423e3f49e63" data-name="Layer 1">\r
@@ -1093,7 +870,7 @@
     </g>\r
   </g>\r
 </svg>\r
-`,Ve=`<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240">\r
+`,Ue=`<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240">\r
   <title>fallingArp</title>\r
   <g id="fbf52368-37fe-4b6a-b06d-343af7be45de" data-name="Layer 2">\r
     <g id="b0973af9-4bc8-48c0-b5af-2e64d348bd5e" data-name="Layer 1">\r
@@ -1109,7 +886,7 @@
     </g>\r
   </g>\r
 </svg>\r
-`,Ue=`<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240">\r
+`,Ve=`<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240">\r
   <title>octaveArp</title>\r
   <g id="f9c320dd-e919-4837-a194-4fd127d3c7b1" data-name="Layer 2">\r
     <g id="b3f34dd4-f880-40b1-8cbf-323dd1589d89" data-name="Layer 1">\r
@@ -1236,7 +1013,7 @@
     </g>\r
   </g>\r
 </svg>\r
-`,qe={1:Pe,2:Te,3:Me,4:ze,5:Ne,6:De,7:Le,8:Oe,9:He,10:Be,11:Ve,12:Ue,13:Re,14:Ie,15:je,16:Ge,button:Ye};function Fe(n){return qe[n]||""}function We(n){const t=Fe(n);return t?Ee(t):null}const X=class X extends b{constructor(){super(),this._startY=0,this._startValue=0,this._isDragging=!1,this.value=0,this.min=0,this.max=100,this.label="",this.param="",this._startY=0,this._startValue=0,this._isDragging=!1,this._onMouseDown=this._onMouseDown.bind(this),this._onMouseMove=this._onMouseMove.bind(this),this._onMouseUp=this._onMouseUp.bind(this),this._onWheel=this._onWheel.bind(this),this._onTouchStart=this._onTouchStart.bind(this),this._onTouchMove=this._onTouchMove.bind(this),this._onTouchEnd=this._onTouchEnd.bind(this)}render(){const e=-135+(this.value-this.min)/(this.max-this.min)*270;return c`
+`,qe={1:Pe,2:Te,3:Me,4:Ne,5:Le,6:ze,7:De,8:Oe,9:He,10:Be,11:Ue,12:Ve,13:Re,14:Ie,15:je,16:Ge,button:Ye};function Fe(n){return qe[n]||""}function We(n){const t=Fe(n);return t?Ee(t):null}const X=class X extends x{constructor(){super(),this._startY=0,this._startValue=0,this._isDragging=!1,this.value=0,this.min=0,this.max=100,this.label="",this.param="",this._startY=0,this._startValue=0,this._isDragging=!1,this._onMouseDown=this._onMouseDown.bind(this),this._onMouseMove=this._onMouseMove.bind(this),this._onMouseUp=this._onMouseUp.bind(this),this._onWheel=this._onWheel.bind(this),this._onTouchStart=this._onTouchStart.bind(this),this._onTouchMove=this._onTouchMove.bind(this),this._onTouchEnd=this._onTouchEnd.bind(this)}render(){const e=-135+(this.value-this.min)/(this.max-this.min)*270;return c`
       <div 
         class="knob-container" 
         @mousedown="${this._onMouseDown}"
@@ -1256,7 +1033,7 @@
       </div>
       <div class="label">${this.label||this.param}</div>
       <div class="value">${this.value}</div>
-    `}_onMouseDown(t){t.preventDefault(),this._startY=t.clientY,this._startValue=this.value,this._isDragging=!0,window.addEventListener("mousemove",this._onMouseMove),window.addEventListener("mouseup",this._onMouseUp)}_onMouseMove(t){if(!this._isDragging)return;const i=(this._startY-t.clientY)*.5;let r=Math.round(this._startValue+i);r=Math.max(this.min,Math.min(this.max,r)),r!==this.value&&(this.value=r,this._dispatchChange())}_onMouseUp(){this._isDragging=!1,window.removeEventListener("mousemove",this._onMouseMove),window.removeEventListener("mouseup",this._onMouseUp)}_onWheel(t){t.preventDefault();const e=t.deltaY<0?1:-1;let i=this.value+e;i=Math.max(this.min,Math.min(this.max,i)),i!==this.value&&(this.value=i,this._dispatchChange())}_onTouchStart(t){t.touches.length===1&&(t.preventDefault(),this._startY=t.touches[0].clientY,this._startValue=this.value,this._isDragging=!0,window.addEventListener("touchmove",this._onTouchMove,{passive:!1}),window.addEventListener("touchend",this._onTouchEnd),window.addEventListener("touchcancel",this._onTouchEnd))}_onTouchMove(t){if(!this._isDragging||t.touches.length!==1)return;const i=(this._startY-t.touches[0].clientY)*.5;let r=Math.round(this._startValue+i);r=Math.max(this.min,Math.min(this.max,r)),r!==this.value&&(this.value=r,this._dispatchChange())}_onTouchEnd(){this._isDragging=!1,window.removeEventListener("touchmove",this._onTouchMove),window.removeEventListener("touchend",this._onTouchEnd),window.removeEventListener("touchcancel",this._onTouchEnd)}_dispatchChange(){this.dispatchEvent(new CustomEvent("change",{detail:{value:this.value,param:this.param},bubbles:!0,composed:!0}))}};X.properties={value:{type:Number},min:{type:Number},max:{type:Number},label:{type:String},param:{type:String}},X.styles=C`
+    `}_onMouseDown(t){t.preventDefault(),this._startY=t.clientY,this._startValue=this.value,this._isDragging=!0,window.addEventListener("mousemove",this._onMouseMove),window.addEventListener("mouseup",this._onMouseUp)}_onMouseMove(t){if(!this._isDragging)return;const i=(this._startY-t.clientY)*.5;let r=Math.round(this._startValue+i);r=Math.max(this.min,Math.min(this.max,r)),r!==this.value&&(this.value=r,this._dispatchChange())}_onMouseUp(){this._isDragging=!1,window.removeEventListener("mousemove",this._onMouseMove),window.removeEventListener("mouseup",this._onMouseUp)}_onWheel(t){t.preventDefault();const e=t.deltaY<0?1:-1;let i=this.value+e;i=Math.max(this.min,Math.min(this.max,i)),i!==this.value&&(this.value=i,this._dispatchChange())}_onTouchStart(t){t.touches.length===1&&(t.preventDefault(),this._startY=t.touches[0].clientY,this._startValue=this.value,this._isDragging=!0,window.addEventListener("touchmove",this._onTouchMove,{passive:!1}),window.addEventListener("touchend",this._onTouchEnd),window.addEventListener("touchcancel",this._onTouchEnd))}_onTouchMove(t){if(!this._isDragging||t.touches.length!==1)return;const i=(this._startY-t.touches[0].clientY)*.5;let r=Math.round(this._startValue+i);r=Math.max(this.min,Math.min(this.max,r)),r!==this.value&&(this.value=r,this._dispatchChange())}_onTouchEnd(){this._isDragging=!1,window.removeEventListener("touchmove",this._onTouchMove),window.removeEventListener("touchend",this._onTouchEnd),window.removeEventListener("touchcancel",this._onTouchEnd)}_dispatchChange(){this.dispatchEvent(new CustomEvent("change",{detail:{value:this.value,param:this.param},bubbles:!0,composed:!0}))}};X.properties={value:{type:Number},min:{type:Number},max:{type:Number},label:{type:String},param:{type:String}},X.styles=S`
     :host {
       display: inline-flex;
       flex-direction: column;
@@ -1283,7 +1060,7 @@
     }
 
     .knob-container:hover {
-      border-color: #ff5722;
+      border-color: var(--accent);
     }
 
     .knob-dial {
@@ -1294,8 +1071,8 @@
     }
 
     .indicator-dot {
-      fill: #ff5722;
-      filter: drop-shadow(0 0 2px rgba(255, 87, 34, 0.8));
+      fill: var(--accent);
+      filter: drop-shadow(0 0 2px rgba(var(--accent-rgb), 0.8));
     }
 
     .label {
@@ -1318,7 +1095,7 @@
       text-align: center;
       box-shadow: inset 0 1px 3px rgba(0,0,0,0.8);
     }
-  `;let mt=X;customElements.define("po20-knob",mt);const tt=class tt extends b{constructor(){super(),this.titleText="PO-20 ARCADE",this.subtitleText="Companion",this.paramA="--",this.paramB=0,this.activeSteps=void 0,this.selectedStep=null,this.isPlaying=!1}render(){return c`
+  `;let mt=X;customElements.define("po20-knob",mt);const tt=class tt extends x{constructor(){super(),this.titleText="PO-20 ARCADE",this.subtitleText="Companion",this.paramA="--",this.paramB=0,this.activeSteps=void 0,this.selectedStep=null,this.isPlaying=!1}render(){return c`
       <div class="lcd-bezel">
         <div class="lcd-glass">
           
@@ -1377,7 +1154,7 @@
 
         </div>
       </div>
-    `}};tt.properties={titleText:{type:String},subtitleText:{type:String},paramA:{type:String},paramB:{type:Number},activeSteps:{type:Object},selectedStep:{type:Number},isPlaying:{type:Boolean}},tt.styles=C`
+    `}};tt.properties={titleText:{type:String},subtitleText:{type:String},paramA:{type:String},paramB:{type:Number},activeSteps:{type:Object},selectedStep:{type:Number},isPlaying:{type:Boolean}},tt.styles=S`
     :host {
       display: block;
       width: 100%;
@@ -1529,7 +1306,7 @@
       from { transform: translateY(0); }
       to { transform: translateY(-6px); }
     }
-  `;let ft=tt;customElements.define("po20-lcd-screen",ft);const Ut=["None","A1","B1","C1","CS1","D1","E1","F1","FS1","G1","GS1","A2","B2","C2","CS2","D2","E2","F2","FS2","G2","GS2","A3"],et=class et extends b{constructor(){super(),this.activePattern=null,this.selectedSoundId=null,this.selectedStep=null,this.isPlaying=!1}connectedCallback(){super.connectedCallback(),this._loadPattern()}_loadPattern(){const t=v.getActivePattern();t?this.activePattern=JSON.parse(JSON.stringify(t)):window.location.hash="/"}render(){if(!this.activePattern)return c`<p>Loading...</p>`;const t=this.selectedSoundId?this.activePattern.pattern[this.selectedSoundId]:null,e=this.selectedSoundId!==null;let i=this.activePattern.name,r="PATTERN MODE",s="--",a=0,h;if(e&&t&&(i=t.value,r=`STEP SEQUENCER (${t.type})`,h=t.steps,this.selectedStep&&t.steps[this.selectedStep])){const o=t.steps[this.selectedStep];a=o.params.b!==null?o.params.b:0,t.type==="note"?s=String(o.params.a||"None"):s=o.params.a!==null?String(o.params.a):"0"}return c`
+  `;let ft=tt;customElements.define("po20-lcd-screen",ft);const Vt=["None","A1","B1","C1","CS1","D1","E1","F1","FS1","G1","GS1","A2","B2","C2","CS2","D2","E2","F2","FS2","G2","GS2","A3"],et=class et extends x{constructor(){super(),this.activePattern=null,this.selectedSoundId=null,this.selectedStep=null,this.isPlaying=!1}connectedCallback(){super.connectedCallback(),this._loadPattern()}_loadPattern(){const t=v.getActivePattern();t?this.activePattern=JSON.parse(JSON.stringify(t)):window.location.hash="/"}render(){if(!this.activePattern)return c`<p>Loading...</p>`;const t=this.selectedSoundId?this.activePattern.pattern[this.selectedSoundId]:null,e=this.selectedSoundId!==null;let i=this.activePattern.name,r="PATTERN MODE",s="--",a=0,d;if(e&&t&&(i=t.value,r=`STEP SEQUENCER (${t.type})`,d=t.steps,this.selectedStep&&t.steps[this.selectedStep])){const o=t.steps[this.selectedStep];a=o.params.b!==null?o.params.b:0,t.type==="note"?s=String(o.params.a||"None"):s=o.params.a!==null?String(o.params.a):"0"}return c`
       <div class="container">
         
         <div class="header-row">
@@ -1548,7 +1325,7 @@
             .subtitleText="${r}"
             .paramA="${s}"
             .paramB="${a}"
-            .activeSteps="${h}"
+            .activeSteps="${d}"
             .selectedStep="${this.selectedStep}"
             .isPlaying="${this.isPlaying}"
           ></po20-lcd-screen>
@@ -1612,14 +1389,14 @@
           <div class="led-indicator ${i?"active":""} ${r?"selected":""}"></div>
           <span class="step-num">${e.value}</span>
         </button>
-      `})}_renderKnobs(t){if(this.selectedStep===null)return c``;const e=t.steps[this.selectedStep],i=e.params.a,r=e.params.b!==null?e.params.b:0;if(t.type==="note"){const s=Ut.indexOf(String(i||"None"));return c`
+      `})}_renderKnobs(t){if(this.selectedStep===null)return c``;const e=t.steps[this.selectedStep],i=e.params.a,r=e.params.b!==null?e.params.b:0;if(t.type==="note"){const s=Vt.indexOf(String(i||"None"));return c`
         <po20-knob
           .value="${s!==-1?s:0}"
           min="0"
           max="21"
           label="PITCH NOTE"
           param="a"
-          @change="${h=>this._handleNoteKnobChange(h)}"
+          @change="${d=>this._handleNoteKnobChange(d)}"
         ></po20-knob>
         
         <po20-knob
@@ -1628,7 +1405,7 @@
           max="100"
           label="MULTIPLY/FILTER"
           param="b"
-          @change="${h=>this._handleKnobChange(h)}"
+          @change="${d=>this._handleKnobChange(d)}"
         ></po20-knob>
       `}else return c`
         <po20-knob
@@ -1648,7 +1425,7 @@
           param="b"
           @change="${a=>this._handleKnobChange(a)}"
         ></po20-knob>
-      `}_selectSound(t){this.selectedSoundId=t,this.selectedStep=null}_deselectSound(){this.selectedSoundId=null,this.selectedStep=null}_toggleStep(t,e){if(t.preventDefault(),!this.activePattern||this.selectedSoundId===null)return;const r=this.activePattern.pattern[this.selectedSoundId].steps[e];r.active?this.selectedStep===e?(r.active=!1,this.selectedStep=null):this.selectedStep=e:(r.active=!0,this.selectedStep=e),this.requestUpdate()}_handleKnobChange(t){if(this.selectedStep===null||this.selectedStep===void 0)return;const{value:e,param:i}=t.detail;if(!this.activePattern||this.selectedSoundId===null)return;const s=this.activePattern.pattern[this.selectedSoundId].steps[this.selectedStep];s&&(s.params[i]=e,this.requestUpdate())}_handleNoteKnobChange(t){if(this.selectedStep===null||this.selectedStep===void 0)return;const{value:e}=t.detail;if(!this.activePattern||this.selectedSoundId===null)return;const r=this.activePattern.pattern[this.selectedSoundId].steps[this.selectedStep];if(!r)return;const s=Ut[e]||"None";r.params.a=s==="None"?null:s,this.requestUpdate()}_clearTriggers(){if(!(this.selectedSoundId===null||!this.activePattern)&&confirm("Are you sure you want to clear all step triggers for this sound?")){const t=this.activePattern.pattern[this.selectedSoundId];Object.keys(t.steps).forEach(e=>{const i=Number(e);t.steps[i].active=!1,t.steps[i].params={a:null,b:null,multiply:null}}),this.selectedStep=null,this.requestUpdate()}}_savePattern(){this.activePattern&&(v.editPattern(this.activePattern.id,this.activePattern.name,this.activePattern.pattern),alert("Pattern saved successfully!"))}_goHome(){window.location.hash="/"}};et.properties={activePattern:{type:Object},selectedSoundId:{type:Number},selectedStep:{type:Number},isPlaying:{type:Boolean}},et.styles=C`
+      `}_selectSound(t){this.selectedSoundId=t,this.selectedStep=null}_deselectSound(){this.selectedSoundId=null,this.selectedStep=null}_toggleStep(t,e){if(t.preventDefault(),!this.activePattern||this.selectedSoundId===null)return;const r=this.activePattern.pattern[this.selectedSoundId].steps[e];r.active?this.selectedStep===e?(r.active=!1,this.selectedStep=null):this.selectedStep=e:(r.active=!0,this.selectedStep=e),this.requestUpdate()}_handleKnobChange(t){if(this.selectedStep===null||this.selectedStep===void 0)return;const{value:e,param:i}=t.detail;if(!this.activePattern||this.selectedSoundId===null)return;const s=this.activePattern.pattern[this.selectedSoundId].steps[this.selectedStep];s&&(s.params[i]=e,this.requestUpdate())}_handleNoteKnobChange(t){if(this.selectedStep===null||this.selectedStep===void 0)return;const{value:e}=t.detail;if(!this.activePattern||this.selectedSoundId===null)return;const r=this.activePattern.pattern[this.selectedSoundId].steps[this.selectedStep];if(!r)return;const s=Vt[e]||"None";r.params.a=s==="None"?null:s,this.requestUpdate()}_clearTriggers(){if(!(this.selectedSoundId===null||!this.activePattern)&&confirm("Are you sure you want to clear all step triggers for this sound?")){const t=this.activePattern.pattern[this.selectedSoundId];Object.keys(t.steps).forEach(e=>{const i=Number(e);t.steps[i].active=!1,t.steps[i].params={a:null,b:null,multiply:null}}),this.selectedStep=null,this.requestUpdate()}}_savePattern(){this.activePattern&&(v.editPattern(this.activePattern.id,this.activePattern.name,this.activePattern.pattern),alert("Pattern saved successfully!"))}_goHome(){window.location.hash="/"}};et.properties={activePattern:{type:Object},selectedSoundId:{type:Number},selectedStep:{type:Number},isPlaying:{type:Boolean}},et.styles=S`
     :host {
       display: block;
       width: 100%;
@@ -1745,18 +1522,18 @@
     }
 
     .po-button:hover {
-      border-color: #ff5722;
+      border-color: var(--accent);
       color: #fff;
       transform: translateY(-2px);
       box-shadow: 
         inset 0 2px 3px rgba(255, 255, 255, 0.15),
         0 8px 12px rgba(0, 0, 0, 0.5),
-        0 0 10px rgba(255, 87, 34, 0.3);
+        0 0 10px rgba(var(--accent-rgb), 0.3);
     }
 
     .po-button:active {
       transform: translateY(1px);
-      border-color: #ff7043;
+      border-color: var(--accent-hover);
       box-shadow: 
         inset 0 2px 5px rgba(0,0,0,0.6),
         0 1px 2px rgba(0,0,0,0.4);
@@ -1806,9 +1583,9 @@
     }
 
     .led-indicator.selected {
-      background: #ff5722;
+      background: var(--accent);
       box-shadow: 
-        0 0 8px #ff5722,
+        0 0 8px var(--accent),
         inset 0 1px 1px rgba(255,255,255,0.8);
     }
 
@@ -1816,7 +1593,7 @@
       position: absolute;
       bottom: 4px;
       right: 8px;
-      background: #ff5722;
+      background: var(--accent);
       color: #fff;
       font-size: 9px;
       font-weight: bold;
@@ -1878,22 +1655,22 @@
     .btn-primary {
       background: var(--accent);
       color: #fff;
-      box-shadow: 0 4px 10px rgba(255, 87, 34, 0.3);
+      box-shadow: 0 4px 10px rgba(var(--accent-rgb), 0.3);
     }
 
     .btn-primary:hover {
       background: var(--accent-hover);
-      box-shadow: 0 6px 15px rgba(255, 87, 34, 0.4);
+      box-shadow: 0 6px 15px rgba(var(--accent-rgb), 0.4);
     }
 
     .btn-danger {
-      background: rgba(244, 67, 54, 0.15);
-      color: #f44336;
-      border: 1px solid rgba(244, 67, 54, 0.3);
+      background: rgba(var(--accent-rgb), 0.15);
+      color: var(--accent);
+      border: 1px solid rgba(var(--accent-rgb), 0.3);
     }
 
     .btn-danger:hover {
-      background: #f44336;
+      background: var(--accent);
       color: #fff;
     }
 
@@ -1902,7 +1679,7 @@
       height: 18px;
       fill: currentColor;
     }
-  `;let yt=et;customElements.define("po20-pattern-editor",yt);const Ke={oscType:"triangle",filterCutoff:1e3,filterQ:1.2,attack:.03,decay:.08,sustain:.65,release:.6,noteDuration:.7,voiceGainDb:-9,maxVoices:3};function d(n,t){return(t+1)*12+n}const O=0,Je=1,H=2,Qe=3,$=4,ht=5,ct=6,B=7,lt=8,f=9,W=11,Ze={dm:[d(H,3),d(ht,3),d(f,3)],em:[d($,3),d(B,3),d(W,3)],Esus:[d($,3),d(f,3),d(W,3)],E:[d($,3),d(lt,3),d(W,3)],F:[d(ht,3),d(f,3),d(O,4)],G:[d(B,3),d(W,3),d(H,4)],"C/G":[d(B,2),d(O,3),d($,3)],"E/G#":[d(lt,2),d($,3),d(lt,3)],am:[d(f,2),d(O,3),d($,3)],"C/A":[d(f,2),d(O,3),d(B,3)],"dm/A":[d(f,2),d(H,3),d(ht,3)],"D/A":[d(f,2),d(H,3),d(ct,3)],A:[d(f,2),d(Je,3),d($,3)],"B/A":[d(f,2),d(Qe,3),d(ct,3)],C:[d(O,3),d($,3),d(B,3)],D:[d(H,3),d(ct,3),d(f,3)]};function Xe(n){return 440*Math.pow(2,(n-69)/12)}let R=null,y=null;function M(){return R||(R=new AudioContext),R}function Zt(){if(!y){const n=M();y=n.createDynamicsCompressor(),y.threshold.value=-6,y.ratio.value=20,y.attack.value=.002,y.release.value=.1,y.knee.value=3,y.connect(n.destination)}return y}const N=[];function ti(n){return Math.pow(10,n/20)}function ei(n){if(n.stopping)return;n.stopping=!0;const e=M().currentTime;n.gain.gain.cancelScheduledValues(e),n.gain.gain.setValueAtTime(n.gain.gain.value,e),n.gain.gain.linearRampToValueAtTime(0,e+.02),setTimeout(()=>{try{n.osc.stop()}catch{}n.gain.disconnect(),n.filter.disconnect()},30)}function Rt(){for(let n=N.length-1;n>=0;n--)N[n].stopping&&N.splice(n,1)}function ii(n,t){const e=M(),i=Zt(),r=e.currentTime,s=ti(t.voiceGainDb),a=s*t.sustain,h=r+t.attack+t.decay+t.noteDuration;for(Rt();N.length>=t.maxVoices;){const m=N.shift();ei(m)}const o=e.createBiquadFilter();o.type="lowpass",o.frequency.value=t.filterCutoff,o.Q.value=t.filterQ;const l=e.createGain();l.gain.setValueAtTime(0,r),l.gain.linearRampToValueAtTime(s,r+t.attack),l.gain.linearRampToValueAtTime(a,r+t.attack+t.decay),l.gain.setValueAtTime(a,h),l.gain.linearRampToValueAtTime(0,h+t.release);const g=e.createOscillator();g.type=t.oscType,g.frequency.value=Xe(n),g.connect(o),o.connect(l),l.connect(i),g.start(r),g.stop(h+t.release+.05);const p={osc:g,gain:l,filter:o,startTime:r,stopping:!1};N.push(p),g.onended=()=>{p.stopping=!0,Rt()}}function It(n,t=Ke){if(M().state!=="running"){console.warn("chord-synth: AudioContext not running. Enable audio first.");return}const i=Ze[n];if(!i||i.length===0){console.warn(`chord-synth: No notes found for chord "${n}".`);return}const r=i.slice(0,t.maxVoices);for(const s of r)ii(s,t)}async function ri(){const n=M();n.state==="suspended"&&await n.resume(),Zt()}async function ni(){const n=M();n.state==="running"&&await n.suspend()}function jt(){return R!==null&&R.state==="running"}function si(n){const t=M(),e=()=>n(t.state);return t.addEventListener("statechange",e),()=>t.removeEventListener("statechange",e)}const ai=["dm","em","Esus","E","F","G","C/G","E/G#","am","C/A","dm/A","D/A","A","B/A","C","D"],it=class it extends b{constructor(){super(),this._audioStateCleanup=null,this.activeChordSet=null,this.chordsOrder=[],this.audioActive=jt()}connectedCallback(){super.connectedCallback(),this._loadChordSet(),this._audioStateCleanup=si(t=>{this.audioActive=t==="running"})}disconnectedCallback(){super.disconnectedCallback(),this._audioStateCleanup&&(this._audioStateCleanup(),this._audioStateCleanup=null)}_loadChordSet(){const t=v.getActiveChord();t?(this.activeChordSet=t,this.chordsOrder=[...t.chordsOrder]):window.location.hash="/"}render(){if(!this.activeChordSet)return c`<p>Loading...</p>`;const t=this.chordsOrder.length>0?this.chordsOrder[this.chordsOrder.length-1]:"--";return c`
+  `;let yt=et;customElements.define("po20-pattern-editor",yt);const Ke={oscType:"triangle",filterCutoff:1e3,filterQ:1.2,attack:.03,decay:.08,sustain:.65,release:.6,noteDuration:.7,voiceGainDb:-9,maxVoices:3};function h(n,t){return(t+1)*12+n}const O=0,Je=1,H=2,Qe=3,$=4,dt=5,ct=6,B=7,lt=8,f=9,W=11,Ze={dm:[h(H,3),h(dt,3),h(f,3)],em:[h($,3),h(B,3),h(W,3)],Esus:[h($,3),h(f,3),h(W,3)],E:[h($,3),h(lt,3),h(W,3)],F:[h(dt,3),h(f,3),h(O,4)],G:[h(B,3),h(W,3),h(H,4)],"C/G":[h(B,2),h(O,3),h($,3)],"E/G#":[h(lt,2),h($,3),h(lt,3)],am:[h(f,2),h(O,3),h($,3)],"C/A":[h(f,2),h(O,3),h(B,3)],"dm/A":[h(f,2),h(H,3),h(dt,3)],"D/A":[h(f,2),h(H,3),h(ct,3)],A:[h(f,2),h(Je,3),h($,3)],"B/A":[h(f,2),h(Qe,3),h(ct,3)],C:[h(O,3),h($,3),h(B,3)],D:[h(H,3),h(ct,3),h(f,3)]};function Xe(n){return 440*Math.pow(2,(n-69)/12)}let R=null,y=null;function M(){return R||(R=new AudioContext),R}function Zt(){if(!y){const n=M();y=n.createDynamicsCompressor(),y.threshold.value=-6,y.ratio.value=20,y.attack.value=.002,y.release.value=.1,y.knee.value=3,y.connect(n.destination)}return y}const L=[];function ti(n){return Math.pow(10,n/20)}function ei(n){if(n.stopping)return;n.stopping=!0;const e=M().currentTime;n.gain.gain.cancelScheduledValues(e),n.gain.gain.setValueAtTime(n.gain.gain.value,e),n.gain.gain.linearRampToValueAtTime(0,e+.02),setTimeout(()=>{try{n.osc.stop()}catch{}n.gain.disconnect(),n.filter.disconnect()},30)}function Rt(){for(let n=L.length-1;n>=0;n--)L[n].stopping&&L.splice(n,1)}function ii(n,t){const e=M(),i=Zt(),r=e.currentTime,s=ti(t.voiceGainDb),a=s*t.sustain,d=r+t.attack+t.decay+t.noteDuration;for(Rt();L.length>=t.maxVoices;){const m=L.shift();ei(m)}const o=e.createBiquadFilter();o.type="lowpass",o.frequency.value=t.filterCutoff,o.Q.value=t.filterQ;const l=e.createGain();l.gain.setValueAtTime(0,r),l.gain.linearRampToValueAtTime(s,r+t.attack),l.gain.linearRampToValueAtTime(a,r+t.attack+t.decay),l.gain.setValueAtTime(a,d),l.gain.linearRampToValueAtTime(0,d+t.release);const g=e.createOscillator();g.type=t.oscType,g.frequency.value=Xe(n),g.connect(o),o.connect(l),l.connect(i),g.start(r),g.stop(d+t.release+.05);const p={osc:g,gain:l,filter:o,startTime:r,stopping:!1};L.push(p),g.onended=()=>{p.stopping=!0,Rt()}}function It(n,t=Ke){if(M().state!=="running"){console.warn("chord-synth: AudioContext not running. Enable audio first.");return}const i=Ze[n];if(!i||i.length===0){console.warn(`chord-synth: No notes found for chord "${n}".`);return}const r=i.slice(0,t.maxVoices);for(const s of r)ii(s,t)}async function ri(){const n=M();n.state==="suspended"&&await n.resume(),Zt()}async function ni(){const n=M();n.state==="running"&&await n.suspend()}function jt(){return R!==null&&R.state==="running"}function si(n){const t=M(),e=()=>n(t.state);return t.addEventListener("statechange",e),()=>t.removeEventListener("statechange",e)}const ai=["dm","em","Esus","E","F","G","C/G","E/G#","am","C/A","dm/A","D/A","A","B/A","C","D"],it=class it extends x{constructor(){super(),this._audioStateCleanup=null,this.activeChordSet=null,this.chordsOrder=[],this.audioActive=jt()}connectedCallback(){super.connectedCallback(),this._loadChordSet(),this._audioStateCleanup=si(t=>{this.audioActive=t==="running"})}disconnectedCallback(){super.disconnectedCallback(),this._audioStateCleanup&&(this._audioStateCleanup(),this._audioStateCleanup=null)}_loadChordSet(){const t=v.getActiveChord();t?(this.activeChordSet=t,this.chordsOrder=[...t.chordsOrder]):window.location.hash="/"}render(){if(!this.activeChordSet)return c`<p>Loading...</p>`;const t=this.chordsOrder.length>0?this.chordsOrder[this.chordsOrder.length-1]:"--";return c`
       <div class="container">
         
         <div class="header-row">
@@ -1934,60 +1711,62 @@
           </div>
         </div>
 
-        <!-- Custom retro LCD panel -->
-        <po20-lcd-screen
-          .titleText="${this.activeChordSet.name}"
-          subtitleText="CHORD PROGRESSION"
-          .paramA="${String(this.chordsOrder.length)}"
-          .paramB="${Number.isNaN(Number(t))?0:Number(t)}"
-        ></po20-lcd-screen>
+        <div class="main-unit-panel">
+          <!-- Custom retro LCD panel -->
+          <po20-lcd-screen
+            .titleText="${this.activeChordSet.name}"
+            subtitleText="CHORD PROGRESSION"
+            .paramA="${String(this.chordsOrder.length)}"
+            .paramB="${Number.isNaN(Number(t))?0:Number(t)}"
+          ></po20-lcd-screen>
 
-        <!-- Chords Timeline -->
-        <div class="timeline-card">
-          <div class="timeline-title">Progression Chain (Click chord to preview, × to remove)</div>
-          <div class="timeline-scroll" id="timeline-scroll">
-            ${this.chordsOrder.length>0?this.chordsOrder.map((e,i)=>c`
-              <div class="chord-pill" @click="${()=>this._playPreviewChord(e)}">
-                ${e} <span class="remove-icon" @click="${r=>this._removeChord(r,i)}">&times;</span>
+          <!-- Chords Timeline -->
+          <div class="timeline-section">
+            <div class="timeline-title">Progression Chain (Click chord to preview, × to remove)</div>
+            <div class="timeline-scroll" id="timeline-scroll">
+              ${this.chordsOrder.length>0?this.chordsOrder.map((e,i)=>c`
+                <div class="chord-pill" @click="${()=>this._playPreviewChord(e)}">
+                  ${e} <span class="remove-icon" @click="${r=>this._removeChord(r,i)}">&times;</span>
+                </div>
+              `):c`
+                <span class="empty-timeline">Timeline empty. Click buttons below to construct a progression.</span>
+              `}
+            </div>
+          </div>
+
+          <!-- PO Hardware-like 4x4 Grid of Chords -->
+          <div class="grid-section">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+              <div style="font-size: 13px; color: #8a8d95; text-transform: uppercase; letter-spacing: 1px;">
+                Chord Pad Selection (PO-20 Arcade Layout)
               </div>
-            `):c`
-              <span class="empty-timeline">Timeline empty. Click buttons below to construct a progression.</span>
-            `}
-          </div>
-        </div>
+              <div class="audio-hint ${this.audioActive?"on":""}">
+                ${this.audioActive?"🔊 Audio on — tap a pad to hear":"🔇 Enable audio above to preview chords"}
+              </div>
+            </div>
+            <div class="grid-4x4 ${this.audioActive?"audio-enabled":""}">
+              ${ai.map(e=>c`
+                <button class="po-button" @click="${()=>this._addChord(e)}">
+                  ${e}
+                  <span class="sound-dot"></span>
+                </button>
+              `)}
+            </div>
 
-        <!-- PO Hardware-like 4x4 Grid of Chords -->
-        <div class="po-panel">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
-            <div style="font-size: 13px; color: #8a8d95; text-transform: uppercase; letter-spacing: 1px;">
-              Chord Pad Selection (PO-20 Arcade Layout)
-            </div>
-            <div class="audio-hint ${this.audioActive?"on":""}">
-              ${this.audioActive?"🔊 Audio on — tap a pad to hear":"🔇 Enable audio above to preview chords"}
-            </div>
-          </div>
-          <div class="grid-4x4 ${this.audioActive?"audio-enabled":""}">
-            ${ai.map(e=>c`
-              <button class="po-button" @click="${()=>this._addChord(e)}">
-                ${e}
-                <span class="sound-dot"></span>
+            <div class="btn-row">
+              <button class="btn btn-secondary" @click="${this._clearAll}">
+                Clear All
               </button>
-            `)}
-          </div>
-
-          <div class="btn-row">
-            <button class="btn btn-secondary" @click="${this._clearAll}">
-              Clear All
-            </button>
-            <button class="btn btn-primary" @click="${this._save}">
-              <svg viewBox="0 0 24 24"><path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/></svg>
-              Save Progression
-            </button>
+              <button class="btn btn-primary" @click="${this._save}">
+                <svg viewBox="0 0 24 24"><path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/></svg>
+                Save Progression
+              </button>
+            </div>
           </div>
         </div>
 
       </div>
-    `}_addChord(t){this.audioActive&&It(t),this.chordsOrder=[...this.chordsOrder,t],setTimeout(()=>{var i;const e=(i=this.shadowRoot)==null?void 0:i.getElementById("timeline-scroll");e&&(e.scrollLeft=e.scrollWidth)},50)}async _toggleAudio(){this.audioActive?(await ni(),this.audioActive=!1):(await ri(),this.audioActive=jt())}_playPreviewChord(t){this.audioActive&&It(t)}_removeChord(t,e){t.stopPropagation();const i=[...this.chordsOrder];i.splice(e,1),this.chordsOrder=i}_clearAll(){confirm("Are you sure you want to clear the entire progression?")&&(this.chordsOrder=[])}_save(){this.activeChordSet&&(v.editChords(this.activeChordSet.id,this.activeChordSet.name,this.chordsOrder),alert("Progression saved successfully!"))}_goHome(){window.location.hash="/"}};it.properties={activeChordSet:{type:Object},chordsOrder:{type:Array},audioActive:{type:Boolean}},it.styles=C`
+    `}_addChord(t){this.audioActive&&It(t),this.chordsOrder=[...this.chordsOrder,t],setTimeout(()=>{var i;const e=(i=this.shadowRoot)==null?void 0:i.getElementById("timeline-scroll");e&&(e.scrollLeft=e.scrollWidth)},50)}async _toggleAudio(){this.audioActive?(await ni(),this.audioActive=!1):(await ri(),this.audioActive=jt())}_playPreviewChord(t){this.audioActive&&It(t)}_removeChord(t,e){t.stopPropagation();const i=[...this.chordsOrder];i.splice(e,1),this.chordsOrder=i}_clearAll(){confirm("Are you sure you want to clear the entire progression?")&&(this.chordsOrder=[])}_save(){this.activeChordSet&&(v.editChords(this.activeChordSet.id,this.activeChordSet.name,this.chordsOrder),alert("Progression saved successfully!"))}_goHome(){window.location.hash="/"}};it.properties={activeChordSet:{type:Object},chordsOrder:{type:Array},audioActive:{type:Boolean}},it.styles=S`
     :host {
       display: block;
       width: 100%;
@@ -2038,13 +1817,13 @@
     .audio-btn:hover {
       border-color: var(--accent);
       color: var(--accent);
-      box-shadow: 0 0 8px rgba(255, 87, 34, 0.25);
+      box-shadow: 0 0 8px rgba(var(--accent-rgb), 0.25);
     }
     .audio-btn.active {
-      background: rgba(255, 87, 34, 0.15);
-      border-color: #ff5722;
-      color: #ff5722;
-      box-shadow: 0 0 12px rgba(255, 87, 34, 0.35);
+      background: rgba(var(--accent-rgb), 0.15);
+      border-color: var(--accent);
+      color: var(--accent);
+      box-shadow: 0 0 12px rgba(var(--accent-rgb), 0.35);
     }
     .audio-btn svg {
       width: 18px;
@@ -2064,16 +1843,12 @@
       margin-bottom: 4px;
     }
     .audio-hint.on {
-      color: #ff5722;
+      color: var(--accent);
     }
 
     /* Chord timeline/chain styling */
-    .timeline-card {
-      background: var(--bg-surface);
-      border: 1px solid var(--border-subtle);
-      border-radius: 12px;
-      padding: 16px;
-      box-shadow: inset 0 2px 8px rgba(0,0,0,0.2);
+    .timeline-section {
+      /* flush container on the main panel */
     }
 
     .timeline-title {
@@ -2088,9 +1863,12 @@
       display: flex;
       gap: 8px;
       overflow-x: auto;
-      padding-bottom: 8px;
+      padding: 12px;
       min-height: 50px;
       align-items: center;
+      background: var(--bg-inset);
+      border-radius: 8px;
+      box-shadow: inset 0 2px 5px rgba(0,0,0,0.2);
     }
 
     /* Scrollbar styling */
@@ -2106,7 +1884,7 @@
     }
 
     .chord-pill {
-      background: linear-gradient(135deg, #ff5722 0%, #e64a19 100%);
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
       color: #fff;
       font-family: 'VT323', monospace;
       font-size: 20px;
@@ -2149,13 +1927,16 @@
       font-style: italic;
     }
 
-    /* PO Hardware 4x4 Grid */
-    .po-panel {
+    /* PO Hardware Main Unit Panel */
+    .main-unit-panel {
       background: var(--bg-surface);
       border: 3px solid var(--border-subtle);
       border-radius: 16px;
-      padding: 20px;
+      padding: 24px;
       box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
     }
 
     .grid-4x4 {
@@ -2189,18 +1970,18 @@
     }
 
     .po-button:hover {
-      border-color: #ff5722;
+      border-color: var(--accent);
       color: #fff;
       transform: translateY(-2px);
       box-shadow: 
         inset 0 2px 3px rgba(255, 255, 255, 0.15),
         0 8px 12px rgba(0, 0, 0, 0.5),
-        0 0 10px rgba(255, 87, 34, 0.3);
+        0 0 10px rgba(var(--accent-rgb), 0.3);
     }
 
     .po-button:active {
       transform: translateY(1px);
-      border-color: #ff7043;
+      border-color: var(--accent-hover);
       box-shadow: 
         inset 0 2px 5px rgba(0,0,0,0.6),
         0 1px 2px rgba(0,0,0,0.4);
@@ -2214,8 +1995,8 @@
       width: 5px;
       height: 5px;
       border-radius: 50%;
-      background: #ff5722;
-      box-shadow: 0 0 5px rgba(255,87,34,0.8);
+      background: var(--accent);
+      box-shadow: 0 0 5px rgba(var(--accent-rgb),0.8);
       animation: pulse-dot 1.2s ease-in-out infinite;
     }
     .audio-enabled .po-button .sound-dot {
@@ -2260,12 +2041,12 @@
     .btn-primary {
       background: var(--accent);
       color: #fff;
-      box-shadow: 0 4px 10px rgba(255, 87, 34, 0.3);
+      box-shadow: 0 4px 10px rgba(var(--accent-rgb), 0.3);
     }
 
     .btn-primary:hover {
       background: var(--accent-hover);
-      box-shadow: 0 6px 15px rgba(255, 87, 34, 0.4);
+      box-shadow: 0 6px 15px rgba(var(--accent-rgb), 0.4);
     }
 
     .btn svg {
@@ -2273,13 +2054,13 @@
       height: 18px;
       fill: currentColor;
     }
-  `;let wt=it;customElements.define("po20-chord-editor",wt);const rt=class rt extends b{constructor(){super(),this.currentHash=window.location.hash||"#/",this._onHashChange=this._onHashChange.bind(this)}connectedCallback(){super.connectedCallback(),window.addEventListener("hashchange",this._onHashChange);const t=window.location.pathname;t.includes("/pattern")&&!window.location.hash?window.location.hash="#/pattern":t.includes("/patterns")&&!window.location.hash?window.location.hash="#/patterns":t.includes("/chord")&&!window.location.hash?window.location.hash="#/chord":t.includes("/chords")&&!window.location.hash&&(window.location.hash="#/chords")}disconnectedCallback(){super.disconnectedCallback(),window.removeEventListener("hashchange",this._onHashChange)}_onHashChange(){this.currentHash=window.location.hash||"#/"}render(){let t=c`<po20-landing></po20-landing>`;return this.currentHash.startsWith("#/pattern")?t=c`<po20-pattern-editor></po20-pattern-editor>`:this.currentHash.startsWith("#/chord")?t=c`<po20-chord-editor></po20-chord-editor>`:this.currentHash==="#/patterns"?t=c`<po20-landing .filter="${"patterns"}"></po20-landing>`:this.currentHash==="#/chords"&&(t=c`<po20-landing .filter="${"chords"}"></po20-landing>`),c`
+  `;let wt=it;customElements.define("po20-chord-editor",wt);const rt=class rt extends x{constructor(){super(),this.currentHash=window.location.hash||"#/",this._onHashChange=this._onHashChange.bind(this)}connectedCallback(){super.connectedCallback(),window.addEventListener("hashchange",this._onHashChange);const t=window.location.pathname;t.includes("/pattern")&&!window.location.hash?window.location.hash="#/pattern":t.includes("/patterns")&&!window.location.hash?window.location.hash="#/patterns":t.includes("/chord")&&!window.location.hash?window.location.hash="#/chord":t.includes("/chords")&&!window.location.hash&&(window.location.hash="#/chords")}disconnectedCallback(){super.disconnectedCallback(),window.removeEventListener("hashchange",this._onHashChange)}_onHashChange(){this.currentHash=window.location.hash||"#/"}render(){let t=c`<po20-landing></po20-landing>`;return this.currentHash.startsWith("#/pattern")?t=c`<po20-pattern-editor></po20-pattern-editor>`:this.currentHash.startsWith("#/chord")?t=c`<po20-chord-editor></po20-chord-editor>`:this.currentHash==="#/patterns"?t=c`<po20-landing .filter="${"patterns"}"></po20-landing>`:this.currentHash==="#/chords"&&(t=c`<po20-landing .filter="${"chords"}"></po20-landing>`),c`
       <po20-header></po20-header>
       <main>
         ${t}
       </main>
       <po20-footer></po20-footer>
-    `}};rt.properties={currentHash:{type:String}},rt.styles=C`
+    `}};rt.properties={currentHash:{type:String}},rt.styles=S`
     :host {
       display: flex;
       flex-direction: column;
